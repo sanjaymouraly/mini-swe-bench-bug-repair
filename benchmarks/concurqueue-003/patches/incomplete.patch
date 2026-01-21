@@ -1,0 +1,86 @@
+diff --git a/src/concurqueue/pool.py b/src/concurqueue/pool.py
+index 6ac45e8..ad590b4 100644
+--- a/src/concurqueue/pool.py
++++ b/src/concurqueue/pool.py
+@@ -3,15 +3,12 @@
+ from __future__ import annotations
+ 
+ import threading
+-import time
+ from types import TracebackType
+ 
+ from concurqueue.exceptions import PoolTimeoutError, QuotaConfigurationError, ReleaseError
+ 
+ 
+ class LeaseContext:
+-    """Context manager for an acquired key lease."""
+-
+     def __init__(self, pool: KeyedResourcePool, key: str, timeout: float | None = None) -> None:
+         self.pool = pool
+         self.key = key
+@@ -35,13 +32,9 @@ class LeaseContext:
+ 
+ 
+ class KeyedResourcePool:
+-    """Coordinates global and per-key concurrency quotas across threads."""
+-
+     def __init__(self, max_total: int = 10, max_per_key: int = 2) -> None:
+         if max_total <= 0 or max_per_key <= 0 or max_per_key > max_total:
+-            raise QuotaConfigurationError(
+-                "max_total and max_per_key must be > 0 and max_per_key <= max_total"
+-            )
++            raise QuotaConfigurationError("Invalid quota")
+         self.max_total = max_total
+         self.max_per_key = max_per_key
+         self._cond = threading.Condition()
+@@ -57,33 +50,29 @@ class KeyedResourcePool:
+         )
+ 
+     def acquire(self, key: str, timeout: float | None = None) -> bool:
+-        # BUG: Checks capacity with `if` instead of `while`, and mutates state outside lock!
++        # Incomplete fix: still uses `if` instead of `while`, so notify_all wakes multiple threads that all proceed!
+         with self._cond:
+             if not self._can_acquire(key):
+-                waited = self._cond.wait(timeout=timeout)
+-                if not waited and not self._can_acquire(key):
++                self._cond.wait(timeout=timeout)
++                if not self._can_acquire(key):
+                     raise PoolTimeoutError(f"Timed out acquiring lease for key={key!r}")
+-
+-        # Race window outside lock!
+-        time.sleep(0.0005)
+-        cur_key = self._key_counts.get(key, 0) + 1
+-        self._key_counts[key] = cur_key
+-        self._total_active += 1
+-        if self._total_active > self.peak_total:
+-            self.peak_total = self._total_active
+-        if cur_key > self.peak_per_key.get(key, 0):
+-            self.peak_per_key[key] = cur_key
+-        return True
++            cur_key = self._key_counts.get(key, 0) + 1
++            self._key_counts[key] = cur_key
++            self._total_active += 1
++            if self._total_active > self.peak_total:
++                self.peak_total = self._total_active
++            if cur_key > self.peak_per_key.get(key, 0):
++                self.peak_per_key[key] = cur_key
++            return True
+ 
+     def release(self, key: str) -> None:
+-        # BUG: Mutates without lock, does not validate over-release, and uses single notify()
+-        cur = self._key_counts.get(key, 0)
+-        if cur <= 0:
+-            raise ReleaseError(f"Key {key!r} has no active leases to release")
+-        self._key_counts[key] = cur - 1
+-        self._total_active -= 1
+         with self._cond:
+-            self._cond.notify()
++            cur = self._key_counts.get(key, 0)
++            if cur <= 0:
++                raise ReleaseError(f"Key {key!r} has no active leases to release")
++            self._key_counts[key] = cur - 1
++            self._total_active -= 1
++            self._cond.notify_all()
+ 
+     def lease(self, key: str, timeout: float | None = None) -> LeaseContext:
+         return LeaseContext(self, key, timeout=timeout)

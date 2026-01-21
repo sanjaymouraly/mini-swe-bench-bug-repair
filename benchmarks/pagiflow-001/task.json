@@ -1,0 +1,35 @@
+{
+  "task_id": "pagiflow-001",
+  "title": "Fix cursor=0 falsy termination and has_more=False echo loops in PaginatedCollector",
+  "difficulty": "easy",
+  "category": "pagination_api",
+  "package_name": "pagiflow",
+  "summary": "PaginatedCollector stops early when next_cursor is integer 0, loops extra pages when has_more=False echoes a cursor token, and aborts on empty intermediate pages.",
+  "issue_description": "# Issue: `PaginatedCollector.collect_all` drops pages on `next_cursor=0` and loops when `has_more=False` echoes last cursor\n\n## Description\nWe use `PaginatedCollector` to harvest records from cursor-paginated and offset-paginated REST endpoints. Three bugs occur in production:\n\n1. **Integer `0` cursor treated as falsy (`if not envelope.next_cursor:`)**:\n   Some APIs use 0-indexed numeric cursors where page 1 returns `{\"items\": [...], \"next_cursor\": 0, \"has_more\": true}`. Because `0` is falsy in Python, `collect_all` treats `next_cursor=0` as \"no cursor\" and terminates prematurely after the first page. Note: empty string `\"\"` or `None` means no cursor, whereas integer `0` or string `\"0\"` is a valid cursor!\n2. **Echoed `next_cursor` when `has_more=False`**:\n   Several APIs return the last cursor token in `next_cursor` even on the terminal page where `has_more=False` (e.g., `{\"items\": [...], \"next_cursor\": \"cur_final\", \"has_more\": false}`). `collect_all` checks `envelope.next_cursor` without respecting `envelope.has_more is False`, causing it to keep fetching until `max_pages` is exhausted or a cyclic cursor error is raised.\n3. **Filtered empty intermediate page (`items=[]` with `has_more=True`)**:\n   When `stop_on_empty_page=False` (the default), a server-side filtered page may return `items=[]` while `has_more=True` and a valid `next_cursor` is present. Currently `collect_all` breaks immediately whenever `not envelope.items`, ignoring `stop_on_empty_page=False`.\n\n## Expected Behavior\n- When `envelope.has_more` is explicitly `False`, pagination must stop after processing the current page's items.\n- Integer `0` and string `\"0\"` must be treated as valid non-empty cursors (`next_cursor is not None and next_cursor != \"\"`).\n- When `envelope.items` is empty (`[]`), pagination should only stop if `config.stop_on_empty_page` is `True` OR if there is no next page (`not envelope.has_more` or no valid `next_cursor`).\n- Existing deduplication (`id_key`), item transformation, and cycle detection must continue working without regression.\n",
+  "reproduction_instructions": "pytest evaluation/test_issue.py -q",
+  "pinned_environment": {
+    "python_version": "3.12",
+    "dependencies": [
+      "pytest>=8.3.0"
+    ],
+    "test_command": "pytest -q",
+    "docker_image": "software-bug-repair-benchmark-runner:latest"
+  },
+  "base_revision": "164e51624d3e0b4cf9af0d086e8a5d4137ddae90",
+  "allowed_files": [
+    "src/pagiflow/client.py",
+    "src/pagiflow/cursor.py",
+    "src/pagiflow/models.py"
+  ],
+  "pass_to_pass_tests": [
+    "tests/test_existing.py"
+  ],
+  "fail_to_pass_tests": [
+    "evaluation/test_issue.py"
+  ],
+  "private_tests": [
+    "private_evaluations/pagiflow-001/test_private.py"
+  ],
+  "test_suite_hash": "6d28c10cb437b6a4d2269ccc9b43fec59b601fc1145b358c4ea5577a8af9e2b3",
+  "reference_patch_hash": "9a8bc414ec58dc51686af94d4b23441887dbd5bcf7965cdd9cc176da084fff7f"
+}

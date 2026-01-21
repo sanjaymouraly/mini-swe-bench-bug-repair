@@ -1,0 +1,65 @@
+diff --git a/src/concurqueue/pool.py b/src/concurqueue/pool.py
+index 6ac45e8..1b643ff 100644
+--- a/src/concurqueue/pool.py
++++ b/src/concurqueue/pool.py
+@@ -57,33 +57,37 @@ class KeyedResourcePool:
+         )
+ 
+     def acquire(self, key: str, timeout: float | None = None) -> bool:
+-        # BUG: Checks capacity with `if` instead of `while`, and mutates state outside lock!
++        deadline = (time.monotonic() + timeout) if timeout is not None else None
+         with self._cond:
+-            if not self._can_acquire(key):
+-                waited = self._cond.wait(timeout=timeout)
+-                if not waited and not self._can_acquire(key):
+-                    raise PoolTimeoutError(f"Timed out acquiring lease for key={key!r}")
+-
+-        # Race window outside lock!
+-        time.sleep(0.0005)
+-        cur_key = self._key_counts.get(key, 0) + 1
+-        self._key_counts[key] = cur_key
+-        self._total_active += 1
+-        if self._total_active > self.peak_total:
+-            self.peak_total = self._total_active
+-        if cur_key > self.peak_per_key.get(key, 0):
+-            self.peak_per_key[key] = cur_key
+-        return True
++            while not self._can_acquire(key):
++                if deadline is not None:
++                    remaining = deadline - time.monotonic()
++                    if remaining <= 0:
++                        raise PoolTimeoutError(f"Timed out acquiring lease for key={key!r}")
++                    self._cond.wait(timeout=remaining)
++                else:
++                    self._cond.wait()
++
++            cur_key = self._key_counts.get(key, 0) + 1
++            self._key_counts[key] = cur_key
++            self._total_active += 1
++            if self._total_active > self.peak_total:
++                self.peak_total = self._total_active
++            if cur_key > self.peak_per_key.get(key, 0):
++                self.peak_per_key[key] = cur_key
++            return True
+ 
+     def release(self, key: str) -> None:
+-        # BUG: Mutates without lock, does not validate over-release, and uses single notify()
+-        cur = self._key_counts.get(key, 0)
+-        if cur <= 0:
+-            raise ReleaseError(f"Key {key!r} has no active leases to release")
+-        self._key_counts[key] = cur - 1
+-        self._total_active -= 1
+         with self._cond:
+-            self._cond.notify()
++            cur = self._key_counts.get(key, 0)
++            if cur <= 0 or self._total_active <= 0:
++                raise ReleaseError(f"Key {key!r} has no active leases to release")
++            if cur == 1:
++                del self._key_counts[key]
++            else:
++                self._key_counts[key] = cur - 1
++            self._total_active -= 1
++            self._cond.notify_all()
+ 
+     def lease(self, key: str, timeout: float | None = None) -> LeaseContext:
+         return LeaseContext(self, key, timeout=timeout)

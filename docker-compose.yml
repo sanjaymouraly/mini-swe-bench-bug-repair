@@ -1,0 +1,64 @@
+# Mini SWE-Bench -- Docker Compose orchestration.
+#
+# IMPORTANT -- read before using in anger:
+#
+#   The dashboard container deliberately does NOT mount the host Docker socket.
+#   Mounting /var/run/docker.sock would let any code running inside the
+#   dashboard container control the host Docker daemon, which is exactly the
+#   boundary this project refuses to cross (see SECURITY.md).
+#
+#   As a consequence, the in-container dashboard uses the `subprocess` sandbox
+#   backend, which is appropriate for evaluating *trusted* patches (the
+#   reference oracle, the baselines, and your own fixes) inside the
+#   container's own isolation.
+#
+#   To evaluate *untrusted* agent-generated patches, run the CLI on the host
+#   with `--sandbox docker`, where the hardened runner image is used:
+#
+#       docker build --target runner -t software-bug-repair-benchmark-runner:latest -f Dockerfile .
+#       bugbench run-agent --provider ollama --sandbox docker
+#
+# The `runner-image` service exists so that `docker compose up --build` builds
+# the hardened runner image on the host as a side effect, ready for host-side
+# Docker-sandbox evaluation.
+
+services:
+  # Builds the hardened, non-root test-runner image used for Docker-sandbox
+  # evaluation. It exits immediately; it is a build helper, not a service.
+  runner-image:
+    build:
+      context: .
+      target: runner
+    image: software-bug-repair-benchmark-runner:latest
+    command: ["python", "-c", "import pytest, hypothesis; print('runner image ready')"]
+    restart: "no"
+
+  bugbench-dashboard:
+    build:
+      context: .
+      target: app
+    image: software-bug-repair-benchmark-app:latest
+    container_name: bugbench-dashboard
+    ports:
+      - "8000:8000"
+    environment:
+      # `subprocess` because the Docker socket is intentionally not mounted.
+      - BUGBENCH_SANDBOX_MODE=subprocess
+      - BUGBENCH_DB_URL=sqlite:///artifacts/bugbench.db
+      - BUGBENCH_ARTIFACTS_DIR=artifacts
+      - BUGBENCH_LOG_LEVEL=INFO
+      # Provider credentials are optional. Add them here (or use a .env file)
+      # only if you want agent-mode evaluation from inside the container.
+      # - OPENAI_API_KEY=
+      # - CUSTOM_OPENAI_BASE_URL=
+      # - CUSTOM_OPENAI_API_KEY=
+    volumes:
+      # Persist evaluation runs and reports across container restarts.
+      - ./artifacts:/app/artifacts
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=5).status==200 else 1)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped

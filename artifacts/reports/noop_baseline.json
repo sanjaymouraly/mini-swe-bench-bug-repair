@@ -1,0 +1,1858 @@
+{
+  "run_id": "run-1792586294-2a71db",
+  "run_name": "Baseline (NOOP)",
+  "benchmark_version": "1.0.0",
+  "agent_id": "noop-baseline",
+  "provider": "offline",
+  "model": "noop",
+  "sandbox_mode": "subprocess",
+  "status": "COMPLETED",
+  "created_at": "2026-10-21T12:38:14.922451+00:00",
+  "completed_at": "2026-10-21T12:38:25.605540+00:00",
+  "total_tasks": 12,
+  "completed_tasks": 12,
+  "resolved_count": 0,
+  "resolved_rate": 0.0,
+  "issue_fix_count": 0,
+  "issue_fix_rate": 0.0,
+  "regression_count": 0,
+  "regression_free_count": 12,
+  "regression_free_rate": 100.0,
+  "patch_valid_count": 0,
+  "patch_valid_rate": 0.0,
+  "integrity_violation_count": 0,
+  "execution_failure_count": 0,
+  "total_duration_ms": 10690.42,
+  "total_tokens": null,
+  "estimated_cost_usd": null,
+  "is_demo": false,
+  "config_snapshot": {
+    "root_dir": "/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55",
+    "benchmarks_dir": "/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks",
+    "private_tests_dir": "/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations",
+    "artifacts_dir": "/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/artifacts",
+    "db_path": "/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/artifacts/bugbench.db",
+    "configured_sandbox_mode": "auto",
+    "effective_sandbox_mode": "docker",
+    "docker_image": "software-bug-repair-benchmark-runner:latest",
+    "default_timeout_seconds": 60,
+    "memory_limit_mb": 512,
+    "cpu_limit": 1.0,
+    "max_pids": 64,
+    "network_disabled": true
+  },
+  "category_breakdown": [
+    {
+      "category": "atomic_file_ops",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "cache_expiration",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "cli_validation",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "concurrency_races",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "config_precedence",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "idempotency",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "pagination_api",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "retry_ratelimit",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "serialization_compat",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "sqlite_transactions",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "streaming_parser",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "timezone_dst",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    }
+  ],
+  "difficulty_breakdown": [
+    {
+      "difficulty": "easy",
+      "total": 4,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    },
+    {
+      "difficulty": "medium",
+      "total": 4,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    },
+    {
+      "difficulty": "hard",
+      "total": 4,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    }
+  ],
+  "task_results": [
+    {
+      "run_id": "run-1792586294-2a71db",
+      "task_id": "atomicvault-012",
+      "title": "Fix mid-write target loss, orphan temp cleanup, crash recovery, and path traversal in AtomicVault",
+      "difficulty": "hard",
+      "category": "atomic_file_ops",
+      "agent_id": "noop-baseline",
+      "provider": "offline",
+      "model": "noop",
+      "sandbox_mode": "subprocess",
+      "base_revision": "8c37ed974430c739b689336b705e1e717dfee99b",
+      "test_suite_hash": "feb6bda2a00c0d6ba328dea3c4ee89123a3b3669cd84e34c6160c71885d1c33d",
+      "patch_diff": "",
+      "patch_validation": {
+        "is_empty": true,
+        "applies_cleanly": false,
+        "integrity_passed": false,
+        "patch_sha256": "",
+        "modified_files": [],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 0,
+        "removed_lines": 0,
+        "errors": [
+          "Patch is empty (no changes submitted)."
+        ]
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 939.73,
+        "passed_count": 1,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_put_and_get_updates_manifest",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 11.0,
+            "message": ""
+          }
+        ],
+        "stdout": ".                                                                        [100%]\n1 passed in 0.06s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1149.35,
+        "passed_count": 0,
+        "failed_count": 3,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.atomicvault-012.evaluation.test_issue::test_failed_midstream_write_preserves_existing_file_and_cleans_temp",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 9.0,
+            "message": "FileNotFoundError: data/state.json\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/atomicvault-012/evaluation/test_issue.py:19: in test_failed_midstream_write_preserves_existing_file_and_cleans_temp\n    assert vault.get(\"data/state.json\") == b'{\"version\": 1}'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsrc/atomicvault/storage.py:83: in get\n    raise FileNotFoundError(rel_path)\nE   FileNotFoundError: data/state.json"
+          },
+          {
+            "test_id": "benchmarks.atomicvault-012.evaluation.test_issue::test_recover_restores_orphaned_bak_and_removes_tmp_and_rebuilds_manifest",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 4.0,
+            "message": "AssertionError: assert not True\n +  where True = exists()\n +    where exists = PosixPath('/tmp/pytest-of-codespace/pytest-13/test_recover_restores_orphaned0/vault/models/weights.bin.tmp').exists\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/atomicvault-012/evaluation/test_issue.py:37: in test_recover_restores_orphaned_bak_and_removes_tmp_and_rebuilds_manifest\n    assert not orphan_tmp.exists()\nE   AssertionError: assert not True\nE    +  where True = exists()\nE    +    where exists = PosixPath('/tmp/pytest-of-codespace/pytest-13/test_recover_restores_orphaned0/vault/models/weights.bin.tmp').exists"
+          },
+          {
+            "test_id": "benchmarks.atomicvault-012.evaluation.test_issue::test_nested_path_traversal_rejected",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 5.0,
+            "message": "Failed: DID NOT RAISE VaultSecurityError\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/atomicvault-012/evaluation/test_issue.py:45: in test_nested_path_traversal_rejected\n    with pytest.raises(VaultSecurityError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE VaultSecurityError"
+          }
+        ],
+        "stdout": "FFF                                                                      [100%]\n=================================== FAILURES ===================================\n_____ test_failed_midstream_write_preserves_existing_file_and_cleans_temp ______\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/atomicvault-012/evaluation/test_issue.py:19: in test_failed_midstream_write_preserves_existing_file_and_cleans_temp\n    assert vault.get(\"data/state.json\") == b'{\"version\": 1}'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsrc/atomicvault/storage.py:83: in get\n    raise FileNotFoundError(rel_path)\nE   FileNotFoundError: data/state.json\n___ test_recover_restores_orphaned_bak_and_removes_tmp_and_rebuilds_manifest ___\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/atomicvault-012/evaluation/test_issue.py:37: in test_recover_restores_orphaned_bak_and_removes_tmp_and_rebuilds_manifest\n    assert not orphan_tmp.exists()\nE   AssertionError: assert not True\nE    +  where True = exists()\nE    +    where exists = PosixPath('/tmp/pytest-of-codespace/pytest-13/test_recover_restores_orphaned0/vault/models/weights.bin.tmp').exists\n_____________________ test_nested_path_traversal_rejected ______________________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/atomicvault-012/evaluation/test_issue.py:45: in test_nested_path_traversal_rejected\n    with pytest.raises(VaultSecurityError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE VaultSecurityError\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/atomicvault-012/evaluation/test_issue.py::test_failed_midstream_write_preserves_existing_file_and_cleans_temp\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/atomicvault-012/evaluation/test_issue.py::test_recover_restores_orphaned_bak_and_removes_tmp_and_rebuilds_manifest\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/atomicvault-012/evaluation/test_issue.py::test_nested_path_traversal_rejected\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1004.06,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.atomicvault-012.test_private::test_reserved_filenames_and_backup_preservation",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 10.0,
+            "message": "Failed: DID NOT RAISE VaultSecurityError\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/atomicvault-012/test_private.py:9: in test_reserved_filenames_and_backup_preservation\n    with pytest.raises(VaultSecurityError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE VaultSecurityError"
+          }
+        ],
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_______________ test_reserved_filenames_and_backup_preservation ________________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/atomicvault-012/test_private.py:9: in test_reserved_filenames_and_backup_preservation\n    with pytest.raises(VaultSecurityError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE VaultSecurityError\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/atomicvault-012/test_private.py::test_reserved_filenames_and_backup_preservation\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "NO_CHANGES",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": false,
+      "private_passed": false,
+      "failure_classification": "NO_OP_BASELINE_UNRESOLVED",
+      "explanation": "Unmodified repository baseline: PASS_TO_PASS=1/1, FAIL_TO_PASS=0/3.",
+      "duration_ms": 3203.1,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:15.145638+00:00",
+      "completed_at": "2026-10-21T12:38:18.348765+00:00",
+      "agent_logs": "No-op baseline adapter executed on atomicvault-012; returning empty patch."
+    },
+    {
+      "run_id": "run-1792586294-2a71db",
+      "task_id": "chronoshift-005",
+      "title": "Fix DST wall-clock drift, nonexistent spring-forward times, and UTC elapsed calculation",
+      "difficulty": "hard",
+      "category": "timezone_dst",
+      "agent_id": "noop-baseline",
+      "provider": "offline",
+      "model": "noop",
+      "sandbox_mode": "subprocess",
+      "base_revision": "2108290bab248cbb1ef6bba9d92d0f4f0a96c894",
+      "test_suite_hash": "314b86cb839ed3c60cd8114b7bd8f69984bc2510a085c0e781c7bad452fc37f6",
+      "patch_diff": "",
+      "patch_validation": {
+        "is_empty": true,
+        "applies_cleanly": false,
+        "integrity_passed": false,
+        "patch_sha256": "",
+        "modified_files": [],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 0,
+        "removed_lines": 0,
+        "errors": [
+          "Patch is empty (no changes submitted)."
+        ]
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 978.29,
+        "passed_count": 3,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_utc_daily_schedule",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_real_elapsed_seconds_rejects_naive_datetime",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_resolve_normal_wall_time",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "...                                                                      [100%]\n3 passed in 0.06s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 927.82,
+        "passed_count": 0,
+        "failed_count": 2,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.chronoshift-005.evaluation.test_issue::test_daily_schedule_preserves_wall_clock_across_spring_forward_dst",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 2.0,
+            "message": "assert [(9, 0), (10, 0), (10, 0)] == [(9, 0), (9, 0), (9, 0)]\n  \n  At index 1 diff: (10, 0) != (9, 0)\n  Use -v to get more diff\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/chronoshift-005/evaluation/test_issue.py:17: in test_daily_schedule_preserves_wall_clock_across_spring_forward_dst\n    assert [(d.hour, d.minute) for d in occ] == [(9, 0), (9, 0), (9, 0)]\nE   assert [(9, 0), (10, 0), (10, 0)] == [(9, 0), (9, 0), (9, 0)]\nE     \nE     At index 1 diff: (10, 0) != (9, 0)\nE     Use -v to get more diff"
+          },
+          {
+            "test_id": "benchmarks.chronoshift-005.evaluation.test_issue::test_nonexistent_spring_forward_time_raise_and_shift",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "Failed: DID NOT RAISE NonExistentTimeError\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/chronoshift-005/evaluation/test_issue.py:24: in test_nonexistent_spring_forward_time_raise_and_shift\n    with pytest.raises(NonExistentTimeError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE NonExistentTimeError"
+          }
+        ],
+        "stdout": "FF                                                                       [100%]\n=================================== FAILURES ===================================\n______ test_daily_schedule_preserves_wall_clock_across_spring_forward_dst ______\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/chronoshift-005/evaluation/test_issue.py:17: in test_daily_schedule_preserves_wall_clock_across_spring_forward_dst\n    assert [(d.hour, d.minute) for d in occ] == [(9, 0), (9, 0), (9, 0)]\nE   assert [(9, 0), (10, 0), (10, 0)] == [(9, 0), (9, 0), (9, 0)]\nE     \nE     At index 1 diff: (10, 0) != (9, 0)\nE     Use -v to get more diff\n_____________ test_nonexistent_spring_forward_time_raise_and_shift _____________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/chronoshift-005/evaluation/test_issue.py:24: in test_nonexistent_spring_forward_time_raise_and_shift\n    with pytest.raises(NonExistentTimeError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE NonExistentTimeError\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/chronoshift-005/evaluation/test_issue.py::test_daily_schedule_preserves_wall_clock_across_spring_forward_dst\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/chronoshift-005/evaluation/test_issue.py::test_nonexistent_spring_forward_time_raise_and_shift\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1053.79,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.chronoshift-005.test_private::test_fall_back_25_hour_day_and_fold_disambiguation",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "assert [(9, 0), (8, 0), (8, 0)] == [(9, 0), (9, 0), (9, 0)]\n  \n  At index 1 diff: (8, 0) != (9, 0)\n  Use -v to get more diff\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/chronoshift-005/test_private.py:11: in test_fall_back_25_hour_day_and_fold_disambiguation\n    assert [(d.hour, d.minute) for d in occ] == [(9, 0), (9, 0), (9, 0)]\nE   assert [(9, 0), (8, 0), (8, 0)] == [(9, 0), (9, 0), (9, 0)]\nE     \nE     At index 1 diff: (8, 0) != (9, 0)\nE     Use -v to get more diff"
+          }
+        ],
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n______________ test_fall_back_25_hour_day_and_fold_disambiguation ______________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/chronoshift-005/test_private.py:11: in test_fall_back_25_hour_day_and_fold_disambiguation\n    assert [(d.hour, d.minute) for d in occ] == [(9, 0), (9, 0), (9, 0)]\nE   assert [(9, 0), (8, 0), (8, 0)] == [(9, 0), (9, 0), (9, 0)]\nE     \nE     At index 1 diff: (8, 0) != (9, 0)\nE     Use -v to get more diff\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/chronoshift-005/test_private.py::test_fall_back_25_hour_day_and_fold_disambiguation\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "NO_CHANGES",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": false,
+      "private_passed": false,
+      "failure_classification": "NO_OP_BASELINE_UNRESOLVED",
+      "explanation": "Unmodified repository baseline: PASS_TO_PASS=3/3, FAIL_TO_PASS=0/2.",
+      "duration_ms": 3076.51,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:15.140401+00:00",
+      "completed_at": "2026-10-21T12:38:18.216937+00:00",
+      "agent_logs": "No-op baseline adapter executed on chronoshift-005; returning empty patch."
+    },
+    {
+      "run_id": "run-1792586294-2a71db",
+      "task_id": "cliwarden-010",
+      "title": "Fix --dry-run validation bypass, stderr usage error routing, and POSIX exit codes",
+      "difficulty": "easy",
+      "category": "cli_validation",
+      "agent_id": "noop-baseline",
+      "provider": "offline",
+      "model": "noop",
+      "sandbox_mode": "subprocess",
+      "base_revision": "f3f538a410816b18ee4a17825f24d125fc4987cf",
+      "test_suite_hash": "7d44d8b91fb37a762a847a3f74dc4f29bd4683a9fb16a05e1bfe71e92ad48187",
+      "patch_diff": "",
+      "patch_validation": {
+        "is_empty": true,
+        "applies_cleanly": false,
+        "integrity_passed": false,
+        "patch_sha256": "",
+        "modified_files": [],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 0,
+        "removed_lines": 0,
+        "errors": [
+          "Patch is empty (no changes submitted)."
+        ]
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 937.58,
+        "passed_count": 2,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_valid_command_execution",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 3.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_config_error_exit_code",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "..                                                                       [100%]\n2 passed in 0.06s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1104.41,
+        "passed_count": 0,
+        "failed_count": 2,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.cliwarden-010.evaluation.test_issue::test_dry_run_still_validates_invalid_arguments",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "AssertionError: assert 0 == 2\n +  where 0 = CLIResult(exit_code=0, stdout='DRY RUN OK\\n', stderr='').exit_code\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/cliwarden-010/evaluation/test_issue.py:16: in test_dry_run_still_validates_invalid_arguments\n    assert res1.exit_code == EXIT_USAGE_ERROR\nE   AssertionError: assert 0 == 2\nE    +  where 0 = CLIResult(exit_code=0, stdout='DRY RUN OK\\n', stderr='').exit_code"
+          },
+          {
+            "test_id": "benchmarks.cliwarden-010.evaluation.test_issue::test_keyboard_interrupt_and_runtime_error_exit_codes",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "AssertionError: assert 1 == 130\n +  where 1 = CLIResult(exit_code=1, stdout='', stderr='Error: \\n').exit_code\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/cliwarden-010/evaluation/test_issue.py:43: in test_keyboard_interrupt_and_runtime_error_exit_codes\n    assert res_int.exit_code == EXIT_INTERRUPTED\nE   AssertionError: assert 1 == 130\nE    +  where 1 = CLIResult(exit_code=1, stdout='', stderr='Error: \\n').exit_code"
+          }
+        ],
+        "stdout": "FF                                                                       [100%]\n=================================== FAILURES ===================================\n________________ test_dry_run_still_validates_invalid_arguments ________________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/cliwarden-010/evaluation/test_issue.py:16: in test_dry_run_still_validates_invalid_arguments\n    assert res1.exit_code == EXIT_USAGE_ERROR\nE   AssertionError: assert 0 == 2\nE    +  where 0 = CLIResult(exit_code=0, stdout='DRY RUN OK\\n', stderr='').exit_code\n_____________ test_keyboard_interrupt_and_runtime_error_exit_codes _____________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/cliwarden-010/evaluation/test_issue.py:43: in test_keyboard_interrupt_and_runtime_error_exit_codes\n    assert res_int.exit_code == EXIT_INTERRUPTED\nE   AssertionError: assert 1 == 130\nE    +  where 1 = CLIResult(exit_code=1, stdout='', stderr='Error: \\n').exit_code\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/cliwarden-010/evaluation/test_issue.py::test_dry_run_still_validates_invalid_arguments\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/cliwarden-010/evaluation/test_issue.py::test_keyboard_interrupt_and_runtime_error_exit_codes\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1013.34,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.cliwarden-010.test_private::test_unknown_flag_and_missing_target_value_return_exit_2_on_stderr",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 3.0,
+            "message": "AssertionError: assert 1 == 2\n +  where 1 = CLIResult(exit_code=1, stdout='Error: --target requires a value\\n', stderr='').exit_code\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/cliwarden-010/test_private.py:9: in test_unknown_flag_and_missing_target_value_return_exit_2_on_stderr\n    assert r1.exit_code == EXIT_USAGE_ERROR\nE   AssertionError: assert 1 == 2\nE    +  where 1 = CLIResult(exit_code=1, stdout='Error: --target requires a value\\n', stderr='').exit_code"
+          }
+        ],
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n______ test_unknown_flag_and_missing_target_value_return_exit_2_on_stderr ______\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/cliwarden-010/test_private.py:9: in test_unknown_flag_and_missing_target_value_return_exit_2_on_stderr\n    assert r1.exit_code == EXIT_USAGE_ERROR\nE   AssertionError: assert 1 == 2\nE    +  where 1 = CLIResult(exit_code=1, stdout='Error: --target requires a value\\n', stderr='').exit_code\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/cliwarden-010/test_private.py::test_unknown_flag_and_missing_target_value_return_exit_2_on_stderr\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "NO_CHANGES",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": false,
+      "private_passed": false,
+      "failure_classification": "NO_OP_BASELINE_UNRESOLVED",
+      "explanation": "Unmodified repository baseline: PASS_TO_PASS=2/2, FAIL_TO_PASS=0/2.",
+      "duration_ms": 3168.34,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:15.138495+00:00",
+      "completed_at": "2026-10-21T12:38:18.306878+00:00",
+      "agent_logs": "No-op baseline adapter executed on cliwarden-010; returning empty patch."
+    },
+    {
+      "run_id": "run-1792586294-2a71db",
+      "task_id": "concurqueue-003",
+      "title": "Fix check-then-act race condition and lost wakeups in KeyedResourcePool",
+      "difficulty": "hard",
+      "category": "concurrency_races",
+      "agent_id": "noop-baseline",
+      "provider": "offline",
+      "model": "noop",
+      "sandbox_mode": "subprocess",
+      "base_revision": "4b0b1a5ad48b6fc87119cbcff1d3830437333942",
+      "test_suite_hash": "b73b6a3d5c5e38293586e87722a29f3877e5fc83174e85662d8a65779e3838ef",
+      "patch_diff": "",
+      "patch_validation": {
+        "is_empty": true,
+        "applies_cleanly": false,
+        "integrity_passed": false,
+        "patch_sha256": "",
+        "modified_files": [],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 0,
+        "removed_lines": 0,
+        "errors": [
+          "Patch is empty (no changes submitted)."
+        ]
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 981.12,
+        "passed_count": 3,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_single_thread_lease_and_snapshot",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 4.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_over_release_raises_release_error",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 3.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_invalid_quota_configuration",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          }
+        ],
+        "stdout": "...                                                                      [100%]\n3 passed in 0.05s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1133.65,
+        "passed_count": 1,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.concurqueue-003.evaluation.test_issue::test_concurrent_contention_never_exceeds_per_key_or_total_limits",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 24.0,
+            "message": "AssertionError: Worker errors: [AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=1, total=5'), AssertionError('Quota violated: key=1, total=5'), AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=1, total=5'), AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=2, total=5'), AssertionError('Quota violated: key=2, total=5'), AssertionError('Quota violated: key=2, total=5')]\nassert not [AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=1, total=5'), AssertionError('Q...=3, total=5'), AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=1, total=5'), ...]\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/concurqueue-003/evaluation/test_issue.py:34: in test_concurrent_contention_never_exceeds_per_key_or_total_limits\n    assert not errors, f\"Worker errors: {errors}\"\nE   AssertionError: Worker errors: [AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=1, total=5'), AssertionError('Quota violated: key=1, total=5'), AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=1, total=5'), AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=2, total=5'), AssertionError('Quota violated: key=2, total=5'), AssertionError('Quota violated: key=2, total=5')]\nE   assert not [AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=1, total=5'), AssertionError('Q...=3, total=5'), AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violate"
+          },
+          {
+            "test_id": "benchmarks.concurqueue-003.evaluation.test_issue::test_timeout_under_contention_with_multiple_waiters",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 63.0,
+            "message": ""
+          }
+        ],
+        "stdout": "F.                                                                       [100%]\n=================================== FAILURES ===================================\n_______ test_concurrent_contention_never_exceeds_per_key_or_total_limits _______\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/concurqueue-003/evaluation/test_issue.py:34: in test_concurrent_contention_never_exceeds_per_key_or_total_limits\n    assert not errors, f\"Worker errors: {errors}\"\nE   AssertionError: Worker errors: [AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=1, total=5'), AssertionError('Quota violated: key=1, total=5'), AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=1, total=5'), AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=2, total=5'), AssertionError('Quota violated: key=2, total=5'), AssertionError('Quota violated: key=2, total=5')]\nE   assert not [AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=1, total=5'), AssertionError('Q...=3, total=5'), AssertionError('Quota violated: key=3, total=5'), AssertionError('Quota violated: key=1, total=5'), ...]\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/concurqueue-003/evaluation/test_issue.py::test_concurrent_contention_never_exceeds_per_key_or_total_limits\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1068.84,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.concurqueue-003.test_private::test_cross_key_notify_all_prevents_lost_wakeup",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 55.0,
+            "message": "AssertionError: assert ['k1_second', 'k3'] == ['k3', 'k1_second']\n  \n  At index 0 diff: 'k1_second' != 'k3'\n  Use -v to get more diff\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/concurqueue-003/test_private.py:40: in test_cross_key_notify_all_prevents_lost_wakeup\n    assert results == [\"k3\", \"k1_second\"]\nE   AssertionError: assert ['k1_second', 'k3'] == ['k3', 'k1_second']\nE     \nE     At index 0 diff: 'k1_second' != 'k3'\nE     Use -v to get more diff"
+          }
+        ],
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n________________ test_cross_key_notify_all_prevents_lost_wakeup ________________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/concurqueue-003/test_private.py:40: in test_cross_key_notify_all_prevents_lost_wakeup\n    assert results == [\"k3\", \"k1_second\"]\nE   AssertionError: assert ['k1_second', 'k3'] == ['k3', 'k1_second']\nE     \nE     At index 0 diff: 'k1_second' != 'k3'\nE     Use -v to get more diff\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/concurqueue-003/test_private.py::test_cross_key_notify_all_prevents_lost_wakeup\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "NO_CHANGES",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": false,
+      "private_passed": false,
+      "failure_classification": "NO_OP_BASELINE_UNRESOLVED",
+      "explanation": "Unmodified repository baseline: PASS_TO_PASS=3/3, FAIL_TO_PASS=1/2.",
+      "duration_ms": 3275.19,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:15.152507+00:00",
+      "completed_at": "2026-10-21T12:38:18.427721+00:00",
+      "agent_logs": "No-op baseline adapter executed on concurqueue-003; returning empty patch."
+    },
+    {
+      "run_id": "run-1792586294-2a71db",
+      "task_id": "confighier-007",
+      "title": "Fix deep merge sibling wiping, falsy CLI overrides, and single-underscore env keys",
+      "difficulty": "easy",
+      "category": "config_precedence",
+      "agent_id": "noop-baseline",
+      "provider": "offline",
+      "model": "noop",
+      "sandbox_mode": "subprocess",
+      "base_revision": "80e78ad4aab07c16759f2c1458688dc8b9e6d4a9",
+      "test_suite_hash": "b5e304895f8e9cd5a73a1fe68a12f43c985101fa36fbeb9d26114ab0ac7de4dd",
+      "patch_diff": "",
+      "patch_validation": {
+        "is_empty": true,
+        "applies_cleanly": false,
+        "integrity_passed": false,
+        "patch_sha256": "",
+        "modified_files": [],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 0,
+        "removed_lines": 0,
+        "errors": [
+          "Patch is empty (no changes submitted)."
+        ]
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 1114.81,
+        "passed_count": 2,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_coerce_env_value_types",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_basic_top_level_override",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 3.0,
+            "message": ""
+          }
+        ],
+        "stdout": "..                                                                       [100%]\n2 passed in 0.09s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1045.3,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.confighier-007.evaluation.test_issue::test_deep_merge_preserves_sibling_keys_and_handles_single_underscore_env_keys",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 5.0,
+            "message": "assert True is False\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/confighier-007/evaluation/test_issue.py:33: in test_deep_merge_preserves_sibling_keys_and_handles_single_underscore_env_keys\n    assert resolved[\"debug\"] is False\nE   assert True is False"
+          }
+        ],
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_ test_deep_merge_preserves_sibling_keys_and_handles_single_underscore_env_keys _\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/confighier-007/evaluation/test_issue.py:33: in test_deep_merge_preserves_sibling_keys_and_handles_single_underscore_env_keys\n    assert resolved[\"debug\"] is False\nE   assert True is False\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/confighier-007/evaluation/test_issue.py::test_deep_merge_preserves_sibling_keys_and_handles_single_underscore_env_keys\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1231.06,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.confighier-007.test_private::test_resolve_does_not_mutate_inputs_and_preserves_empty_string_override",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "KeyError: 'name'\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/confighier-007/test_private.py:11: in test_resolve_does_not_mutate_inputs_and_preserves_empty_string_override\n    assert out[\"service\"][\"name\"] == \"api\"\n           ^^^^^^^^^^^^^^^^^^^^^^\nE   KeyError: 'name'"
+          }
+        ],
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n___ test_resolve_does_not_mutate_inputs_and_preserves_empty_string_override ____\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/confighier-007/test_private.py:11: in test_resolve_does_not_mutate_inputs_and_preserves_empty_string_override\n    assert out[\"service\"][\"name\"] == \"api\"\n           ^^^^^^^^^^^^^^^^^^^^^^\nE   KeyError: 'name'\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/confighier-007/test_private.py::test_resolve_does_not_mutate_inputs_and_preserves_empty_string_override\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "NO_CHANGES",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": false,
+      "private_passed": false,
+      "failure_classification": "NO_OP_BASELINE_UNRESOLVED",
+      "explanation": "Unmodified repository baseline: PASS_TO_PASS=2/2, FAIL_TO_PASS=0/1.",
+      "duration_ms": 3499.55,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:18.422451+00:00",
+      "completed_at": "2026-10-21T12:38:21.922032+00:00",
+      "agent_logs": "No-op baseline adapter executed on confighier-007; returning empty patch."
+    },
+    {
+      "run_id": "run-1792586294-2a71db",
+      "task_id": "idempobox-011",
+      "title": "Fix idempotency payload mismatch detection, canonical fingerprinting, and failed lock cleanup",
+      "difficulty": "hard",
+      "category": "idempotency",
+      "agent_id": "noop-baseline",
+      "provider": "offline",
+      "model": "noop",
+      "sandbox_mode": "subprocess",
+      "base_revision": "62ebe35109c0fa97d790cecb90be2d7156c13e1f",
+      "test_suite_hash": "f59f0a9866b5430ceacc1c19f3ef7cdf886c70c950994ebb7a8b06b7ad2a7892",
+      "patch_diff": "",
+      "patch_validation": {
+        "is_empty": true,
+        "applies_cleanly": false,
+        "integrity_passed": false,
+        "patch_sha256": "",
+        "modified_files": [],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 0,
+        "removed_lines": 0,
+        "errors": [
+          "Patch is empty (no changes submitted)."
+        ]
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 1127.65,
+        "passed_count": 2,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_exact_duplicate_replay_executes_handler_once",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 9.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_empty_key_rejected",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "..                                                                       [100%]\n2 passed in 0.09s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1132.76,
+        "passed_count": 1,
+        "failed_count": 2,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.idempobox-011.evaluation.test_issue::test_key_reuse_with_different_payload_raises_mismatch_error",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 3.0,
+            "message": "Failed: DID NOT RAISE IdempotencyPayloadMismatchError\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/idempobox-011/evaluation/test_issue.py:14: in test_key_reuse_with_different_payload_raises_mismatch_error\n    with pytest.raises(IdempotencyPayloadMismatchError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE IdempotencyPayloadMismatchError"
+          },
+          {
+            "test_id": "benchmarks.idempobox-011.evaluation.test_issue::test_volatile_headers_and_nested_key_order_ignored_in_fingerprint",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "benchmarks.idempobox-011.evaluation.test_issue::test_transient_handler_failure_releases_key_for_subsequent_retry",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "idempobox.exceptions.IdempotencyConflictError: Request with key 'pay_retry' is currently IN_PROGRESS\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/idempobox-011/evaluation/test_issue.py:44: in test_transient_handler_failure_releases_key_for_subsequent_retry\n    res = proc.process(\"pay_retry\", {\"amount\": 75}, flaky_handler)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsrc/idempobox/processor.py:56: in process\n    raise IdempotencyConflictError(\nE   idempobox.exceptions.IdempotencyConflictError: Request with key 'pay_retry' is currently IN_PROGRESS"
+          }
+        ],
+        "stdout": "F.F                                                                      [100%]\n=================================== FAILURES ===================================\n_________ test_key_reuse_with_different_payload_raises_mismatch_error __________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/idempobox-011/evaluation/test_issue.py:14: in test_key_reuse_with_different_payload_raises_mismatch_error\n    with pytest.raises(IdempotencyPayloadMismatchError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE IdempotencyPayloadMismatchError\n_______ test_transient_handler_failure_releases_key_for_subsequent_retry _______\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/idempobox-011/evaluation/test_issue.py:44: in test_transient_handler_failure_releases_key_for_subsequent_retry\n    res = proc.process(\"pay_retry\", {\"amount\": 75}, flaky_handler)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsrc/idempobox/processor.py:56: in process\n    raise IdempotencyConflictError(\nE   idempobox.exceptions.IdempotencyConflictError: Request with key 'pay_retry' is currently IN_PROGRESS\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/idempobox-011/evaluation/test_issue.py::test_key_reuse_with_different_payload_raises_mismatch_error\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/idempobox-011/evaluation/test_issue.py::test_transient_handler_failure_releases_key_for_subsequent_retry\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1024.89,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.idempobox-011.test_private::test_concurrent_in_flight_duplicate_raises_conflict_and_cached_result_is_isolated",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 2.0,
+            "message": "AssertionError: assert {'items': [1, 2, 999]} == {'items': [1, 2]}\n  \n  Differing items:\n  {'items': [1, 2, 999]} != {'items': [1, 2]}\n  Use -v to get more diff\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/idempobox-011/test_private.py:33: in test_concurrent_in_flight_duplicate_raises_conflict_and_cached_result_is_isolated\n    assert out2 == {\"items\": [1, 2]}\nE   AssertionError: assert {'items': [1, 2, 999]} == {'items': [1, 2]}\nE     \nE     Differing items:\nE     {'items': [1, 2, 999]} != {'items': [1, 2]}\nE     Use -v to get more diff"
+          }
+        ],
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_ test_concurrent_in_flight_duplicate_raises_conflict_and_cached_result_is_isolated _\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/idempobox-011/test_private.py:33: in test_concurrent_in_flight_duplicate_raises_conflict_and_cached_result_is_isolated\n    assert out2 == {\"items\": [1, 2]}\nE   AssertionError: assert {'items': [1, 2, 999]} == {'items': [1, 2]}\nE     \nE     Differing items:\nE     {'items': [1, 2, 999]} != {'items': [1, 2]}\nE     Use -v to get more diff\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/idempobox-011/test_private.py::test_concurrent_in_flight_duplicate_raises_conflict_and_cached_result_is_isolated\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "NO_CHANGES",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": false,
+      "private_passed": false,
+      "failure_classification": "NO_OP_BASELINE_UNRESOLVED",
+      "explanation": "Unmodified repository baseline: PASS_TO_PASS=2/2, FAIL_TO_PASS=1/3.",
+      "duration_ms": 3406.59,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:18.517862+00:00",
+      "completed_at": "2026-10-21T12:38:21.924476+00:00",
+      "agent_logs": "No-op baseline adapter executed on idempobox-011; returning empty patch."
+    },
+    {
+      "run_id": "run-1792586294-2a71db",
+      "task_id": "ledgersql-004",
+      "title": "Fix atomic batch rollback and savepoint isolation in SQLiteLedger.execute_batch",
+      "difficulty": "medium",
+      "category": "sqlite_transactions",
+      "agent_id": "noop-baseline",
+      "provider": "offline",
+      "model": "noop",
+      "sandbox_mode": "subprocess",
+      "base_revision": "2c11583af21ce5690889725dcd1116bcb22ffcbe",
+      "test_suite_hash": "d98952270012d617f417f58bc4ba8fc5ff15c881c5d908d586fa2d299eb411bf",
+      "patch_diff": "",
+      "patch_validation": {
+        "is_empty": true,
+        "applies_cleanly": false,
+        "integrity_passed": false,
+        "patch_sha256": "",
+        "modified_files": [],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 0,
+        "removed_lines": 0,
+        "errors": [
+          "Patch is empty (no changes submitted)."
+        ]
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 1099.0,
+        "passed_count": 2,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_single_transfer_and_journal",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_insufficient_funds_single_transfer",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "..                                                                       [100%]\n2 passed in 0.07s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1201.01,
+        "passed_count": 0,
+        "failed_count": 2,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.ledgersql-004.evaluation.test_issue::test_atomic_batch_rolls_back_all_transfers_on_later_failure",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 2.0,
+            "message": "AssertionError: assert 600 == 1000\n +  where 600 = get_balance('a')\n +    where get_balance = <ledgersql.ledger.SQLiteLedger object at 0x740bd9ae23c0>.get_balance\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/ledgersql-004/evaluation/test_issue.py:21: in test_atomic_batch_rolls_back_all_transfers_on_later_failure\n    assert ledger.get_balance(\"a\") == 1000\nE   AssertionError: assert 600 == 1000\nE    +  where 600 = get_balance('a')\nE    +    where get_balance = <ledgersql.ledger.SQLiteLedger object at 0x740bd9ae23c0>.get_balance"
+          },
+          {
+            "test_id": "benchmarks.ledgersql-004.evaluation.test_issue::test_partial_batch_savepoint_rolls_back_sender_debit_when_receiver_frozen",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 2.0,
+            "message": "AssertionError: assert 400 == 800\n +  where 400 = get_balance('alice')\n +    where get_balance = <ledgersql.ledger.SQLiteLedger object at 0x740bd9b25590>.get_balance\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/ledgersql-004/evaluation/test_issue.py:42: in test_partial_batch_savepoint_rolls_back_sender_debit_when_receiver_frozen\n    assert ledger.get_balance(\"alice\") == 800\nE   AssertionError: assert 400 == 800\nE    +  where 400 = get_balance('alice')\nE    +    where get_balance = <ledgersql.ledger.SQLiteLedger object at 0x740bd9b25590>.get_balance"
+          }
+        ],
+        "stdout": "FF                                                                       [100%]\n=================================== FAILURES ===================================\n_________ test_atomic_batch_rolls_back_all_transfers_on_later_failure __________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/ledgersql-004/evaluation/test_issue.py:21: in test_atomic_batch_rolls_back_all_transfers_on_later_failure\n    assert ledger.get_balance(\"a\") == 1000\nE   AssertionError: assert 600 == 1000\nE    +  where 600 = get_balance('a')\nE    +    where get_balance = <ledgersql.ledger.SQLiteLedger object at 0x740bd9ae23c0>.get_balance\n__ test_partial_batch_savepoint_rolls_back_sender_debit_when_receiver_frozen ___\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/ledgersql-004/evaluation/test_issue.py:42: in test_partial_batch_savepoint_rolls_back_sender_debit_when_receiver_frozen\n    assert ledger.get_balance(\"alice\") == 800\nE   AssertionError: assert 400 == 800\nE    +  where 400 = get_balance('alice')\nE    +    where get_balance = <ledgersql.ledger.SQLiteLedger object at 0x740bd9b25590>.get_balance\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/ledgersql-004/evaluation/test_issue.py::test_atomic_batch_rolls_back_all_transfers_on_later_failure\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/ledgersql-004/evaluation/test_issue.py::test_partial_batch_savepoint_rolls_back_sender_debit_when_receiver_frozen\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1136.73,
+        "passed_count": 1,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.ledgersql-004.test_private::test_atomic_batch_rolls_back_when_destination_missing",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 2.0,
+            "message": "AssertionError: assert 300 == 500\n +  where 300 = get_balance('u1')\n +    where get_balance = <ledgersql.ledger.SQLiteLedger object at 0x783b8a64e3c0>.get_balance\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/ledgersql-004/test_private.py:20: in test_atomic_batch_rolls_back_when_destination_missing\n    assert ledger.get_balance(\"u1\") == 500\nE   AssertionError: assert 300 == 500\nE    +  where 300 = get_balance('u1')\nE    +    where get_balance = <ledgersql.ledger.SQLiteLedger object at 0x783b8a64e3c0>.get_balance"
+          },
+          {
+            "test_id": "private_evaluations.ledgersql-004.test_private::test_self_transfer_and_negative_amount_rejected_in_partial_batch",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "F.                                                                       [100%]\n=================================== FAILURES ===================================\n____________ test_atomic_batch_rolls_back_when_destination_missing _____________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/ledgersql-004/test_private.py:20: in test_atomic_batch_rolls_back_when_destination_missing\n    assert ledger.get_balance(\"u1\") == 500\nE   AssertionError: assert 300 == 500\nE    +  where 300 = get_balance('u1')\nE    +    where get_balance = <ledgersql.ledger.SQLiteLedger object at 0x783b8a64e3c0>.get_balance\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/ledgersql-004/test_private.py::test_atomic_batch_rolls_back_when_destination_missing\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "NO_CHANGES",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": false,
+      "private_passed": false,
+      "failure_classification": "NO_OP_BASELINE_UNRESOLVED",
+      "explanation": "Unmodified repository baseline: PASS_TO_PASS=2/2, FAIL_TO_PASS=0/2.",
+      "duration_ms": 3574.7,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:18.625991+00:00",
+      "completed_at": "2026-10-21T12:38:22.200726+00:00",
+      "agent_logs": "No-op baseline adapter executed on ledgersql-004; returning empty patch."
+    },
+    {
+      "run_id": "run-1792586294-2a71db",
+      "task_id": "pagiflow-001",
+      "title": "Fix cursor=0 falsy termination and has_more=False echo loops in PaginatedCollector",
+      "difficulty": "easy",
+      "category": "pagination_api",
+      "agent_id": "noop-baseline",
+      "provider": "offline",
+      "model": "noop",
+      "sandbox_mode": "subprocess",
+      "base_revision": "164e51624d3e0b4cf9af0d086e8a5d4137ddae90",
+      "test_suite_hash": "6d28c10cb437b6a4d2269ccc9b43fec59b601fc1145b358c4ea5577a8af9e2b3",
+      "patch_diff": "",
+      "patch_validation": {
+        "is_empty": true,
+        "applies_cleanly": false,
+        "integrity_passed": false,
+        "patch_sha256": "",
+        "modified_files": [],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 0,
+        "removed_lines": 0,
+        "errors": [
+          "Patch is empty (no changes submitted)."
+        ]
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 972.45,
+        "passed_count": 4,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 4,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_standard_string_cursor_traversal",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 3.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_deduplication_across_pages",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 3.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_transform_callback_and_cycle_detection",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_normalize_envelope_errors",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 3.0,
+            "message": ""
+          }
+        ],
+        "stdout": "....                                                                     [100%]\n4 passed in 0.06s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 988.5,
+        "passed_count": 0,
+        "failed_count": 3,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.pagiflow-001.evaluation.test_issue::test_integer_zero_cursor_is_followed",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "AssertionError: assert ['a'] == ['a', 'b', 'c']\n  \n  Right contains 2 more items, first extra item: 'b'\n  Use -v to get more diff\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/pagiflow-001/evaluation/test_issue.py:14: in test_integer_zero_cursor_is_followed\n    assert [i[\"id\"] for i in items] == [\"a\", \"b\", \"c\"]\nE   AssertionError: assert ['a'] == ['a', 'b', 'c']\nE     \nE     Right contains 2 more items, first extra item: 'b'\nE     Use -v to get more diff"
+          },
+          {
+            "test_id": "benchmarks.pagiflow-001.evaluation.test_issue::test_has_more_false_stops_even_when_cursor_echoed",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "pagiflow.models.PaginationError: Detected pagination cursor cycle at 'cur_1_echo'\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/pagiflow-001/evaluation/test_issue.py:29: in test_has_more_false_stops_even_when_cursor_echoed\n    items = collector.collect_all(fetch)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsrc/pagiflow/client.py:42: in collect_all\n    raise PaginationError(f\"Detected pagination cursor cycle at {cursor!r}\")\nE   pagiflow.models.PaginationError: Detected pagination cursor cycle at 'cur_1_echo'"
+          },
+          {
+            "test_id": "benchmarks.pagiflow-001.evaluation.test_issue::test_empty_intermediate_page_continues_when_has_more_true",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "assert [1] == [1, 2]\n  \n  Right contains one more item: 2\n  Use -v to get more diff\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/pagiflow-001/evaluation/test_issue.py:42: in test_empty_intermediate_page_continues_when_has_more_true\n    assert [i[\"id\"] for i in items] == [1, 2]\nE   assert [1] == [1, 2]\nE     \nE     Right contains one more item: 2\nE     Use -v to get more diff"
+          }
+        ],
+        "stdout": "FFF                                                                      [100%]\n=================================== FAILURES ===================================\n_____________________ test_integer_zero_cursor_is_followed _____________________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/pagiflow-001/evaluation/test_issue.py:14: in test_integer_zero_cursor_is_followed\n    assert [i[\"id\"] for i in items] == [\"a\", \"b\", \"c\"]\nE   AssertionError: assert ['a'] == ['a', 'b', 'c']\nE     \nE     Right contains 2 more items, first extra item: 'b'\nE     Use -v to get more diff\n______________ test_has_more_false_stops_even_when_cursor_echoed _______________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/pagiflow-001/evaluation/test_issue.py:29: in test_has_more_false_stops_even_when_cursor_echoed\n    items = collector.collect_all(fetch)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsrc/pagiflow/client.py:42: in collect_all\n    raise PaginationError(f\"Detected pagination cursor cycle at {cursor!r}\")\nE   pagiflow.models.PaginationError: Detected pagination cursor cycle at 'cur_1_echo'\n__________ test_empty_intermediate_page_continues_when_has_more_true ___________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/pagiflow-001/evaluation/test_issue.py:42: in test_empty_intermediate_page_continues_when_has_more_true\n    assert [i[\"id\"] for i in items] == [1, 2]\nE   assert [1] == [1, 2]\nE     \nE     Right contains one more item: 2\nE     Use -v to get more diff\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/pagiflow-001/evaluation/test_issue.py::test_integer_zero_cursor_is_followed\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/pagiflow-001/evaluation/test_issue.py::test_has_more_false_stops_even_when_cursor_echoed\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/pagiflow-001/evaluation/test_issue.py::test_empty_intermediate_page_continues_when_has_more_true\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1204.4,
+        "passed_count": 1,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.pagiflow-001.test_private::test_string_zero_cursor_and_stop_on_empty_true",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 2.0,
+            "message": ""
+          },
+          {
+            "test_id": "private_evaluations.pagiflow-001.test_private::test_nested_meta_envelope_with_zero_cursor",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 4.0,
+            "message": "assert [1] == [1, 2]\n  \n  Right contains one more item: 2\n  Use -v to get more diff\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/pagiflow-001/test_private.py:32: in test_nested_meta_envelope_with_zero_cursor\n    assert [r[\"id\"] for r in res] == [1, 2]\nE   assert [1] == [1, 2]\nE     \nE     Right contains one more item: 2\nE     Use -v to get more diff"
+          }
+        ],
+        "stdout": ".F                                                                       [100%]\n=================================== FAILURES ===================================\n__________________ test_nested_meta_envelope_with_zero_cursor __________________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/pagiflow-001/test_private.py:32: in test_nested_meta_envelope_with_zero_cursor\n    assert [r[\"id\"] for r in res] == [1, 2]\nE   assert [1] == [1, 2]\nE     \nE     Right contains one more item: 2\nE     Use -v to get more diff\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/pagiflow-001/test_private.py::test_nested_meta_envelope_with_zero_cursor\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "NO_CHANGES",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": false,
+      "private_passed": false,
+      "failure_classification": "NO_OP_BASELINE_UNRESOLVED",
+      "explanation": "Unmodified repository baseline: PASS_TO_PASS=4/4, FAIL_TO_PASS=0/3.",
+      "duration_ms": 3293.56,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:18.739645+00:00",
+      "completed_at": "2026-10-21T12:38:22.033242+00:00",
+      "agent_logs": "No-op baseline adapter executed on pagiflow-001; returning empty patch."
+    },
+    {
+      "run_id": "run-1792586294-2a71db",
+      "task_id": "retryguard-008",
+      "title": "Fix max_retries off-by-one, Retry-After cap, non-retryable 4xx, and TokenBucket capacity ceiling",
+      "difficulty": "medium",
+      "category": "retry_ratelimit",
+      "agent_id": "noop-baseline",
+      "provider": "offline",
+      "model": "noop",
+      "sandbox_mode": "subprocess",
+      "base_revision": "5b34c261230cf918d49f7f3cd3a0cefb94c17494",
+      "test_suite_hash": "73c3163b895370feff02297e612324a557401a6d2e361f127861d12a943e3ab9",
+      "patch_diff": "",
+      "patch_validation": {
+        "is_empty": true,
+        "applies_cleanly": false,
+        "integrity_passed": false,
+        "patch_sha256": "",
+        "modified_files": [],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 0,
+        "removed_lines": 0,
+        "errors": [
+          "Patch is empty (no changes submitted)."
+        ]
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 799.3,
+        "passed_count": 3,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_immediate_success_on_first_try",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_exponential_backoff_calculation",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_invalid_limiter_params",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "...                                                                      [100%]\n3 passed in 0.06s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1240.53,
+        "passed_count": 0,
+        "failed_count": 3,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.retryguard-008.evaluation.test_issue::test_max_retries_zero_executes_once_and_max_retries_three_executes_four_times",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 3.0,
+            "message": "assert 0 == 1\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/retryguard-008/evaluation/test_issue.py:24: in test_max_retries_zero_executes_once_and_max_retries_three_executes_four_times\n    assert calls == 1\nE   assert 0 == 1"
+          },
+          {
+            "test_id": "benchmarks.retryguard-008.evaluation.test_issue::test_non_retryable_4xx_aborts_immediately_and_retry_after_is_capped",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 3.0,
+            "message": "retryguard.policy.RetryExhaustedError: Exhausted after 3 attempts: Bad Request\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/retryguard-008/evaluation/test_issue.py:48: in test_non_retryable_4xx_aborts_immediately_and_retry_after_is_capped\n    exec_.execute(bad_request)\nsrc/retryguard/executor.py:47: in execute\n    raise RetryExhaustedError(attempts=attempts, last_exception=last_exc)\nE   retryguard.policy.RetryExhaustedError: Exhausted after 3 attempts: Bad Request"
+          },
+          {
+            "test_id": "benchmarks.retryguard-008.evaluation.test_issue::test_token_bucket_uses_injected_clock_and_caps_at_capacity",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "assert 3585172409.104778 == 1.0\n +  where 3585172409.104778 = <retryguard.limiter.TokenBucketLimiter object at 0x7a8db96d6f90>.available_tokens\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/retryguard-008/evaluation/test_issue.py:61: in test_token_bucket_uses_injected_clock_and_caps_at_capacity\n    assert limiter.available_tokens == 1.0\nE   assert 3585172409.104778 == 1.0\nE    +  where 3585172409.104778 = <retryguard.limiter.TokenBucketLimiter object at 0x7a8db96d6f90>.available_tokens"
+          }
+        ],
+        "stdout": "FFF                                                                      [100%]\n=================================== FAILURES ===================================\n_ test_max_retries_zero_executes_once_and_max_retries_three_executes_four_times _\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/retryguard-008/evaluation/test_issue.py:24: in test_max_retries_zero_executes_once_and_max_retries_three_executes_four_times\n    assert calls == 1\nE   assert 0 == 1\n_____ test_non_retryable_4xx_aborts_immediately_and_retry_after_is_capped ______\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/retryguard-008/evaluation/test_issue.py:48: in test_non_retryable_4xx_aborts_immediately_and_retry_after_is_capped\n    exec_.execute(bad_request)\nsrc/retryguard/executor.py:47: in execute\n    raise RetryExhaustedError(attempts=attempts, last_exception=last_exc)\nE   retryguard.policy.RetryExhaustedError: Exhausted after 3 attempts: Bad Request\n__________ test_token_bucket_uses_injected_clock_and_caps_at_capacity __________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/retryguard-008/evaluation/test_issue.py:61: in test_token_bucket_uses_injected_clock_and_caps_at_capacity\n    assert limiter.available_tokens == 1.0\nE   assert 3585172409.104778 == 1.0\nE    +  where 3585172409.104778 = <retryguard.limiter.TokenBucketLimiter object at 0x7a8db96d6f90>.available_tokens\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/retryguard-008/evaluation/test_issue.py::test_max_retries_zero_executes_once_and_max_retries_three_executes_four_times\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/retryguard-008/evaluation/test_issue.py::test_non_retryable_4xx_aborts_immediately_and_retry_after_is_capped\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/retryguard-008/evaluation/test_issue.py::test_token_bucket_uses_injected_clock_and_caps_at_capacity\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1118.68,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.retryguard-008.test_private::test_429_with_retry_after_succeeds_on_final_retry",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "retryguard.policy.RetryExhaustedError: Exhausted after 2 attempts: Rate limited\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/retryguard-008/test_private.py:17: in test_429_with_retry_after_succeeds_on_final_retry\n    res = exec_.execute(flaky_endpoint)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsrc/retryguard/executor.py:47: in execute\n    raise RetryExhaustedError(attempts=attempts, last_exception=last_exc)\nE   retryguard.policy.RetryExhaustedError: Exhausted after 2 attempts: Rate limited"
+          }
+        ],
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n______________ test_429_with_retry_after_succeeds_on_final_retry _______________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/retryguard-008/test_private.py:17: in test_429_with_retry_after_succeeds_on_final_retry\n    res = exec_.execute(flaky_endpoint)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsrc/retryguard/executor.py:47: in execute\n    raise RetryExhaustedError(attempts=attempts, last_exception=last_exc)\nE   retryguard.policy.RetryExhaustedError: Exhausted after 2 attempts: Rate limited\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/retryguard-008/test_private.py::test_429_with_retry_after_succeeds_on_final_retry\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "NO_CHANGES",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": false,
+      "private_passed": false,
+      "failure_classification": "NO_OP_BASELINE_UNRESOLVED",
+      "explanation": "Unmodified repository baseline: PASS_TO_PASS=3/3, FAIL_TO_PASS=0/3.",
+      "duration_ms": 3267.67,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:22.103817+00:00",
+      "completed_at": "2026-10-21T12:38:25.371521+00:00",
+      "agent_logs": "No-op baseline adapter executed on retryguard-008; returning empty patch."
+    },
+    {
+      "run_id": "run-1792586294-2a71db",
+      "task_id": "schemaver-009",
+      "title": "Fix multi-hop v1->v3 schema migration, shared mutable defaults, and unknown field round-tripping",
+      "difficulty": "medium",
+      "category": "serialization_compat",
+      "agent_id": "noop-baseline",
+      "provider": "offline",
+      "model": "noop",
+      "sandbox_mode": "subprocess",
+      "base_revision": "533f4da0afeb4385e97f393a9ac7fbf14bac9c67",
+      "test_suite_hash": "aa9d711f6079664db86c3378db9668aa55af215a04df73a2529a4d8b1d22c711",
+      "patch_diff": "",
+      "patch_validation": {
+        "is_empty": true,
+        "applies_cleanly": false,
+        "integrity_passed": false,
+        "patch_sha256": "",
+        "modified_files": [],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 0,
+        "removed_lines": 0,
+        "errors": [
+          "Patch is empty (no changes submitted)."
+        ]
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 943.69,
+        "passed_count": 3,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_v3_native_roundtrip",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_canonical_hash_key_order_invariance",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_unsupported_schema_version_raises",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 2.0,
+            "message": ""
+          }
+        ],
+        "stdout": "...                                                                      [100%]\n3 passed in 0.06s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1147.49,
+        "passed_count": 0,
+        "failed_count": 3,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.schemaver-009.evaluation.test_issue::test_v1_to_v3_multihop_migration_without_mutating_caller_dict",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "AssertionError: Input dictionary was mutated in place!\nassert {'event_id': ... 'Grace', ...} == {'event_id': ...llars': 19.95}\n  \n  Omitting 2 identical items, use -vv to show\n  Differing items:\n  {'schema_version': 2} != {'schema_version': 1}\n  Left contains 2 more items:\n  {'first_name': 'Grace', 'last_name': 'Hopper'}\n  Right contains 1 more item:\n  {'full_name': 'Grace Hopper'}\n  Use -v to get more diff\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/schemaver-009/evaluation/test_issue.py:17: in test_v1_to_v3_multihop_migration_without_mutating_caller_dict\n    assert v1_payload == original_copy, \"Input dictionary was mutated in place!\"\nE   AssertionError: Input dictionary was mutated in place!\nE   assert {'event_id': ... 'Grace', ...} == {'event_id': ...llars': 19.95}\nE     \nE     Omitting 2 identical items, use -vv to show\nE     Differing items:\nE     {'schema_version': 2} != {'schema_version': 1}\nE     Left contains 2 more items:\nE     {'first_name': 'Grace', 'last_name': 'Hopper'}\nE     Right contains 1 more item:\nE     {'full_name': 'Grace Hopper'}\nE     Use -v to get more diff"
+          },
+          {
+            "test_id": "benchmarks.schemaver-009.evaluation.test_issue::test_default_tags_are_isolated_across_instances",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 3.0,
+            "message": "AssertionError: assert ['mutated'] == []\n  \n  Left contains one more item: 'mutated'\n  Use -v to get more diff\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/schemaver-009/evaluation/test_issue.py:29: in test_default_tags_are_isolated_across_instances\n    assert e2.tags == []\nE   AssertionError: assert ['mutated'] == []\nE     \nE     Left contains one more item: 'mutated'\nE     Use -v to get more diff"
+          },
+          {
+            "test_id": "benchmarks.schemaver-009.evaluation.test_issue::test_unknown_forward_compatible_fields_preserved_on_roundtrip",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 2.0,
+            "message": "KeyError: 'trace_region'\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/schemaver-009/evaluation/test_issue.py:47: in test_unknown_forward_compatible_fields_preserved_on_roundtrip\n    assert serialized[\"trace_region\"] == \"eu-central-1\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   KeyError: 'trace_region'"
+          }
+        ],
+        "stdout": "FFF                                                                      [100%]\n=================================== FAILURES ===================================\n________ test_v1_to_v3_multihop_migration_without_mutating_caller_dict _________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/schemaver-009/evaluation/test_issue.py:17: in test_v1_to_v3_multihop_migration_without_mutating_caller_dict\n    assert v1_payload == original_copy, \"Input dictionary was mutated in place!\"\nE   AssertionError: Input dictionary was mutated in place!\nE   assert {'event_id': ... 'Grace', ...} == {'event_id': ...llars': 19.95}\nE     \nE     Omitting 2 identical items, use -vv to show\nE     Differing items:\nE     {'schema_version': 2} != {'schema_version': 1}\nE     Left contains 2 more items:\nE     {'first_name': 'Grace', 'last_name': 'Hopper'}\nE     Right contains 1 more item:\nE     {'full_name': 'Grace Hopper'}\nE     Use -v to get more diff\n_______________ test_default_tags_are_isolated_across_instances ________________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/schemaver-009/evaluation/test_issue.py:29: in test_default_tags_are_isolated_across_instances\n    assert e2.tags == []\nE   AssertionError: assert ['mutated'] == []\nE     \nE     Left contains one more item: 'mutated'\nE     Use -v to get more diff\n________ test_unknown_forward_compatible_fields_preserved_on_roundtrip _________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/schemaver-009/evaluation/test_issue.py:47: in test_unknown_forward_compatible_fields_preserved_on_roundtrip\n    assert serialized[\"trace_region\"] == \"eu-central-1\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   KeyError: 'trace_region'\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/schemaver-009/evaluation/test_issue.py::test_v1_to_v3_multihop_migration_without_mutating_caller_dict\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/schemaver-009/evaluation/test_issue.py::test_default_tags_are_isolated_across_instances\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/schemaver-009/evaluation/test_issue.py::test_unknown_forward_compatible_fields_preserved_on_roundtrip\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1133.06,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.schemaver-009.test_private::test_single_word_full_name_in_v1_and_deep_copy_of_extra",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "assert 0 == 1234\n +  where 0 = <schemaver.codec.EventEnvelope object at 0x785ed68c6510>.amount_cents\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/schemaver-009/test_private.py:18: in test_single_word_full_name_in_v1_and_deep_copy_of_extra\n    assert env.amount_cents == 1234\nE   assert 0 == 1234\nE    +  where 0 = <schemaver.codec.EventEnvelope object at 0x785ed68c6510>.amount_cents"
+          }
+        ],
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n___________ test_single_word_full_name_in_v1_and_deep_copy_of_extra ____________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/schemaver-009/test_private.py:18: in test_single_word_full_name_in_v1_and_deep_copy_of_extra\n    assert env.amount_cents == 1234\nE   assert 0 == 1234\nE    +  where 0 = <schemaver.codec.EventEnvelope object at 0x785ed68c6510>.amount_cents\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/schemaver-009/test_private.py::test_single_word_full_name_in_v1_and_deep_copy_of_extra\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "NO_CHANGES",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": false,
+      "private_passed": false,
+      "failure_classification": "NO_OP_BASELINE_UNRESOLVED",
+      "explanation": "Unmodified repository baseline: PASS_TO_PASS=3/3, FAIL_TO_PASS=0/3.",
+      "duration_ms": 3321.29,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:22.125489+00:00",
+      "completed_at": "2026-10-21T12:38:25.446810+00:00",
+      "agent_logs": "No-op baseline adapter executed on schemaver-009; returning empty patch."
+    },
+    {
+      "run_id": "run-1792586294-2a71db",
+      "task_id": "streamparse-006",
+      "title": "Fix multi-byte UTF-8 chunk boundary splitting and byte-offset tracking on quarantined records",
+      "difficulty": "medium",
+      "category": "streaming_parser",
+      "agent_id": "noop-baseline",
+      "provider": "offline",
+      "model": "noop",
+      "sandbox_mode": "subprocess",
+      "base_revision": "5d9fdb6c51dea9c7ff11fa9469dc20ac6faf817a",
+      "test_suite_hash": "f84e29fc0764c754b282327f2f084cfbf2ca82d4bb1483654f9d31d75fab088a",
+      "patch_diff": "",
+      "patch_validation": {
+        "is_empty": true,
+        "applies_cleanly": false,
+        "integrity_passed": false,
+        "patch_sha256": "",
+        "modified_files": [],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 0,
+        "removed_lines": 0,
+        "errors": [
+          "Patch is empty (no changes submitted)."
+        ]
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 930.01,
+        "passed_count": 3,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_single_chunk_valid_ndjson",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_raise_policy_raises_malformed_record_error",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_required_fields_validation",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "...                                                                      [100%]\n3 passed in 0.06s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 945.93,
+        "passed_count": 0,
+        "failed_count": 2,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.streamparse-006.evaluation.test_issue::test_multibyte_utf8_split_across_small_byte_chunks",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe2 in position 2: unexpected end of data\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/streamparse-006/evaluation/test_issue.py:13: in test_multibyte_utf8_split_across_small_byte_chunks\n    summary = reader.parse_chunks(chunks)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsrc/streamparse/reader.py:36: in parse_chunks\n    text_buf += chunk.decode(\"utf-8\")\n                ^^^^^^^^^^^^^^^^^^^^^\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe2 in position 2: unexpected end of data"
+          },
+          {
+            "test_id": "benchmarks.streamparse-006.evaluation.test_issue::test_quarantine_advances_byte_offset_for_subsequent_records",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "AssertionError: assert 0 == 10\n +  where 0 = QuarantinedRecord(line_number=2, byte_offset=0, raw_line='{malformed_json}', reason='Expecting property name enclosed in double quotes: line 1 column 2 (char 1)').byte_offset\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/streamparse-006/evaluation/test_issue.py:30: in test_quarantine_advances_byte_offset_for_subsequent_records\n    assert summary.quarantined[0].byte_offset == 10\nE   AssertionError: assert 0 == 10\nE    +  where 0 = QuarantinedRecord(line_number=2, byte_offset=0, raw_line='{malformed_json}', reason='Expecting property name enclosed in double quotes: line 1 column 2 (char 1)').byte_offset"
+          }
+        ],
+        "stdout": "FF                                                                       [100%]\n=================================== FAILURES ===================================\n______________ test_multibyte_utf8_split_across_small_byte_chunks ______________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/streamparse-006/evaluation/test_issue.py:13: in test_multibyte_utf8_split_across_small_byte_chunks\n    summary = reader.parse_chunks(chunks)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsrc/streamparse/reader.py:36: in parse_chunks\n    text_buf += chunk.decode(\"utf-8\")\n                ^^^^^^^^^^^^^^^^^^^^^\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe2 in position 2: unexpected end of data\n_________ test_quarantine_advances_byte_offset_for_subsequent_records __________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/streamparse-006/evaluation/test_issue.py:30: in test_quarantine_advances_byte_offset_for_subsequent_records\n    assert summary.quarantined[0].byte_offset == 10\nE   AssertionError: assert 0 == 10\nE    +  where 0 = QuarantinedRecord(line_number=2, byte_offset=0, raw_line='{malformed_json}', reason='Expecting property name enclosed in double quotes: line 1 column 2 (char 1)').byte_offset\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/streamparse-006/evaluation/test_issue.py::test_multibyte_utf8_split_across_small_byte_chunks\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/streamparse-006/evaluation/test_issue.py::test_quarantine_advances_byte_offset_for_subsequent_records\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1000.74,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.streamparse-006.test_private::test_crlf_split_across_chunks_and_skip_policy_offsets",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "assert 0 == 30\n +  where 0 = ParsedRecord(line_number=3, byte_offset=0, data={'id': 3}).byte_offset\n +  and   30 = len(b'{\"id\": 1}\\r\\n{\"missing_id\": 2}\\r\\n')\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/streamparse-006/test_private.py:16: in test_crlf_split_across_chunks_and_skip_policy_offsets\n    assert summary.records[1].byte_offset == len(b'{\"id\": 1}\\r\\n{\"missing_id\": 2}\\r\\n')\nE   assert 0 == 30\nE    +  where 0 = ParsedRecord(line_number=3, byte_offset=0, data={'id': 3}).byte_offset\nE    +  and   30 = len(b'{\"id\": 1}\\r\\n{\"missing_id\": 2}\\r\\n')"
+          }
+        ],
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n____________ test_crlf_split_across_chunks_and_skip_policy_offsets _____________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/streamparse-006/test_private.py:16: in test_crlf_split_across_chunks_and_skip_policy_offsets\n    assert summary.records[1].byte_offset == len(b'{\"id\": 1}\\r\\n{\"missing_id\": 2}\\r\\n')\nE   assert 0 == 30\nE    +  where 0 = ParsedRecord(line_number=3, byte_offset=0, data={'id': 3}).byte_offset\nE    +  and   30 = len(b'{\"id\": 1}\\r\\n{\"missing_id\": 2}\\r\\n')\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/streamparse-006/test_private.py::test_crlf_split_across_chunks_and_skip_policy_offsets\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "NO_CHANGES",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": false,
+      "private_passed": false,
+      "failure_classification": "NO_OP_BASELINE_UNRESOLVED",
+      "explanation": "Unmodified repository baseline: PASS_TO_PASS=3/3, FAIL_TO_PASS=0/2.",
+      "duration_ms": 3003.94,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:22.208645+00:00",
+      "completed_at": "2026-10-21T12:38:25.212615+00:00",
+      "agent_logs": "No-op baseline adapter executed on streamparse-006; returning empty patch."
+    },
+    {
+      "run_id": "run-1792586294-2a71db",
+      "task_id": "ttlcachex-002",
+      "title": "Fix stale expired entries in get_many/__contains__ and preserve TTL on keep_ttl=True",
+      "difficulty": "easy",
+      "category": "cache_expiration",
+      "agent_id": "noop-baseline",
+      "provider": "offline",
+      "model": "noop",
+      "sandbox_mode": "subprocess",
+      "base_revision": "5ada1827a6cd2bcd1a36edb56475f33cff359b0a",
+      "test_suite_hash": "bfea2858738411a0af6eaf8686ffd6915d5e89ab08d79e88684e70514c22d82a",
+      "patch_diff": "",
+      "patch_validation": {
+        "is_empty": true,
+        "applies_cleanly": false,
+        "integrity_passed": false,
+        "patch_sha256": "",
+        "modified_files": [],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 0,
+        "removed_lines": 0,
+        "errors": [
+          "Patch is empty (no changes submitted)."
+        ]
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 929.33,
+        "passed_count": 4,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 4,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_single_get_set_and_expiration",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 3.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_lru_eviction_order",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 3.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_delete_and_clear",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 3.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_invalid_maxsize",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "....                                                                     [100%]\n4 passed in 0.09s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1286.44,
+        "passed_count": 0,
+        "failed_count": 3,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.ttlcachex-002.evaluation.test_issue::test_get_many_filters_expired_entries_and_updates_stats",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 5.0,
+            "message": "AssertionError: assert {'short': 'va...': 'val_long'} == {'long': 'val_long'}\n  \n  Omitting 1 identical items, use -vv to show\n  Left contains 1 more item:\n  {'short': 'val_short'}\n  Use -v to get more diff\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/ttlcachex-002/evaluation/test_issue.py:14: in test_get_many_filters_expired_entries_and_updates_stats\n    assert batch == {\"long\": \"val_long\"}\nE   AssertionError: assert {'short': 'va...': 'val_long'} == {'long': 'val_long'}\nE     \nE     Omitting 1 identical items, use -vv to show\nE     Left contains 1 more item:\nE     {'short': 'val_short'}\nE     Use -v to get more diff"
+          },
+          {
+            "test_id": "benchmarks.ttlcachex-002.evaluation.test_issue::test_contains_respects_ttl_expiration",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "AssertionError: assert ('token' in <ttlcachex.cache.TTLCache object at 0x761e29704cd0>) is False\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/ttlcachex-002/evaluation/test_issue.py:26: in test_contains_respects_ttl_expiration\n    assert (\"token\" in cache) is False\nE   AssertionError: assert ('token' in <ttlcachex.cache.TTLCache object at 0x761e29704cd0>) is False"
+          },
+          {
+            "test_id": "benchmarks.ttlcachex-002.evaluation.test_issue::test_set_with_keep_ttl_preserves_remaining_lifetime",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "AssertionError: assert {'count': 2} is None\n +  where {'count': 2} = get('session')\n +    where get = <ttlcachex.cache.TTLCache object at 0x761e29705950>.get\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/ttlcachex-002/evaluation/test_issue.py:39: in test_set_with_keep_ttl_preserves_remaining_lifetime\n    assert cache.get(\"session\") is None\nE   AssertionError: assert {'count': 2} is None\nE    +  where {'count': 2} = get('session')\nE    +    where get = <ttlcachex.cache.TTLCache object at 0x761e29705950>.get"
+          }
+        ],
+        "stdout": "FFF                                                                      [100%]\n=================================== FAILURES ===================================\n___________ test_get_many_filters_expired_entries_and_updates_stats ____________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/ttlcachex-002/evaluation/test_issue.py:14: in test_get_many_filters_expired_entries_and_updates_stats\n    assert batch == {\"long\": \"val_long\"}\nE   AssertionError: assert {'short': 'va...': 'val_long'} == {'long': 'val_long'}\nE     \nE     Omitting 1 identical items, use -vv to show\nE     Left contains 1 more item:\nE     {'short': 'val_short'}\nE     Use -v to get more diff\n____________________ test_contains_respects_ttl_expiration _____________________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/ttlcachex-002/evaluation/test_issue.py:26: in test_contains_respects_ttl_expiration\n    assert (\"token\" in cache) is False\nE   AssertionError: assert ('token' in <ttlcachex.cache.TTLCache object at 0x761e29704cd0>) is False\n_____________ test_set_with_keep_ttl_preserves_remaining_lifetime ______________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/ttlcachex-002/evaluation/test_issue.py:39: in test_set_with_keep_ttl_preserves_remaining_lifetime\n    assert cache.get(\"session\") is None\nE   AssertionError: assert {'count': 2} is None\nE    +  where {'count': 2} = get('session')\nE    +    where get = <ttlcachex.cache.TTLCache object at 0x761e29705950>.get\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/ttlcachex-002/evaluation/test_issue.py::test_get_many_filters_expired_entries_and_updates_stats\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/ttlcachex-002/evaluation/test_issue.py::test_contains_respects_ttl_expiration\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/ttlcachex-002/evaluation/test_issue.py::test_set_with_keep_ttl_preserves_remaining_lifetime\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 861.42,
+        "passed_count": 2,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.ttlcachex-002.test_private::test_keep_ttl_on_already_expired_key_uses_new_default_ttl",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "private_evaluations.ttlcachex-002.test_private::test_get_many_stores_none_values_without_confusion",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "..                                                                       [100%]\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "NO_CHANGES",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": false,
+      "private_passed": true,
+      "failure_classification": "NO_OP_BASELINE_UNRESOLVED",
+      "explanation": "Unmodified repository baseline: PASS_TO_PASS=4/4, FAIL_TO_PASS=0/3.",
+      "duration_ms": 3192.29,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:22.396162+00:00",
+      "completed_at": "2026-10-21T12:38:25.590521+00:00",
+      "agent_logs": "No-op baseline adapter executed on ttlcachex-002; returning empty patch."
+    }
+  ]
+}

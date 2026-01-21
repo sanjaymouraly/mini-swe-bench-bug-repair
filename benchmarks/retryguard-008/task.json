@@ -1,0 +1,35 @@
+{
+  "task_id": "retryguard-008",
+  "title": "Fix max_retries off-by-one, Retry-After cap, non-retryable 4xx, and TokenBucket capacity ceiling",
+  "difficulty": "medium",
+  "category": "retry_ratelimit",
+  "package_name": "retryguard",
+  "summary": "RetryExecutor makes max_retries total attempts instead of 1 + max_retries, sleeps after the final failure, ignores max_backoff on Retry-After, retries non-retryable 4xx errors, and allows TokenBucketLimiter to exceed capacity.",
+  "issue_description": "# Issue: `RetryExecutor` off-by-one attempts, trailing sleep, uncapped `Retry-After`, and `TokenBucketLimiter` overflow\n\n## Description\n`retryguard` provides `RetryExecutor` and `TokenBucketLimiter`. Four bugs were reported:\n\n1. **Off-by-one attempt count & trailing sleep in `RetryExecutor.execute`**:\n   `max_retries` specifies the number of **retries after the initial attempt** (so `max_retries=0` means 1 attempt total; `max_retries=3` means up to 4 attempts total). Currently `execute()` loops `for attempt in range(self.policy.max_retries):` (making 0 attempts when `max_retries=0`!) and calls `self._sleep(delay)` even after the final failed attempt before raising `RetryExhaustedError`.\n2. **Non-retryable HTTP status codes (`400`, `401`, `403`, `404`) are retried**:\n   When `HTTPError` is raised with a status code not in `policy.retryable_status_codes` (default `{408, 429, 500, 502, 503, 504}`), `RetryExecutor` should immediately re-raise the `HTTPError` without sleeping or retrying.\n3. **`Retry-After` header ignores `policy.max_backoff` cap**:\n   When `HTTPError(status_code=429, retry_after=300.0)` is caught, `compute_delay` uses `retry_after` directly without clamping to `min(retry_after, self.policy.max_backoff)`.\n4. **`TokenBucketLimiter` uses `time.time()` instead of injected clock and exceeds `capacity`**:\n   `_refill()` uses `time.time()` instead of `self._clock()` and adds refilled tokens without clamping to `min(self.capacity, self._tokens + added)`.\n\n## Expected Behavior\n- `max_retries=N` runs 1 initial attempt plus up to `N` retries, sleeping only between attempts (never after the last failed attempt).\n- Non-retryable `HTTPError` status codes re-raise immediately on the first failure.\n- `Retry-After` backoff is clamped to `[0.0, policy.max_backoff]`.\n- `TokenBucketLimiter` uses `self._clock()` and never accumulates more than `self.capacity` tokens.\n",
+  "reproduction_instructions": "pytest evaluation/test_issue.py -q",
+  "pinned_environment": {
+    "python_version": "3.12",
+    "dependencies": [
+      "pytest>=8.3.0"
+    ],
+    "test_command": "pytest -q",
+    "docker_image": "software-bug-repair-benchmark-runner:latest"
+  },
+  "base_revision": "5b34c261230cf918d49f7f3cd3a0cefb94c17494",
+  "allowed_files": [
+    "src/retryguard/executor.py",
+    "src/retryguard/limiter.py",
+    "src/retryguard/policy.py"
+  ],
+  "pass_to_pass_tests": [
+    "tests/test_existing.py"
+  ],
+  "fail_to_pass_tests": [
+    "evaluation/test_issue.py"
+  ],
+  "private_tests": [
+    "private_evaluations/retryguard-008/test_private.py"
+  ],
+  "test_suite_hash": "73c3163b895370feff02297e612324a557401a6d2e361f127861d12a943e3ab9",
+  "reference_patch_hash": "a45b8bdac27edf9aa3a0e278a7b82f3ff7be1b0a76cab63369a97b3c8ebc6a54"
+}

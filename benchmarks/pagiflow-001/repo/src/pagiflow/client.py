@@ -1,0 +1,69 @@
+"""Paginated API collector implementation."""
+
+from __future__ import annotations
+
+from collections.abc import Callable
+from typing import Any
+
+from pagiflow.cursor import normalize_envelope
+from pagiflow.models import PaginationConfig, PaginationError
+
+FetchFunc = Callable[[str | int | None], dict[str, Any]]
+TransformFunc = Callable[[dict[str, Any]], dict[str, Any]]
+
+
+class PaginatedCollector:
+    """Collects items across paginated API responses with deduplication and cycle protection."""
+
+    def __init__(
+        self,
+        config: PaginationConfig | None = None,
+        transform: TransformFunc | None = None,
+    ) -> None:
+        self.config = config or PaginationConfig()
+        self.transform = transform
+        self.pages_fetched: int = 0
+
+    def collect_all(
+        self,
+        fetch_page: FetchFunc,
+        initial_cursor: str | int | None = None,
+    ) -> list[dict[str, Any]]:
+        collected: list[dict[str, Any]] = []
+        seen_ids: set[Any] = set()
+        seen_cursors: set[str] = set()
+        cursor: str | int | None = initial_cursor
+        self.pages_fetched = 0
+
+        while self.pages_fetched < self.config.max_pages:
+            if cursor is not None and cursor != "":
+                cursor_key = f"{type(cursor).__name__}:{cursor}"
+                if self.config.detect_cycles and cursor_key in seen_cursors:
+                    raise PaginationError(f"Detected pagination cursor cycle at {cursor!r}")
+                seen_cursors.add(cursor_key)
+
+            raw = fetch_page(cursor)
+            envelope = normalize_envelope(raw)
+            self.pages_fetched += 1
+
+            # BUG 1: Unconditionally breaks on empty items, ignoring stop_on_empty_page=False
+            if not envelope.items:
+                break
+
+            for item in envelope.items:
+                processed = self.transform(item) if self.transform else item
+                if self.config.deduplicate and self.config.id_key and self.config.id_key in processed:
+                    item_id = processed[self.config.id_key]
+                    if item_id in seen_ids:
+                        continue
+                    seen_ids.add(item_id)
+                collected.append(processed)
+
+            # BUG 2 & 3: Ignores explicit has_more=False when next_cursor is echoed,
+            # and uses truthiness `if not envelope.next_cursor:` which fails on integer 0!
+            if not envelope.next_cursor:
+                break
+
+            cursor = envelope.next_cursor
+
+        return collected

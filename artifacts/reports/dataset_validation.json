@@ -1,0 +1,839 @@
+{
+  "benchmark_version": "1.0.0",
+  "timestamp": "2026-10-21T12:32:23.344269+00:00",
+  "total_tasks": 12,
+  "valid_tasks": 12,
+  "invalid_tasks": 0,
+  "all_passed": true,
+  "total_duration_ms": 183663.89,
+  "task_reports": [
+    {
+      "task_id": "atomicvault-012",
+      "title": "Fix mid-write target loss, orphan temp cleanup, crash recovery, and path traversal in AtomicVault",
+      "difficulty": "hard",
+      "category": "atomic_file_ops",
+      "passed": true,
+      "base_revision": "8c37ed974430c739b689336b705e1e717dfee99b",
+      "test_suite_hash": "feb6bda2a00c0d6ba328dea3c4ee89123a3b3669cd84e34c6160c71885d1c33d",
+      "reference_patch_hash": "cce0d8243c3936f25670bc9944dd9741e679e59d34b6dbf755754f179a16c696",
+      "checks": [
+        {
+          "check_id": "1_repo_installs_and_runs",
+          "description": "Original repository imports and executes test suites cleanly",
+          "passed": true,
+          "details": "Collected 1 P2P and 3 F2P tests",
+          "duration_ms": 5253.73
+        },
+        {
+          "check_id": "2_pass_to_pass_on_buggy",
+          "description": "Pre-existing preservation tests (PASS_TO_PASS) pass on buggy revision",
+          "passed": true,
+          "details": "Passed 1/1",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "3_fail_to_pass_fails_before_repair",
+          "description": "Issue-specific tests (FAIL_TO_PASS) fail on buggy revision",
+          "passed": true,
+          "details": "Failed 3/3 F2P tests on buggy code",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "4_reference_patch_applies_cleanly",
+          "description": "Reference patch applies cleanly to base revision and passes integrity",
+          "passed": true,
+          "details": "Modified ['src/atomicvault/storage.py'], +55/-13",
+          "duration_ms": 3175.11
+        },
+        {
+          "check_id": "5_reference_patch_passes_all_tests",
+          "description": "Reference patch resolves issue, preservation, and private evaluation tests",
+          "passed": true,
+          "details": "Task resolved without regressions: FAIL_TO_PASS=3/3, PASS_TO_PASS=1/1, PRIVATE=1/1.",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "6_noop_submission_rejected",
+          "description": "No-op submission does not resolve the task",
+          "passed": true,
+          "details": "No-op resolved=False, status=NO_CHANGES",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "7_negative_patches_rejected",
+          "description": "Incomplete and regression-inducing patches are rejected accurately",
+          "passed": true,
+          "details": "incomplete: UNRESOLVED, regression: REGRESSION (has_regression=True)",
+          "duration_ms": 5831.05
+        },
+        {
+          "check_id": "8_repeat_run_stability",
+          "description": "Tests are deterministic and stable across repeated isolated runs",
+          "passed": true,
+          "details": "Verified across 2 isolated runs",
+          "duration_ms": 3282.25
+        }
+      ],
+      "duration_ms": 17542.3
+    },
+    {
+      "task_id": "chronoshift-005",
+      "title": "Fix DST wall-clock drift, nonexistent spring-forward times, and UTC elapsed calculation",
+      "difficulty": "hard",
+      "category": "timezone_dst",
+      "passed": true,
+      "base_revision": "2108290bab248cbb1ef6bba9d92d0f4f0a96c894",
+      "test_suite_hash": "314b86cb839ed3c60cd8114b7bd8f69984bc2510a085c0e781c7bad452fc37f6",
+      "reference_patch_hash": "b38a99f372eb4379375747a1b4fe7bef5e6556d1d040b4957169888ac5a5d5a9",
+      "checks": [
+        {
+          "check_id": "1_repo_installs_and_runs",
+          "description": "Original repository imports and executes test suites cleanly",
+          "passed": true,
+          "details": "Collected 3 P2P and 2 F2P tests",
+          "duration_ms": 3207.06
+        },
+        {
+          "check_id": "2_pass_to_pass_on_buggy",
+          "description": "Pre-existing preservation tests (PASS_TO_PASS) pass on buggy revision",
+          "passed": true,
+          "details": "Passed 3/3",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "3_fail_to_pass_fails_before_repair",
+          "description": "Issue-specific tests (FAIL_TO_PASS) fail on buggy revision",
+          "passed": true,
+          "details": "Failed 2/2 F2P tests on buggy code",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "4_reference_patch_applies_cleanly",
+          "description": "Reference patch applies cleanly to base revision and passes integrity",
+          "passed": true,
+          "details": "Modified ['src/chronoshift/scheduler.py'], +34/-13",
+          "duration_ms": 2909.51
+        },
+        {
+          "check_id": "5_reference_patch_passes_all_tests",
+          "description": "Reference patch resolves issue, preservation, and private evaluation tests",
+          "passed": true,
+          "details": "Task resolved without regressions: FAIL_TO_PASS=2/2, PASS_TO_PASS=3/3, PRIVATE=1/1.",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "6_noop_submission_rejected",
+          "description": "No-op submission does not resolve the task",
+          "passed": true,
+          "details": "No-op resolved=False, status=NO_CHANGES",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "7_negative_patches_rejected",
+          "description": "Incomplete and regression-inducing patches are rejected accurately",
+          "passed": true,
+          "details": "incomplete: UNRESOLVED, regression: REGRESSION (has_regression=True)",
+          "duration_ms": 6230.72
+        },
+        {
+          "check_id": "8_repeat_run_stability",
+          "description": "Tests are deterministic and stable across repeated isolated runs",
+          "passed": true,
+          "details": "Verified across 2 isolated runs",
+          "duration_ms": 2773.79
+        }
+      ],
+      "duration_ms": 15121.31
+    },
+    {
+      "task_id": "cliwarden-010",
+      "title": "Fix --dry-run validation bypass, stderr usage error routing, and POSIX exit codes",
+      "difficulty": "easy",
+      "category": "cli_validation",
+      "passed": true,
+      "base_revision": "f3f538a410816b18ee4a17825f24d125fc4987cf",
+      "test_suite_hash": "7d44d8b91fb37a762a847a3f74dc4f29bd4683a9fb16a05e1bfe71e92ad48187",
+      "reference_patch_hash": "052a8c7c237790c9ff72970fc062966c840fe4c3249f23c5dc6eeca1aa1e2b02",
+      "checks": [
+        {
+          "check_id": "1_repo_installs_and_runs",
+          "description": "Original repository imports and executes test suites cleanly",
+          "passed": true,
+          "details": "Collected 2 P2P and 2 F2P tests",
+          "duration_ms": 2859.17
+        },
+        {
+          "check_id": "2_pass_to_pass_on_buggy",
+          "description": "Pre-existing preservation tests (PASS_TO_PASS) pass on buggy revision",
+          "passed": true,
+          "details": "Passed 2/2",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "3_fail_to_pass_fails_before_repair",
+          "description": "Issue-specific tests (FAIL_TO_PASS) fail on buggy revision",
+          "passed": true,
+          "details": "Failed 2/2 F2P tests on buggy code",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "4_reference_patch_applies_cleanly",
+          "description": "Reference patch applies cleanly to base revision and passes integrity",
+          "passed": true,
+          "details": "Modified ['src/cliwarden/runner.py'], +23/-16",
+          "duration_ms": 2927.17
+        },
+        {
+          "check_id": "5_reference_patch_passes_all_tests",
+          "description": "Reference patch resolves issue, preservation, and private evaluation tests",
+          "passed": true,
+          "details": "Task resolved without regressions: FAIL_TO_PASS=2/2, PASS_TO_PASS=2/2, PRIVATE=1/1.",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "6_noop_submission_rejected",
+          "description": "No-op submission does not resolve the task",
+          "passed": true,
+          "details": "No-op resolved=False, status=NO_CHANGES",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "7_negative_patches_rejected",
+          "description": "Incomplete and regression-inducing patches are rejected accurately",
+          "passed": true,
+          "details": "incomplete: UNRESOLVED, regression: REGRESSION (has_regression=True)",
+          "duration_ms": 5977.13
+        },
+        {
+          "check_id": "8_repeat_run_stability",
+          "description": "Tests are deterministic and stable across repeated isolated runs",
+          "passed": true,
+          "details": "Verified across 2 isolated runs",
+          "duration_ms": 2885.26
+        }
+      ],
+      "duration_ms": 14648.83
+    },
+    {
+      "task_id": "concurqueue-003",
+      "title": "Fix check-then-act race condition and lost wakeups in KeyedResourcePool",
+      "difficulty": "hard",
+      "category": "concurrency_races",
+      "passed": true,
+      "base_revision": "4b0b1a5ad48b6fc87119cbcff1d3830437333942",
+      "test_suite_hash": "b73b6a3d5c5e38293586e87722a29f3877e5fc83174e85662d8a65779e3838ef",
+      "reference_patch_hash": "3bacda94f8859eaa12413936d074733787f4ba30f26ae159bc337bbf15113e39",
+      "checks": [
+        {
+          "check_id": "1_repo_installs_and_runs",
+          "description": "Original repository imports and executes test suites cleanly",
+          "passed": true,
+          "details": "Collected 3 P2P and 2 F2P tests",
+          "duration_ms": 3449.2
+        },
+        {
+          "check_id": "2_pass_to_pass_on_buggy",
+          "description": "Pre-existing preservation tests (PASS_TO_PASS) pass on buggy revision",
+          "passed": true,
+          "details": "Passed 3/3",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "3_fail_to_pass_fails_before_repair",
+          "description": "Issue-specific tests (FAIL_TO_PASS) fail on buggy revision",
+          "passed": true,
+          "details": "Failed 1/2 F2P tests on buggy code",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "4_reference_patch_applies_cleanly",
+          "description": "Reference patch applies cleanly to base revision and passes integrity",
+          "passed": true,
+          "details": "Modified ['src/concurqueue/pool.py'], +27/-23",
+          "duration_ms": 3308.23
+        },
+        {
+          "check_id": "5_reference_patch_passes_all_tests",
+          "description": "Reference patch resolves issue, preservation, and private evaluation tests",
+          "passed": true,
+          "details": "Task resolved without regressions: FAIL_TO_PASS=2/2, PASS_TO_PASS=3/3, PRIVATE=1/1.",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "6_noop_submission_rejected",
+          "description": "No-op submission does not resolve the task",
+          "passed": true,
+          "details": "No-op resolved=False, status=NO_CHANGES",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "7_negative_patches_rejected",
+          "description": "Incomplete and regression-inducing patches are rejected accurately",
+          "passed": true,
+          "details": "incomplete: UNRESOLVED, regression: REGRESSION (has_regression=True)",
+          "duration_ms": 6206.74
+        },
+        {
+          "check_id": "8_repeat_run_stability",
+          "description": "Tests are deterministic and stable across repeated isolated runs",
+          "passed": true,
+          "details": "Verified across 2 isolated runs",
+          "duration_ms": 3066.39
+        }
+      ],
+      "duration_ms": 16030.69
+    },
+    {
+      "task_id": "confighier-007",
+      "title": "Fix deep merge sibling wiping, falsy CLI overrides, and single-underscore env keys",
+      "difficulty": "easy",
+      "category": "config_precedence",
+      "passed": true,
+      "base_revision": "80e78ad4aab07c16759f2c1458688dc8b9e6d4a9",
+      "test_suite_hash": "b5e304895f8e9cd5a73a1fe68a12f43c985101fa36fbeb9d26114ab0ac7de4dd",
+      "reference_patch_hash": "d99a95815603a4b4ca3d61f87ae8a24697ea96ffa0457521a878da40ad976418",
+      "checks": [
+        {
+          "check_id": "1_repo_installs_and_runs",
+          "description": "Original repository imports and executes test suites cleanly",
+          "passed": true,
+          "details": "Collected 2 P2P and 1 F2P tests",
+          "duration_ms": 2863.48
+        },
+        {
+          "check_id": "2_pass_to_pass_on_buggy",
+          "description": "Pre-existing preservation tests (PASS_TO_PASS) pass on buggy revision",
+          "passed": true,
+          "details": "Passed 2/2",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "3_fail_to_pass_fails_before_repair",
+          "description": "Issue-specific tests (FAIL_TO_PASS) fail on buggy revision",
+          "passed": true,
+          "details": "Failed 1/1 F2P tests on buggy code",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "4_reference_patch_applies_cleanly",
+          "description": "Reference patch applies cleanly to base revision and passes integrity",
+          "passed": true,
+          "details": "Modified ['src/confighier/loader.py'], +10/-8",
+          "duration_ms": 2938.68
+        },
+        {
+          "check_id": "5_reference_patch_passes_all_tests",
+          "description": "Reference patch resolves issue, preservation, and private evaluation tests",
+          "passed": true,
+          "details": "Task resolved without regressions: FAIL_TO_PASS=1/1, PASS_TO_PASS=2/2, PRIVATE=1/1.",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "6_noop_submission_rejected",
+          "description": "No-op submission does not resolve the task",
+          "passed": true,
+          "details": "No-op resolved=False, status=NO_CHANGES",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "7_negative_patches_rejected",
+          "description": "Incomplete and regression-inducing patches are rejected accurately",
+          "passed": true,
+          "details": "incomplete: UNRESOLVED, regression: REGRESSION (has_regression=True)",
+          "duration_ms": 5650.2
+        },
+        {
+          "check_id": "8_repeat_run_stability",
+          "description": "Tests are deterministic and stable across repeated isolated runs",
+          "passed": true,
+          "details": "Verified across 2 isolated runs",
+          "duration_ms": 2796.78
+        }
+      ],
+      "duration_ms": 14249.25
+    },
+    {
+      "task_id": "idempobox-011",
+      "title": "Fix idempotency payload mismatch detection, canonical fingerprinting, and failed lock cleanup",
+      "difficulty": "hard",
+      "category": "idempotency",
+      "passed": true,
+      "base_revision": "62ebe35109c0fa97d790cecb90be2d7156c13e1f",
+      "test_suite_hash": "f59f0a9866b5430ceacc1c19f3ef7cdf886c70c950994ebb7a8b06b7ad2a7892",
+      "reference_patch_hash": "7eb1350e8453142c73ad53adf040f6e71f57259a341d95aed490c33eaff2b248",
+      "checks": [
+        {
+          "check_id": "1_repo_installs_and_runs",
+          "description": "Original repository imports and executes test suites cleanly",
+          "passed": true,
+          "details": "Collected 2 P2P and 3 F2P tests",
+          "duration_ms": 3110.31
+        },
+        {
+          "check_id": "2_pass_to_pass_on_buggy",
+          "description": "Pre-existing preservation tests (PASS_TO_PASS) pass on buggy revision",
+          "passed": true,
+          "details": "Passed 2/2",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "3_fail_to_pass_fails_before_repair",
+          "description": "Issue-specific tests (FAIL_TO_PASS) fail on buggy revision",
+          "passed": true,
+          "details": "Failed 2/3 F2P tests on buggy code",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "4_reference_patch_applies_cleanly",
+          "description": "Reference patch applies cleanly to base revision and passes integrity",
+          "passed": true,
+          "details": "Modified ['src/idempobox/processor.py'], +30/-10",
+          "duration_ms": 2801.28
+        },
+        {
+          "check_id": "5_reference_patch_passes_all_tests",
+          "description": "Reference patch resolves issue, preservation, and private evaluation tests",
+          "passed": true,
+          "details": "Task resolved without regressions: FAIL_TO_PASS=3/3, PASS_TO_PASS=2/2, PRIVATE=1/1.",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "6_noop_submission_rejected",
+          "description": "No-op submission does not resolve the task",
+          "passed": true,
+          "details": "No-op resolved=False, status=NO_CHANGES",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "7_negative_patches_rejected",
+          "description": "Incomplete and regression-inducing patches are rejected accurately",
+          "passed": true,
+          "details": "incomplete: UNRESOLVED, regression: REGRESSION (has_regression=True)",
+          "duration_ms": 8113.26
+        },
+        {
+          "check_id": "8_repeat_run_stability",
+          "description": "Tests are deterministic and stable across repeated isolated runs",
+          "passed": true,
+          "details": "Verified across 2 isolated runs",
+          "duration_ms": 2819.49
+        }
+      ],
+      "duration_ms": 16844.46
+    },
+    {
+      "task_id": "ledgersql-004",
+      "title": "Fix atomic batch rollback and savepoint isolation in SQLiteLedger.execute_batch",
+      "difficulty": "medium",
+      "category": "sqlite_transactions",
+      "passed": true,
+      "base_revision": "2c11583af21ce5690889725dcd1116bcb22ffcbe",
+      "test_suite_hash": "d98952270012d617f417f58bc4ba8fc5ff15c881c5d908d586fa2d299eb411bf",
+      "reference_patch_hash": "4d661666880c8729abd0e23dcab51afa67b13b43feaeadb4573a2bf27181dd04",
+      "checks": [
+        {
+          "check_id": "1_repo_installs_and_runs",
+          "description": "Original repository imports and executes test suites cleanly",
+          "passed": true,
+          "details": "Collected 2 P2P and 2 F2P tests",
+          "duration_ms": 3077.61
+        },
+        {
+          "check_id": "2_pass_to_pass_on_buggy",
+          "description": "Pre-existing preservation tests (PASS_TO_PASS) pass on buggy revision",
+          "passed": true,
+          "details": "Passed 2/2",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "3_fail_to_pass_fails_before_repair",
+          "description": "Issue-specific tests (FAIL_TO_PASS) fail on buggy revision",
+          "passed": true,
+          "details": "Failed 2/2 F2P tests on buggy code",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "4_reference_patch_applies_cleanly",
+          "description": "Reference patch applies cleanly to base revision and passes integrity",
+          "passed": true,
+          "details": "Modified ['src/ledgersql/ledger.py'], +32/-20",
+          "duration_ms": 3099.23
+        },
+        {
+          "check_id": "5_reference_patch_passes_all_tests",
+          "description": "Reference patch resolves issue, preservation, and private evaluation tests",
+          "passed": true,
+          "details": "Task resolved without regressions: FAIL_TO_PASS=2/2, PASS_TO_PASS=2/2, PRIVATE=2/2.",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "6_noop_submission_rejected",
+          "description": "No-op submission does not resolve the task",
+          "passed": true,
+          "details": "No-op resolved=False, status=NO_CHANGES",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "7_negative_patches_rejected",
+          "description": "Incomplete and regression-inducing patches are rejected accurately",
+          "passed": true,
+          "details": "incomplete: UNRESOLVED, regression: REGRESSION (has_regression=True)",
+          "duration_ms": 5909.74
+        },
+        {
+          "check_id": "8_repeat_run_stability",
+          "description": "Tests are deterministic and stable across repeated isolated runs",
+          "passed": true,
+          "details": "Verified across 2 isolated runs",
+          "duration_ms": 3068.41
+        }
+      ],
+      "duration_ms": 15155.1
+    },
+    {
+      "task_id": "pagiflow-001",
+      "title": "Fix cursor=0 falsy termination and has_more=False echo loops in PaginatedCollector",
+      "difficulty": "easy",
+      "category": "pagination_api",
+      "passed": true,
+      "base_revision": "164e51624d3e0b4cf9af0d086e8a5d4137ddae90",
+      "test_suite_hash": "6d28c10cb437b6a4d2269ccc9b43fec59b601fc1145b358c4ea5577a8af9e2b3",
+      "reference_patch_hash": "9a8bc414ec58dc51686af94d4b23441887dbd5bcf7965cdd9cc176da084fff7f",
+      "checks": [
+        {
+          "check_id": "1_repo_installs_and_runs",
+          "description": "Original repository imports and executes test suites cleanly",
+          "passed": true,
+          "details": "Collected 4 P2P and 3 F2P tests",
+          "duration_ms": 3278.61
+        },
+        {
+          "check_id": "2_pass_to_pass_on_buggy",
+          "description": "Pre-existing preservation tests (PASS_TO_PASS) pass on buggy revision",
+          "passed": true,
+          "details": "Passed 4/4",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "3_fail_to_pass_fails_before_repair",
+          "description": "Issue-specific tests (FAIL_TO_PASS) fail on buggy revision",
+          "passed": true,
+          "details": "Failed 3/3 F2P tests on buggy code",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "4_reference_patch_applies_cleanly",
+          "description": "Reference patch applies cleanly to base revision and passes integrity",
+          "passed": true,
+          "details": "Modified ['src/pagiflow/client.py'], +14/-6",
+          "duration_ms": 2897.51
+        },
+        {
+          "check_id": "5_reference_patch_passes_all_tests",
+          "description": "Reference patch resolves issue, preservation, and private evaluation tests",
+          "passed": true,
+          "details": "Task resolved without regressions: FAIL_TO_PASS=3/3, PASS_TO_PASS=4/4, PRIVATE=2/2.",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "6_noop_submission_rejected",
+          "description": "No-op submission does not resolve the task",
+          "passed": true,
+          "details": "No-op resolved=False, status=NO_CHANGES",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "7_negative_patches_rejected",
+          "description": "Incomplete and regression-inducing patches are rejected accurately",
+          "passed": true,
+          "details": "incomplete: UNRESOLVED, regression: REGRESSION (has_regression=True)",
+          "duration_ms": 5995.39
+        },
+        {
+          "check_id": "8_repeat_run_stability",
+          "description": "Tests are deterministic and stable across repeated isolated runs",
+          "passed": true,
+          "details": "Verified across 2 isolated runs",
+          "duration_ms": 2846.31
+        }
+      ],
+      "duration_ms": 15017.95
+    },
+    {
+      "task_id": "retryguard-008",
+      "title": "Fix max_retries off-by-one, Retry-After cap, non-retryable 4xx, and TokenBucket capacity ceiling",
+      "difficulty": "medium",
+      "category": "retry_ratelimit",
+      "passed": true,
+      "base_revision": "5b34c261230cf918d49f7f3cd3a0cefb94c17494",
+      "test_suite_hash": "73c3163b895370feff02297e612324a557401a6d2e361f127861d12a943e3ab9",
+      "reference_patch_hash": "a45b8bdac27edf9aa3a0e278a7b82f3ff7be1b0a76cab63369a97b3c8ebc6a54",
+      "checks": [
+        {
+          "check_id": "1_repo_installs_and_runs",
+          "description": "Original repository imports and executes test suites cleanly",
+          "passed": true,
+          "details": "Collected 3 P2P and 3 F2P tests",
+          "duration_ms": 3134.25
+        },
+        {
+          "check_id": "2_pass_to_pass_on_buggy",
+          "description": "Pre-existing preservation tests (PASS_TO_PASS) pass on buggy revision",
+          "passed": true,
+          "details": "Passed 3/3",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "3_fail_to_pass_fails_before_repair",
+          "description": "Issue-specific tests (FAIL_TO_PASS) fail on buggy revision",
+          "passed": true,
+          "details": "Failed 3/3 F2P tests on buggy code",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "4_reference_patch_applies_cleanly",
+          "description": "Reference patch applies cleanly to base revision and passes integrity",
+          "passed": true,
+          "details": "Modified ['src/retryguard/executor.py', 'src/retryguard/limiter.py', 'src/retryguard/policy.py'], +20/-18",
+          "duration_ms": 3249.6
+        },
+        {
+          "check_id": "5_reference_patch_passes_all_tests",
+          "description": "Reference patch resolves issue, preservation, and private evaluation tests",
+          "passed": true,
+          "details": "Task resolved without regressions: FAIL_TO_PASS=3/3, PASS_TO_PASS=3/3, PRIVATE=1/1.",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "6_noop_submission_rejected",
+          "description": "No-op submission does not resolve the task",
+          "passed": true,
+          "details": "No-op resolved=False, status=NO_CHANGES",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "7_negative_patches_rejected",
+          "description": "Incomplete and regression-inducing patches are rejected accurately",
+          "passed": true,
+          "details": "incomplete: UNRESOLVED, regression: REGRESSION (has_regression=True)",
+          "duration_ms": 5739.29
+        },
+        {
+          "check_id": "8_repeat_run_stability",
+          "description": "Tests are deterministic and stable across repeated isolated runs",
+          "passed": true,
+          "details": "Verified across 2 isolated runs",
+          "duration_ms": 2722.73
+        }
+      ],
+      "duration_ms": 14845.98
+    },
+    {
+      "task_id": "schemaver-009",
+      "title": "Fix multi-hop v1->v3 schema migration, shared mutable defaults, and unknown field round-tripping",
+      "difficulty": "medium",
+      "category": "serialization_compat",
+      "passed": true,
+      "base_revision": "533f4da0afeb4385e97f393a9ac7fbf14bac9c67",
+      "test_suite_hash": "aa9d711f6079664db86c3378db9668aa55af215a04df73a2529a4d8b1d22c711",
+      "reference_patch_hash": "5380eff80d99da685de81dd40396bf40482fa1182bcf21797e41f96c4696d986",
+      "checks": [
+        {
+          "check_id": "1_repo_installs_and_runs",
+          "description": "Original repository imports and executes test suites cleanly",
+          "passed": true,
+          "details": "Collected 3 P2P and 3 F2P tests",
+          "duration_ms": 3090.54
+        },
+        {
+          "check_id": "2_pass_to_pass_on_buggy",
+          "description": "Pre-existing preservation tests (PASS_TO_PASS) pass on buggy revision",
+          "passed": true,
+          "details": "Passed 3/3",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "3_fail_to_pass_fails_before_repair",
+          "description": "Issue-specific tests (FAIL_TO_PASS) fail on buggy revision",
+          "passed": true,
+          "details": "Failed 3/3 F2P tests on buggy code",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "4_reference_patch_applies_cleanly",
+          "description": "Reference patch applies cleanly to base revision and passes integrity",
+          "passed": true,
+          "details": "Modified ['src/schemaver/codec.py'], +38/-20",
+          "duration_ms": 2765.16
+        },
+        {
+          "check_id": "5_reference_patch_passes_all_tests",
+          "description": "Reference patch resolves issue, preservation, and private evaluation tests",
+          "passed": true,
+          "details": "Task resolved without regressions: FAIL_TO_PASS=3/3, PASS_TO_PASS=3/3, PRIVATE=1/1.",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "6_noop_submission_rejected",
+          "description": "No-op submission does not resolve the task",
+          "passed": true,
+          "details": "No-op resolved=False, status=NO_CHANGES",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "7_negative_patches_rejected",
+          "description": "Incomplete and regression-inducing patches are rejected accurately",
+          "passed": true,
+          "details": "incomplete: UNRESOLVED, regression: REGRESSION (has_regression=True)",
+          "duration_ms": 5870.91
+        },
+        {
+          "check_id": "8_repeat_run_stability",
+          "description": "Tests are deterministic and stable across repeated isolated runs",
+          "passed": true,
+          "details": "Verified across 2 isolated runs",
+          "duration_ms": 2798.39
+        }
+      ],
+      "duration_ms": 14525.11
+    },
+    {
+      "task_id": "streamparse-006",
+      "title": "Fix multi-byte UTF-8 chunk boundary splitting and byte-offset tracking on quarantined records",
+      "difficulty": "medium",
+      "category": "streaming_parser",
+      "passed": true,
+      "base_revision": "5d9fdb6c51dea9c7ff11fa9469dc20ac6faf817a",
+      "test_suite_hash": "f84e29fc0764c754b282327f2f084cfbf2ca82d4bb1483654f9d31d75fab088a",
+      "reference_patch_hash": "6a97901b000a93f227600e0d135db1320df3bbe725990b722b43b5f9efbfea43",
+      "checks": [
+        {
+          "check_id": "1_repo_installs_and_runs",
+          "description": "Original repository imports and executes test suites cleanly",
+          "passed": true,
+          "details": "Collected 3 P2P and 2 F2P tests",
+          "duration_ms": 2862.87
+        },
+        {
+          "check_id": "2_pass_to_pass_on_buggy",
+          "description": "Pre-existing preservation tests (PASS_TO_PASS) pass on buggy revision",
+          "passed": true,
+          "details": "Passed 3/3",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "3_fail_to_pass_fails_before_repair",
+          "description": "Issue-specific tests (FAIL_TO_PASS) fail on buggy revision",
+          "passed": true,
+          "details": "Failed 2/2 F2P tests on buggy code",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "4_reference_patch_applies_cleanly",
+          "description": "Reference patch applies cleanly to base revision and passes integrity",
+          "passed": true,
+          "details": "Modified ['src/streamparse/reader.py'], +72/-39",
+          "duration_ms": 2806.08
+        },
+        {
+          "check_id": "5_reference_patch_passes_all_tests",
+          "description": "Reference patch resolves issue, preservation, and private evaluation tests",
+          "passed": true,
+          "details": "Task resolved without regressions: FAIL_TO_PASS=2/2, PASS_TO_PASS=3/3, PRIVATE=1/1.",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "6_noop_submission_rejected",
+          "description": "No-op submission does not resolve the task",
+          "passed": true,
+          "details": "No-op resolved=False, status=NO_CHANGES",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "7_negative_patches_rejected",
+          "description": "Incomplete and regression-inducing patches are rejected accurately",
+          "passed": true,
+          "details": "incomplete: UNRESOLVED, regression: REGRESSION (has_regression=True)",
+          "duration_ms": 6063.07
+        },
+        {
+          "check_id": "8_repeat_run_stability",
+          "description": "Tests are deterministic and stable across repeated isolated runs",
+          "passed": true,
+          "details": "Verified across 2 isolated runs",
+          "duration_ms": 2890.85
+        }
+      ],
+      "duration_ms": 14622.97
+    },
+    {
+      "task_id": "ttlcachex-002",
+      "title": "Fix stale expired entries in get_many/__contains__ and preserve TTL on keep_ttl=True",
+      "difficulty": "easy",
+      "category": "cache_expiration",
+      "passed": true,
+      "base_revision": "5ada1827a6cd2bcd1a36edb56475f33cff359b0a",
+      "test_suite_hash": "bfea2858738411a0af6eaf8686ffd6915d5e89ab08d79e88684e70514c22d82a",
+      "reference_patch_hash": "9dee5cdeb9d0c6f7492b7c7b8a9124f5624bfa271b68e12863057262c7944988",
+      "checks": [
+        {
+          "check_id": "1_repo_installs_and_runs",
+          "description": "Original repository imports and executes test suites cleanly",
+          "passed": true,
+          "details": "Collected 4 P2P and 3 F2P tests",
+          "duration_ms": 3477.1
+        },
+        {
+          "check_id": "2_pass_to_pass_on_buggy",
+          "description": "Pre-existing preservation tests (PASS_TO_PASS) pass on buggy revision",
+          "passed": true,
+          "details": "Passed 4/4",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "3_fail_to_pass_fails_before_repair",
+          "description": "Issue-specific tests (FAIL_TO_PASS) fail on buggy revision",
+          "passed": true,
+          "details": "Failed 3/3 F2P tests on buggy code",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "4_reference_patch_applies_cleanly",
+          "description": "Reference patch applies cleanly to base revision and passes integrity",
+          "passed": true,
+          "details": "Modified ['src/ttlcachex/cache.py'], +23/-10",
+          "duration_ms": 2867.81
+        },
+        {
+          "check_id": "5_reference_patch_passes_all_tests",
+          "description": "Reference patch resolves issue, preservation, and private evaluation tests",
+          "passed": true,
+          "details": "Task resolved without regressions: FAIL_TO_PASS=3/3, PASS_TO_PASS=4/4, PRIVATE=2/2.",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "6_noop_submission_rejected",
+          "description": "No-op submission does not resolve the task",
+          "passed": true,
+          "details": "No-op resolved=False, status=NO_CHANGES",
+          "duration_ms": 0.0
+        },
+        {
+          "check_id": "7_negative_patches_rejected",
+          "description": "Incomplete and regression-inducing patches are rejected accurately",
+          "passed": true,
+          "details": "incomplete: UNRESOLVED, regression: REGRESSION (has_regression=True)",
+          "duration_ms": 5769.02
+        },
+        {
+          "check_id": "8_repeat_run_stability",
+          "description": "Tests are deterministic and stable across repeated isolated runs",
+          "passed": true,
+          "details": "Verified across 2 isolated runs",
+          "duration_ms": 2937.69
+        }
+      ],
+      "duration_ms": 15051.72
+    }
+  ]
+}

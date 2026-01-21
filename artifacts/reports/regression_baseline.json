@@ -1,0 +1,1858 @@
+{
+  "run_id": "run-1792586317-07d0de",
+  "run_name": "Baseline (REGRESSION)",
+  "benchmark_version": "1.0.0",
+  "agent_id": "regression-baseline",
+  "provider": "offline",
+  "model": "regression",
+  "sandbox_mode": "subprocess",
+  "status": "COMPLETED",
+  "created_at": "2026-10-21T12:38:37.502843+00:00",
+  "completed_at": "2026-10-21T12:38:48.346873+00:00",
+  "total_tasks": 12,
+  "completed_tasks": 12,
+  "resolved_count": 0,
+  "resolved_rate": 0.0,
+  "issue_fix_count": 2,
+  "issue_fix_rate": 16.67,
+  "regression_count": 12,
+  "regression_free_count": 0,
+  "regression_free_rate": 0.0,
+  "patch_valid_count": 12,
+  "patch_valid_rate": 100.0,
+  "integrity_violation_count": 0,
+  "execution_failure_count": 0,
+  "total_duration_ms": 10854.06,
+  "total_tokens": null,
+  "estimated_cost_usd": null,
+  "is_demo": false,
+  "config_snapshot": {
+    "root_dir": "/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55",
+    "benchmarks_dir": "/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks",
+    "private_tests_dir": "/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations",
+    "artifacts_dir": "/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/artifacts",
+    "db_path": "/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/artifacts/bugbench.db",
+    "configured_sandbox_mode": "auto",
+    "effective_sandbox_mode": "docker",
+    "docker_image": "software-bug-repair-benchmark-runner:latest",
+    "default_timeout_seconds": 60,
+    "memory_limit_mb": 512,
+    "cpu_limit": 1.0,
+    "max_pids": 64,
+    "network_disabled": true
+  },
+  "category_breakdown": [
+    {
+      "category": "atomic_file_ops",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 1,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "cache_expiration",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 1,
+      "regressions": 1,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "cli_validation",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 1,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "concurrency_races",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 1,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "config_precedence",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 1,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "idempotency",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 1,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "pagination_api",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 1,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "retry_ratelimit",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 1,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "serialization_compat",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 1,
+      "regressions": 1,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "sqlite_transactions",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 1,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "streaming_parser",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 1,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "timezone_dst",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 1,
+      "resolved_rate": 0.0
+    }
+  ],
+  "difficulty_breakdown": [
+    {
+      "difficulty": "easy",
+      "total": 4,
+      "resolved": 0,
+      "issue_fixed": 1,
+      "regressions": 4,
+      "resolved_rate": 0.0
+    },
+    {
+      "difficulty": "medium",
+      "total": 4,
+      "resolved": 0,
+      "issue_fixed": 1,
+      "regressions": 4,
+      "resolved_rate": 0.0
+    },
+    {
+      "difficulty": "hard",
+      "total": 4,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 4,
+      "resolved_rate": 0.0
+    }
+  ],
+  "task_results": [
+    {
+      "run_id": "run-1792586317-07d0de",
+      "task_id": "atomicvault-012",
+      "title": "Fix mid-write target loss, orphan temp cleanup, crash recovery, and path traversal in AtomicVault",
+      "difficulty": "hard",
+      "category": "atomic_file_ops",
+      "agent_id": "regression-baseline",
+      "provider": "offline",
+      "model": "regression",
+      "sandbox_mode": "subprocess",
+      "base_revision": "8c37ed974430c739b689336b705e1e717dfee99b",
+      "test_suite_hash": "feb6bda2a00c0d6ba328dea3c4ee89123a3b3669cd84e34c6160c71885d1c33d",
+      "patch_diff": "diff --git a/src/atomicvault/storage.py b/src/atomicvault/storage.py\nindex b2a3320..853cb36 100644\n--- a/src/atomicvault/storage.py\n+++ b/src/atomicvault/storage.py\n@@ -3,18 +3,17 @@\n from __future__ import annotations\n \n import hashlib\n-import json\n from collections.abc import Callable\n from pathlib import Path\n from typing import BinaryIO\n \n \n class VaultSecurityError(ValueError):\n-    \"\"\"Raised when a relative path attempts to escape the vault root.\"\"\"\n+    pass\n \n \n class VaultWriteError(RuntimeError):\n-    \"\"\"Raised when an artifact write fails.\"\"\"\n+    pass\n \n \n def sha256_bytes(data: bytes) -> str:\n@@ -22,29 +21,10 @@ def sha256_bytes(data: bytes) -> str:\n \n \n class AtomicVault:\n-    \"\"\"Manages atomic file writes, backups, and a SHA-256 manifest.\"\"\"\n-\n     def __init__(self, root_dir: str | Path) -> None:\n         self.root = Path(root_dir).resolve()\n         self.root.mkdir(parents=True, exist_ok=True)\n         self.manifest_path = self.root / \"manifest.json\"\n-        if not self.manifest_path.exists():\n-            self._write_manifest({})\n-\n-    def _resolve_path(self, rel_path: str) -> Path:\n-        # BUG 1: Only checks startswith(\"..\"), allowing \"a/../../escape.txt\"!\n-        clean = rel_path.replace(\"\\\\\", \"/\").strip()\n-        if not clean or clean.startswith(\"/\") or clean.startswith(\"..\"):\n-            raise VaultSecurityError(f\"Unsafe path: {rel_path}\")\n-        return self.root / clean\n-\n-    def _read_manifest(self) -> dict[str, str]:\n-        if not self.manifest_path.exists():\n-            return {}\n-        return json.loads(self.manifest_path.read_text(encoding=\"utf-8\"))\n-\n-    def _write_manifest(self, data: dict[str, str]) -> None:\n-        self.manifest_path.write_text(json.dumps(data, indent=2, sort_keys=True), encoding=\"utf-8\")\n \n     def put(\n         self,\n@@ -52,37 +32,20 @@ class AtomicVault:\n         content_or_writer: bytes | Callable[[BinaryIO], None],\n         keep_backup: bool = True,\n     ) -> str:\n-        target = self._resolve_path(rel_path)\n+        # REGRESSION: Does not write manifest.json at all!\n+        target = (self.root / rel_path).resolve()\n+        if not target.is_relative_to(self.root):\n+            raise VaultSecurityError(\"Traversal\")\n         target.parent.mkdir(parents=True, exist_ok=True)\n-        tmp_path = target.with_name(target.name + \".tmp\")\n-        bak_path = target.with_name(target.name + \".bak\")\n-\n-        # BUG 2: Moves live target to .bak BEFORE writing tmp_path, and doesn't clean up tmp_path on failure!\n-        if keep_backup and target.exists():\n-            target.replace(bak_path)\n-\n-        try:\n-            with open(tmp_path, \"wb\") as f:\n-                if callable(content_or_writer):\n-                    content_or_writer(f)\n-                else:\n-                    f.write(content_or_writer)\n-        except Exception as exc:\n-            raise VaultWriteError(f\"Failed writing {rel_path}: {exc}\") from exc\n-\n-        tmp_path.replace(target)\n-        digest = sha256_bytes(target.read_bytes())\n-        manifest = self._read_manifest()\n-        manifest[rel_path.replace(\"\\\\\", \"/\")] = digest\n-        self._write_manifest(manifest)\n-        return digest\n+        with open(target, \"wb\") as f:\n+            if callable(content_or_writer):\n+                content_or_writer(f)\n+            else:\n+                f.write(content_or_writer)\n+        return \"\"\n \n     def get(self, rel_path: str) -> bytes:\n-        target = self._resolve_path(rel_path)\n-        if not target.exists():\n-            raise FileNotFoundError(rel_path)\n-        return target.read_bytes()\n+        return (self.root / rel_path).read_bytes()\n \n     def recover(self) -> dict[str, str]:\n-        # BUG 3: Does not remove orphaned .tmp files or restore .bak files when target is missing!\n-        return self._read_manifest()\n+        return {}\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "bc984db4c8dbfec793e1c81bb75e4c97d1dfae0b516f4c2a56d0b6a955579e23",
+        "modified_files": [
+          "src/atomicvault/storage.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 14,
+        "removed_lines": 51,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1021.25,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_put_and_get_updates_manifest",
+            "suite": "PASS_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 11.0,
+            "message": "AssertionError: assert '' == 'afa27b44d43b...3669aa8ce286d'\n  \n  - afa27b44d43b02a9fea41d13cedc2e4016cfcf87c5dbf990e593669aa8ce286d\ntests/test_existing.py:10: in test_put_and_get_updates_manifest\n    assert digest == sha256_bytes(b\"hello-world\")\nE   AssertionError: assert '' == 'afa27b44d43b...3669aa8ce286d'\nE     \nE     - afa27b44d43b02a9fea41d13cedc2e4016cfcf87c5dbf990e593669aa8ce286d"
+          }
+        ],
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n______________________ test_put_and_get_updates_manifest _______________________\ntests/test_existing.py:10: in test_put_and_get_updates_manifest\n    assert digest == sha256_bytes(b\"hello-world\")\nE   AssertionError: assert '' == 'afa27b44d43b...3669aa8ce286d'\nE     \nE     - afa27b44d43b02a9fea41d13cedc2e4016cfcf87c5dbf990e593669aa8ce286d\n=========================== short test summary info ============================\nFAILED tests/test_existing.py::test_put_and_get_updates_manifest - AssertionE...\n1 failed in 0.24s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1159.03,
+        "passed_count": 1,
+        "failed_count": 2,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.atomicvault-012.evaluation.test_issue::test_failed_midstream_write_preserves_existing_file_and_cleans_temp",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 8.0,
+            "message": "RuntimeError: disk I/O interruption\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/atomicvault-012/evaluation/test_issue.py:16: in test_failed_midstream_write_preserves_existing_file_and_cleans_temp\n    vault.put(\"data/state.json\", failing_writer, keep_backup=True)\nsrc/atomicvault/storage.py:42: in put\n    content_or_writer(f)\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/atomicvault-012/evaluation/test_issue.py:13: in failing_writer\n    raise RuntimeError(\"disk I/O interruption\")\nE   RuntimeError: disk I/O interruption"
+          },
+          {
+            "test_id": "benchmarks.atomicvault-012.evaluation.test_issue::test_recover_restores_orphaned_bak_and_removes_tmp_and_rebuilds_manifest",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 6.0,
+            "message": "AssertionError: assert not True\n +  where True = exists()\n +    where exists = PosixPath('/tmp/pytest-of-codespace/pytest-19/test_recover_restores_orphaned0/vault/models/weights.bin.tmp').exists\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/atomicvault-012/evaluation/test_issue.py:37: in test_recover_restores_orphaned_bak_and_removes_tmp_and_rebuilds_manifest\n    assert not orphan_tmp.exists()\nE   AssertionError: assert not True\nE    +  where True = exists()\nE    +    where exists = PosixPath('/tmp/pytest-of-codespace/pytest-19/test_recover_restores_orphaned0/vault/models/weights.bin.tmp').exists"
+          },
+          {
+            "test_id": "benchmarks.atomicvault-012.evaluation.test_issue::test_nested_path_traversal_rejected",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 3.0,
+            "message": ""
+          }
+        ],
+        "stdout": "FF.                                                                      [100%]\n=================================== FAILURES ===================================\n_____ test_failed_midstream_write_preserves_existing_file_and_cleans_temp ______\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/atomicvault-012/evaluation/test_issue.py:16: in test_failed_midstream_write_preserves_existing_file_and_cleans_temp\n    vault.put(\"data/state.json\", failing_writer, keep_backup=True)\nsrc/atomicvault/storage.py:42: in put\n    content_or_writer(f)\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/atomicvault-012/evaluation/test_issue.py:13: in failing_writer\n    raise RuntimeError(\"disk I/O interruption\")\nE   RuntimeError: disk I/O interruption\n___ test_recover_restores_orphaned_bak_and_removes_tmp_and_rebuilds_manifest ___\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/atomicvault-012/evaluation/test_issue.py:37: in test_recover_restores_orphaned_bak_and_removes_tmp_and_rebuilds_manifest\n    assert not orphan_tmp.exists()\nE   AssertionError: assert not True\nE    +  where True = exists()\nE    +    where exists = PosixPath('/tmp/pytest-of-codespace/pytest-19/test_recover_restores_orphaned0/vault/models/weights.bin.tmp').exists\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/atomicvault-012/evaluation/test_issue.py::test_failed_midstream_write_preserves_existing_file_and_cleans_temp\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/atomicvault-012/evaluation/test_issue.py::test_recover_restores_orphaned_bak_and_removes_tmp_and_rebuilds_manifest\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1016.65,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.atomicvault-012.test_private::test_reserved_filenames_and_backup_preservation",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 11.0,
+            "message": "Failed: DID NOT RAISE VaultSecurityError\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/atomicvault-012/test_private.py:9: in test_reserved_filenames_and_backup_preservation\n    with pytest.raises(VaultSecurityError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE VaultSecurityError"
+          }
+        ],
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_______________ test_reserved_filenames_and_backup_preservation ________________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/atomicvault-012/test_private.py:9: in test_reserved_filenames_and_backup_preservation\n    with pytest.raises(VaultSecurityError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE VaultSecurityError\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/atomicvault-012/test_private.py::test_reserved_filenames_and_backup_preservation\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "REGRESSION",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": true,
+      "private_passed": false,
+      "failure_classification": "REGRESSION_INTRODUCED",
+      "explanation": "Patch broke existing functionality: 1 PASS_TO_PASS preservation test(s) failed.",
+      "duration_ms": 3316.44,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:37.649259+00:00",
+      "completed_at": "2026-10-21T12:38:40.965727+00:00",
+      "agent_logs": "Loaded regression patch for atomicvault-012."
+    },
+    {
+      "run_id": "run-1792586317-07d0de",
+      "task_id": "chronoshift-005",
+      "title": "Fix DST wall-clock drift, nonexistent spring-forward times, and UTC elapsed calculation",
+      "difficulty": "hard",
+      "category": "timezone_dst",
+      "agent_id": "regression-baseline",
+      "provider": "offline",
+      "model": "regression",
+      "sandbox_mode": "subprocess",
+      "base_revision": "2108290bab248cbb1ef6bba9d92d0f4f0a96c894",
+      "test_suite_hash": "314b86cb839ed3c60cd8114b7bd8f69984bc2510a085c0e781c7bad452fc37f6",
+      "patch_diff": "diff --git a/src/chronoshift/scheduler.py b/src/chronoshift/scheduler.py\nindex a35211d..65fad92 100644\n--- a/src/chronoshift/scheduler.py\n+++ b/src/chronoshift/scheduler.py\n@@ -7,7 +7,7 @@ from zoneinfo import ZoneInfo\n \n \n class NonExistentTimeError(ValueError):\n-    \"\"\"Raised when a local wall-clock time falls inside a DST spring-forward gap.\"\"\"\n+    pass\n \n \n def resolve_wall_time(\n@@ -18,33 +18,22 @@ def resolve_wall_time(\n     nonexistent_policy: str = \"shift_forward\",\n     fold: int = 0,\n ) -> datetime:\n-    \"\"\"Resolve a local wall-clock (date, hour, minute) in `tz_name`.\"\"\"\n     tz = ZoneInfo(tz_name)\n-    # BUG: Does not check whether (target_date, hour, minute) is nonexistent in tz!\n-    return datetime(\n-        target_date.year,\n-        target_date.month,\n-        target_date.day,\n-        hour,\n-        minute,\n-        tzinfo=tz,\n-        fold=fold,\n-    )\n+    dt = datetime(target_date.year, target_date.month, target_date.day, hour, minute, tzinfo=tz, fold=fold)\n+    rt = dt.replace(fold=0).astimezone(UTC).astimezone(tz)\n+    if (rt.hour, rt.minute) != (dt.hour, dt.minute):\n+        if nonexistent_policy == \"raise\":\n+            raise NonExistentTimeError(\"Gap\")\n+        return rt\n+    return dt\n \n \n def real_elapsed_seconds(start_dt: datetime, end_dt: datetime) -> float:\n-    \"\"\"Return actual elapsed seconds between two timezone-aware datetimes.\"\"\"\n-    if start_dt.tzinfo is None or end_dt.tzinfo is None:\n-        raise ValueError(\"Both start_dt and end_dt must be timezone-aware\")\n-    # BUG: Strips tzinfo instead of converting to UTC, miscounting across DST!\n-    naive_start = start_dt.replace(tzinfo=None)\n-    naive_end = end_dt.replace(tzinfo=None)\n-    return (naive_end - naive_start).total_seconds()\n+    # REGRESSION: Accepts naive datetimes without raising ValueError and returns abs() instead of signed!\n+    return abs((end_dt - start_dt).total_seconds())\n \n \n class DailyWindowScheduler:\n-    \"\"\"Generates recurring daily schedule instants in a target timezone.\"\"\"\n-\n     def __init__(self, tz_name: str = \"UTC\", nonexistent_policy: str = \"shift_forward\") -> None:\n         self.tz_name = tz_name\n         self.nonexistent_policy = nonexistent_policy\n@@ -56,12 +45,7 @@ class DailyWindowScheduler:\n         hour: int,\n         minute: int = 0,\n     ) -> list[datetime]:\n-        if days <= 0:\n-            return []\n-        tz = ZoneInfo(self.tz_name)\n-        first = resolve_wall_time(\n-            start_date, hour, minute, self.tz_name, nonexistent_policy=self.nonexistent_policy\n-        )\n-        first_utc = first.astimezone(UTC)\n-        # BUG: Adds 24h increments in UTC, shifting local wall time across DST!\n-        return [(first_utc + timedelta(days=i)).astimezone(tz) for i in range(days)]\n+        return [\n+            resolve_wall_time(start_date + timedelta(days=i), hour, minute, self.tz_name, self.nonexistent_policy)\n+            for i in range(days)\n+        ]\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "45d5c5abdd448b2b3630471ddeee4c0e77323d1d7ce71de83c8016ddbfc61624",
+        "modified_files": [
+          "src/chronoshift/scheduler.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 14,
+        "removed_lines": 30,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1171.47,
+        "passed_count": 2,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_utc_daily_schedule",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_real_elapsed_seconds_rejects_naive_datetime",
+            "suite": "PASS_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "TypeError: can't subtract offset-naive and offset-aware datetimes\ntests/test_existing.py:20: in test_real_elapsed_seconds_rejects_naive_datetime\n    real_elapsed_seconds(aware, naive)\nsrc/chronoshift/scheduler.py:33: in real_elapsed_seconds\n    return abs((end_dt - start_dt).total_seconds())\n                ^^^^^^^^^^^^^^^^^\nE   TypeError: can't subtract offset-naive and offset-aware datetimes"
+          },
+          {
+            "test_id": "tests.test_existing::test_resolve_normal_wall_time",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": ".F.                                                                      [100%]\n=================================== FAILURES ===================================\n_______________ test_real_elapsed_seconds_rejects_naive_datetime _______________\ntests/test_existing.py:20: in test_real_elapsed_seconds_rejects_naive_datetime\n    real_elapsed_seconds(aware, naive)\nsrc/chronoshift/scheduler.py:33: in real_elapsed_seconds\n    return abs((end_dt - start_dt).total_seconds())\n                ^^^^^^^^^^^^^^^^^\nE   TypeError: can't subtract offset-naive and offset-aware datetimes\n=========================== short test summary info ============================\nFAILED tests/test_existing.py::test_real_elapsed_seconds_rejects_naive_datetime\n1 failed, 2 passed in 0.19s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1028.52,
+        "passed_count": 1,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.chronoshift-005.evaluation.test_issue::test_daily_schedule_preserves_wall_clock_across_spring_forward_dst",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "AssertionError: assert 86400.0 == (23 * 3600)\n +  where 86400.0 = real_elapsed_seconds(datetime.datetime(2026, 3, 7, 9, 0, tzinfo=zoneinfo.ZoneInfo(key='America/New_York')), datetime.datetime(2026, 3, 8, 9, 0, tzinfo=zoneinfo.ZoneInfo(key='America/New_York')))\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/chronoshift-005/evaluation/test_issue.py:19: in test_daily_schedule_preserves_wall_clock_across_spring_forward_dst\n    assert real_elapsed_seconds(occ[0], occ[1]) == 23 * 3600\nE   AssertionError: assert 86400.0 == (23 * 3600)\nE    +  where 86400.0 = real_elapsed_seconds(datetime.datetime(2026, 3, 7, 9, 0, tzinfo=zoneinfo.ZoneInfo(key='America/New_York')), datetime.datetime(2026, 3, 8, 9, 0, tzinfo=zoneinfo.ZoneInfo(key='America/New_York')))"
+          },
+          {
+            "test_id": "benchmarks.chronoshift-005.evaluation.test_issue::test_nonexistent_spring_forward_time_raise_and_shift",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "F.                                                                       [100%]\n=================================== FAILURES ===================================\n______ test_daily_schedule_preserves_wall_clock_across_spring_forward_dst ______\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/chronoshift-005/evaluation/test_issue.py:19: in test_daily_schedule_preserves_wall_clock_across_spring_forward_dst\n    assert real_elapsed_seconds(occ[0], occ[1]) == 23 * 3600\nE   AssertionError: assert 86400.0 == (23 * 3600)\nE    +  where 86400.0 = real_elapsed_seconds(datetime.datetime(2026, 3, 7, 9, 0, tzinfo=zoneinfo.ZoneInfo(key='America/New_York')), datetime.datetime(2026, 3, 8, 9, 0, tzinfo=zoneinfo.ZoneInfo(key='America/New_York')))\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/chronoshift-005/evaluation/test_issue.py::test_daily_schedule_preserves_wall_clock_across_spring_forward_dst\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1142.94,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.chronoshift-005.test_private::test_fall_back_25_hour_day_and_fold_disambiguation",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 3.0,
+            "message": "AssertionError: assert 86400.0 == (25 * 3600)\n +  where 86400.0 = real_elapsed_seconds(datetime.datetime(2026, 10, 31, 9, 0, tzinfo=zoneinfo.ZoneInfo(key='America/New_York')), datetime.datetime(2026, 11, 1, 9, 0, tzinfo=zoneinfo.ZoneInfo(key='America/New_York')))\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/chronoshift-005/test_private.py:13: in test_fall_back_25_hour_day_and_fold_disambiguation\n    assert real_elapsed_seconds(occ[0], occ[1]) == 25 * 3600\nE   AssertionError: assert 86400.0 == (25 * 3600)\nE    +  where 86400.0 = real_elapsed_seconds(datetime.datetime(2026, 10, 31, 9, 0, tzinfo=zoneinfo.ZoneInfo(key='America/New_York')), datetime.datetime(2026, 11, 1, 9, 0, tzinfo=zoneinfo.ZoneInfo(key='America/New_York')))"
+          }
+        ],
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n______________ test_fall_back_25_hour_day_and_fold_disambiguation ______________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/chronoshift-005/test_private.py:13: in test_fall_back_25_hour_day_and_fold_disambiguation\n    assert real_elapsed_seconds(occ[0], occ[1]) == 25 * 3600\nE   AssertionError: assert 86400.0 == (25 * 3600)\nE    +  where 86400.0 = real_elapsed_seconds(datetime.datetime(2026, 10, 31, 9, 0, tzinfo=zoneinfo.ZoneInfo(key='America/New_York')), datetime.datetime(2026, 11, 1, 9, 0, tzinfo=zoneinfo.ZoneInfo(key='America/New_York')))\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/chronoshift-005/test_private.py::test_fall_back_25_hour_day_and_fold_disambiguation\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "REGRESSION",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": true,
+      "private_passed": false,
+      "failure_classification": "REGRESSION_INTRODUCED",
+      "explanation": "Patch broke existing functionality: 1 PASS_TO_PASS preservation test(s) failed.",
+      "duration_ms": 3487.63,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:37.698729+00:00",
+      "completed_at": "2026-10-21T12:38:41.186386+00:00",
+      "agent_logs": "Loaded regression patch for chronoshift-005."
+    },
+    {
+      "run_id": "run-1792586317-07d0de",
+      "task_id": "cliwarden-010",
+      "title": "Fix --dry-run validation bypass, stderr usage error routing, and POSIX exit codes",
+      "difficulty": "easy",
+      "category": "cli_validation",
+      "agent_id": "regression-baseline",
+      "provider": "offline",
+      "model": "regression",
+      "sandbox_mode": "subprocess",
+      "base_revision": "f3f538a410816b18ee4a17825f24d125fc4987cf",
+      "test_suite_hash": "7d44d8b91fb37a762a847a3f74dc4f29bd4683a9fb16a05e1bfe71e92ad48187",
+      "patch_diff": "diff --git a/src/cliwarden/runner.py b/src/cliwarden/runner.py\nindex edf9d46..d4d3ef3 100644\n--- a/src/cliwarden/runner.py\n+++ b/src/cliwarden/runner.py\n@@ -14,7 +14,7 @@ EXIT_INTERRUPTED = 130\n \n \n class ConfigError(Exception):\n-    \"\"\"Raised when configuration file or environment is invalid.\"\"\"\n+    pass\n \n \n @dataclass\n@@ -25,72 +25,9 @@ class CLIResult:\n \n \n class CLIRunner:\n-    \"\"\"Validates CLI flags and executes a handler with POSIX exit codes.\"\"\"\n-\n     def __init__(self, handler: Callable[[dict[str, Any]], str] | None = None) -> None:\n         self.handler = handler or (lambda opts: f\"Executed on {opts['target']} (workers={opts['workers']})\\n\")\n \n     def run(self, argv: Sequence[str]) -> CLIResult:\n-        args = list(argv)\n-\n-        # BUG 1: Short-circuits on --dry-run BEFORE validating flags and arguments!\n-        if \"--dry-run\" in args:\n-            return CLIResult(exit_code=EXIT_OK, stdout=\"DRY RUN OK\\n\", stderr=\"\")\n-\n-        target: str | None = None\n-        workers: int = 4\n-        fast = False\n-        thorough = False\n-        dry_run = False\n-\n-        i = 0\n-        while i < len(args):\n-            tok = args[i]\n-            if tok == \"--target\":\n-                if i + 1 >= len(args) or args[i + 1].startswith(\"--\"):\n-                    # BUG 2: Returns exit_code=1 and writes error to stdout!\n-                    return CLIResult(exit_code=1, stdout=\"Error: --target requires a value\\n\", stderr=\"\")\n-                target = args[i + 1]\n-                i += 2\n-            elif tok == \"--workers\":\n-                if i + 1 >= len(args):\n-                    return CLIResult(exit_code=1, stdout=\"Error: --workers requires an integer\\n\", stderr=\"\")\n-                try:\n-                    workers = int(args[i + 1])\n-                except ValueError:\n-                    return CLIResult(exit_code=1, stdout=\"Error: --workers must be an integer\\n\", stderr=\"\")\n-                i += 2\n-            elif tok == \"--fast\":\n-                fast = True\n-                i += 1\n-            elif tok == \"--thorough\":\n-                thorough = True\n-                i += 1\n-            elif tok == \"--dry-run\":\n-                dry_run = True\n-                i += 1\n-            else:\n-                return CLIResult(exit_code=1, stdout=f\"Error: Unknown option {tok}\\n\", stderr=\"\")\n-\n-        if not target:\n-            return CLIResult(exit_code=1, stdout=\"Error: --target is required\\n\", stderr=\"\")\n-        if fast and thorough:\n-            return CLIResult(exit_code=1, stdout=\"Error: --fast and --thorough are mutually exclusive\\n\", stderr=\"\")\n-        if workers <= 0 or workers > 64:\n-            return CLIResult(exit_code=1, stdout=\"Error: --workers must be between 1 and 64\\n\", stderr=\"\")\n-\n-        opts = {\n-            \"target\": target,\n-            \"workers\": workers,\n-            \"mode\": \"fast\" if fast else (\"thorough\" if thorough else \"normal\"),\n-            \"dry_run\": dry_run,\n-        }\n-\n-        try:\n-            out = self.handler(opts)\n-            return CLIResult(exit_code=EXIT_OK, stdout=out, stderr=\"\")\n-        except ConfigError as exc:\n-            return CLIResult(exit_code=EXIT_CONFIG_ERROR, stdout=\"\", stderr=f\"Config error: {exc}\\n\")\n-        except BaseException as exc:\n-            # BUG 3: Catches KeyboardInterrupt here and returns 1 instead of 130!\n-            return CLIResult(exit_code=1, stdout=\"\", stderr=f\"Error: {exc}\\n\")\n+        # REGRESSION: Always returns EXIT_USAGE_ERROR even on valid commands!\n+        return CLIResult(exit_code=EXIT_USAGE_ERROR, stdout=\"\", stderr=\"Usage error\\n\")\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "7b683fccd81ef45181eb9b4900a8954737cd225c4cba731018785eadacdda546",
+        "modified_files": [
+          "src/cliwarden/runner.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 3,
+        "removed_lines": 66,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1057.06,
+        "passed_count": 0,
+        "failed_count": 2,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_valid_command_execution",
+            "suite": "PASS_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "AssertionError: assert 2 == 0\n +  where 2 = CLIResult(exit_code=2, stdout='', stderr='Usage error\\n').exit_code\ntests/test_existing.py:9: in test_valid_command_execution\n    assert res.exit_code == EXIT_OK\nE   AssertionError: assert 2 == 0\nE    +  where 2 = CLIResult(exit_code=2, stdout='', stderr='Usage error\\n').exit_code"
+          },
+          {
+            "test_id": "tests.test_existing::test_config_error_exit_code",
+            "suite": "PASS_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "AssertionError: assert 2 == 3\n +  where 2 = CLIResult(exit_code=2, stdout='', stderr='Usage error\\n').exit_code\ntests/test_existing.py:20: in test_config_error_exit_code\n    assert res.exit_code == EXIT_CONFIG_ERROR\nE   AssertionError: assert 2 == 3\nE    +  where 2 = CLIResult(exit_code=2, stdout='', stderr='Usage error\\n').exit_code"
+          }
+        ],
+        "stdout": "FF                                                                       [100%]\n=================================== FAILURES ===================================\n_________________________ test_valid_command_execution _________________________\ntests/test_existing.py:9: in test_valid_command_execution\n    assert res.exit_code == EXIT_OK\nE   AssertionError: assert 2 == 0\nE    +  where 2 = CLIResult(exit_code=2, stdout='', stderr='Usage error\\n').exit_code\n_________________________ test_config_error_exit_code __________________________\ntests/test_existing.py:20: in test_config_error_exit_code\n    assert res.exit_code == EXIT_CONFIG_ERROR\nE   AssertionError: assert 2 == 3\nE    +  where 2 = CLIResult(exit_code=2, stdout='', stderr='Usage error\\n').exit_code\n=========================== short test summary info ============================\nFAILED tests/test_existing.py::test_valid_command_execution - AssertionError:...\nFAILED tests/test_existing.py::test_config_error_exit_code - AssertionError: ...\n2 failed in 0.08s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1032.44,
+        "passed_count": 0,
+        "failed_count": 2,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.cliwarden-010.evaluation.test_issue::test_dry_run_still_validates_invalid_arguments",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 3.0,
+            "message": "AssertionError: assert 2 == 0\n +  where 2 = CLIResult(exit_code=2, stdout='', stderr='Usage error\\n').exit_code\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/cliwarden-010/evaluation/test_issue.py:34: in test_dry_run_still_validates_invalid_arguments\n    assert res3.exit_code == EXIT_OK\nE   AssertionError: assert 2 == 0\nE    +  where 2 = CLIResult(exit_code=2, stdout='', stderr='Usage error\\n').exit_code"
+          },
+          {
+            "test_id": "benchmarks.cliwarden-010.evaluation.test_issue::test_keyboard_interrupt_and_runtime_error_exit_codes",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "AssertionError: assert 2 == 130\n +  where 2 = CLIResult(exit_code=2, stdout='', stderr='Usage error\\n').exit_code\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/cliwarden-010/evaluation/test_issue.py:43: in test_keyboard_interrupt_and_runtime_error_exit_codes\n    assert res_int.exit_code == EXIT_INTERRUPTED\nE   AssertionError: assert 2 == 130\nE    +  where 2 = CLIResult(exit_code=2, stdout='', stderr='Usage error\\n').exit_code"
+          }
+        ],
+        "stdout": "FF                                                                       [100%]\n=================================== FAILURES ===================================\n________________ test_dry_run_still_validates_invalid_arguments ________________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/cliwarden-010/evaluation/test_issue.py:34: in test_dry_run_still_validates_invalid_arguments\n    assert res3.exit_code == EXIT_OK\nE   AssertionError: assert 2 == 0\nE    +  where 2 = CLIResult(exit_code=2, stdout='', stderr='Usage error\\n').exit_code\n_____________ test_keyboard_interrupt_and_runtime_error_exit_codes _____________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/cliwarden-010/evaluation/test_issue.py:43: in test_keyboard_interrupt_and_runtime_error_exit_codes\n    assert res_int.exit_code == EXIT_INTERRUPTED\nE   AssertionError: assert 2 == 130\nE    +  where 2 = CLIResult(exit_code=2, stdout='', stderr='Usage error\\n').exit_code\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/cliwarden-010/evaluation/test_issue.py::test_dry_run_still_validates_invalid_arguments\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/cliwarden-010/evaluation/test_issue.py::test_keyboard_interrupt_and_runtime_error_exit_codes\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 1001.29,
+        "passed_count": 1,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.cliwarden-010.test_private::test_unknown_flag_and_missing_target_value_return_exit_2_on_stderr",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 7.0,
+            "message": ""
+          }
+        ],
+        "stdout": ".                                                                        [100%]\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "REGRESSION",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": true,
+      "private_passed": true,
+      "failure_classification": "REGRESSION_INTRODUCED",
+      "explanation": "Patch broke existing functionality: 2 PASS_TO_PASS preservation test(s) failed.",
+      "duration_ms": 3223.18,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:37.690824+00:00",
+      "completed_at": "2026-10-21T12:38:40.914037+00:00",
+      "agent_logs": "Loaded regression patch for cliwarden-010."
+    },
+    {
+      "run_id": "run-1792586317-07d0de",
+      "task_id": "concurqueue-003",
+      "title": "Fix check-then-act race condition and lost wakeups in KeyedResourcePool",
+      "difficulty": "hard",
+      "category": "concurrency_races",
+      "agent_id": "regression-baseline",
+      "provider": "offline",
+      "model": "regression",
+      "sandbox_mode": "subprocess",
+      "base_revision": "4b0b1a5ad48b6fc87119cbcff1d3830437333942",
+      "test_suite_hash": "b73b6a3d5c5e38293586e87722a29f3877e5fc83174e85662d8a65779e3838ef",
+      "patch_diff": "diff --git a/src/concurqueue/pool.py b/src/concurqueue/pool.py\nindex 6ac45e8..856bb4f 100644\n--- a/src/concurqueue/pool.py\n+++ b/src/concurqueue/pool.py\n@@ -6,21 +6,17 @@ import threading\n import time\n from types import TracebackType\n \n-from concurqueue.exceptions import PoolTimeoutError, QuotaConfigurationError, ReleaseError\n+from concurqueue.exceptions import PoolTimeoutError, QuotaConfigurationError\n \n \n class LeaseContext:\n-    \"\"\"Context manager for an acquired key lease.\"\"\"\n-\n     def __init__(self, pool: KeyedResourcePool, key: str, timeout: float | None = None) -> None:\n         self.pool = pool\n         self.key = key\n         self.timeout = timeout\n-        self._acquired = False\n \n     def __enter__(self) -> LeaseContext:\n         self.pool.acquire(self.key, timeout=self.timeout)\n-        self._acquired = True\n         return self\n \n     def __exit__(\n@@ -29,19 +25,13 @@ class LeaseContext:\n         exc_val: BaseException | None,\n         exc_tb: TracebackType | None,\n     ) -> None:\n-        if self._acquired:\n-            self._acquired = False\n-            self.pool.release(self.key)\n+        self.pool.release(self.key)\n \n \n class KeyedResourcePool:\n-    \"\"\"Coordinates global and per-key concurrency quotas across threads.\"\"\"\n-\n     def __init__(self, max_total: int = 10, max_per_key: int = 2) -> None:\n         if max_total <= 0 or max_per_key <= 0 or max_per_key > max_total:\n-            raise QuotaConfigurationError(\n-                \"max_total and max_per_key must be > 0 and max_per_key <= max_total\"\n-            )\n+            raise QuotaConfigurationError(\"Invalid quota\")\n         self.max_total = max_total\n         self.max_per_key = max_per_key\n         self._cond = threading.Condition()\n@@ -50,53 +40,37 @@ class KeyedResourcePool:\n         self.peak_total = 0\n         self.peak_per_key: dict[str, int] = {}\n \n-    def _can_acquire(self, key: str) -> bool:\n-        return (\n-            self._total_active < self.max_total\n-            and self._key_counts.get(key, 0) < self.max_per_key\n-        )\n-\n     def acquire(self, key: str, timeout: float | None = None) -> bool:\n-        # BUG: Checks capacity with `if` instead of `while`, and mutates state outside lock!\n+        deadline = (time.monotonic() + timeout) if timeout is not None else None\n         with self._cond:\n-            if not self._can_acquire(key):\n-                waited = self._cond.wait(timeout=timeout)\n-                if not waited and not self._can_acquire(key):\n-                    raise PoolTimeoutError(f\"Timed out acquiring lease for key={key!r}\")\n-\n-        # Race window outside lock!\n-        time.sleep(0.0005)\n-        cur_key = self._key_counts.get(key, 0) + 1\n-        self._key_counts[key] = cur_key\n-        self._total_active += 1\n-        if self._total_active > self.peak_total:\n-            self.peak_total = self._total_active\n-        if cur_key > self.peak_per_key.get(key, 0):\n-            self.peak_per_key[key] = cur_key\n-        return True\n+            while self._total_active >= self.max_total or self._key_counts.get(key, 0) >= self.max_per_key:\n+                if deadline is not None:\n+                    rem = deadline - time.monotonic()\n+                    if rem <= 0:\n+                        raise PoolTimeoutError(\"Timeout\")\n+                    self._cond.wait(rem)\n+                else:\n+                    self._cond.wait()\n+            self._key_counts[key] = self._key_counts.get(key, 0) + 1\n+            self._total_active += 1\n+            return True\n \n     def release(self, key: str) -> None:\n-        # BUG: Mutates without lock, does not validate over-release, and uses single notify()\n-        cur = self._key_counts.get(key, 0)\n-        if cur <= 0:\n-            raise ReleaseError(f\"Key {key!r} has no active leases to release\")\n-        self._key_counts[key] = cur - 1\n-        self._total_active -= 1\n         with self._cond:\n-            self._cond.notify()\n+            # REGRESSION: Silently ignores over-release instead of raising ReleaseError!\n+            self._key_counts[key] = max(0, self._key_counts.get(key, 0) - 1)\n+            self._total_active = max(0, self._total_active - 1)\n+            self._cond.notify_all()\n \n     def lease(self, key: str, timeout: float | None = None) -> LeaseContext:\n         return LeaseContext(self, key, timeout=timeout)\n \n     def active_for_key(self, key: str) -> int:\n-        with self._cond:\n-            return self._key_counts.get(key, 0)\n+        return self._key_counts.get(key, 0)\n \n     @property\n     def total_active(self) -> int:\n-        with self._cond:\n-            return self._total_active\n+        return self._total_active\n \n     def snapshot(self) -> dict[str, int]:\n-        with self._cond:\n-            return {k: v for k, v in self._key_counts.items() if v > 0}\n+        return dict(self._key_counts)\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "37978f96bfec6568d6bdc7a7457bbf97af5c9ba9fc39f5963e982f271733c29a",
+        "modified_files": [
+          "src/concurqueue/pool.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 22,
+        "removed_lines": 48,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1146.71,
+        "passed_count": 2,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_single_thread_lease_and_snapshot",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_over_release_raises_release_error",
+            "suite": "PASS_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 5.0,
+            "message": "Failed: DID NOT RAISE ReleaseError\ntests/test_existing.py:19: in test_over_release_raises_release_error\n    with pytest.raises(ReleaseError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE ReleaseError"
+          },
+          {
+            "test_id": "tests.test_existing::test_invalid_quota_configuration",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 4.0,
+            "message": ""
+          }
+        ],
+        "stdout": ".F.                                                                      [100%]\n=================================== FAILURES ===================================\n____________________ test_over_release_raises_release_error ____________________\ntests/test_existing.py:19: in test_over_release_raises_release_error\n    with pytest.raises(ReleaseError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE ReleaseError\n=========================== short test summary info ============================\nFAILED tests/test_existing.py::test_over_release_raises_release_error - Faile...\n1 failed, 2 passed in 0.18s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 1089.22,
+        "passed_count": 2,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.concurqueue-003.evaluation.test_issue::test_concurrent_contention_never_exceeds_per_key_or_total_limits",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 48.0,
+            "message": ""
+          },
+          {
+            "test_id": "benchmarks.concurqueue-003.evaluation.test_issue::test_timeout_under_contention_with_multiple_waiters",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 65.0,
+            "message": ""
+          }
+        ],
+        "stdout": "..                                                                       [100%]\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1197.44,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.concurqueue-003.test_private::test_cross_key_notify_all_prevents_lost_wakeup",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 52.0,
+            "message": "AssertionError: assert {'k1': 0, 'k2': 0, 'k3': 0} == {}\n  \n  Left contains 3 more items:\n  {'k1': 0, 'k2': 0, 'k3': 0}\n  Use -v to get more diff\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/concurqueue-003/test_private.py:41: in test_cross_key_notify_all_prevents_lost_wakeup\n    assert pool. snapshot() == {}\nE   AssertionError: assert {'k1': 0, 'k2': 0, 'k3': 0} == {}\nE     \nE     Left contains 3 more items:\nE     {'k1': 0, 'k2': 0, 'k3': 0}\nE     Use -v to get more diff"
+          }
+        ],
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n________________ test_cross_key_notify_all_prevents_lost_wakeup ________________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/concurqueue-003/test_private.py:41: in test_cross_key_notify_all_prevents_lost_wakeup\n    assert pool. snapshot() == {}\nE   AssertionError: assert {'k1': 0, 'k2': 0, 'k3': 0} == {}\nE     \nE     Left contains 3 more items:\nE     {'k1': 0, 'k2': 0, 'k3': 0}\nE     Use -v to get more diff\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/concurqueue-003/test_private.py::test_cross_key_notify_all_prevents_lost_wakeup\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "REGRESSION",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": true,
+      "private_passed": false,
+      "failure_classification": "REGRESSION_INTRODUCED",
+      "explanation": "Patch broke existing functionality: 1 PASS_TO_PASS preservation test(s) failed.",
+      "duration_ms": 3558.19,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:37.719708+00:00",
+      "completed_at": "2026-10-21T12:38:41.277931+00:00",
+      "agent_logs": "Loaded regression patch for concurqueue-003."
+    },
+    {
+      "run_id": "run-1792586317-07d0de",
+      "task_id": "confighier-007",
+      "title": "Fix deep merge sibling wiping, falsy CLI overrides, and single-underscore env keys",
+      "difficulty": "easy",
+      "category": "config_precedence",
+      "agent_id": "regression-baseline",
+      "provider": "offline",
+      "model": "regression",
+      "sandbox_mode": "subprocess",
+      "base_revision": "80e78ad4aab07c16759f2c1458688dc8b9e6d4a9",
+      "test_suite_hash": "b5e304895f8e9cd5a73a1fe68a12f43c985101fa36fbeb9d26114ab0ac7de4dd",
+      "patch_diff": "diff --git a/src/confighier/loader.py b/src/confighier/loader.py\nindex 0a1779f..c15ae52 100644\n--- a/src/confighier/loader.py\n+++ b/src/confighier/loader.py\n@@ -8,60 +8,37 @@ from typing import Any\n \n \n def coerce_env_value(raw: str) -> Any:\n-    \"\"\"Coerce string environment variable values into bool, int, float, list, or str.\"\"\"\n-    val = raw.strip()\n-    low = val.lower()\n-    if low in (\"true\", \"yes\", \"on\"):\n-        return True\n-    if low in (\"false\", \"no\", \"off\"):\n-        return False\n-    try:\n-        return int(val)\n-    except ValueError:\n-        pass\n-    try:\n-        return float(val)\n-    except ValueError:\n-        pass\n-    if \",\" in val:\n-        return [coerce_env_value(part) for part in val.split(\",\") if part.strip()]\n-    return val\n+    # REGRESSION: Returns raw string without coercing ints, bools, or comma lists!\n+    return raw\n \n \n def deep_merge(base: Mapping[str, Any], override: Mapping[str, Any]) -> dict[str, Any]:\n-    \"\"\"Merge override mapping into base mapping.\"\"\"\n-    result = dict(base)\n+    result: dict[str, Any] = copy.deepcopy(dict(base))\n     for k, v in override.items():\n-        # BUG 1 & 2: Ignores falsy values (`if v:`) and overwrites nested dicts shallowly!\n-        if v:\n-            result[k] = v\n+        if v is None:\n+            continue\n+        if isinstance(v, Mapping) and isinstance(result.get(k), Mapping):\n+            result[k] = deep_merge(result[k], v)\n+        else:\n+            result[k] = copy.deepcopy(v)\n     return result\n \n \n def parse_env_vars(environ: Mapping[str, str], prefix: str = \"APP\") -> dict[str, Any]:\n-    \"\"\"Extract hierarchical configuration from environment variables starting with `PREFIX__`.\"\"\"\n     prefix_tag = f\"{prefix.upper()}__\"\n     parsed: dict[str, Any] = {}\n     for env_key, raw_val in environ.items():\n         if not env_key.startswith(prefix_tag):\n             continue\n-        remainder = env_key[len(prefix_tag) :]\n-        # BUG 3: Splits on single underscore `_` instead of double underscore `__`!\n-        parts = [p.lower() for p in remainder.split(\"_\") if p]\n-        if not parts:\n-            continue\n+        parts = [p.lower() for p in env_key[len(prefix_tag) :].split(\"__\") if p]\n         cursor = parsed\n         for part in parts[:-1]:\n-            if part not in cursor or not isinstance(cursor[part], dict):\n-                cursor[part] = {}\n-            cursor = cursor[part]\n+            cursor = cursor.setdefault(part, {})\n         cursor[parts[-1]] = coerce_env_value(raw_val)\n     return parsed\n \n \n class ConfigLoader:\n-    \"\"\"Loads and resolves configuration across defaults, profile, env, and CLI layers.\"\"\"\n-\n     def __init__(self, env_prefix: str = \"APP\") -> None:\n         self.env_prefix = env_prefix\n \n@@ -72,12 +49,11 @@ class ConfigLoader:\n         environ: Mapping[str, str] | None = None,\n         cli_overrides: Mapping[str, Any] | None = None,\n     ) -> dict[str, Any]:\n-        merged = copy.deepcopy(dict(defaults))\n+        merged: dict[str, Any] = copy.deepcopy(dict(defaults))\n         if profile:\n             merged = deep_merge(merged, profile)\n         if environ:\n-            env_layer = parse_env_vars(environ, prefix=self.env_prefix)\n-            merged = deep_merge(merged, env_layer)\n+            merged = deep_merge(merged, parse_env_vars(environ, prefix=self.env_prefix))\n         if cli_overrides:\n             merged = deep_merge(merged, cli_overrides)\n         return merged\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "a3f81deb873aac2b5ecd93b296a002ba221f4f5063d066c396b20cdc9ac46c23",
+        "modified_files": [
+          "src/confighier/loader.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 13,
+        "removed_lines": 37,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 948.47,
+        "passed_count": 1,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_coerce_env_value_types",
+            "suite": "PASS_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "AssertionError: assert 'true' is True\n +  where 'true' = coerce_env_value('true')\ntests/test_existing.py:7: in test_coerce_env_value_types\n    assert coerce_env_value(\"true\") is True\nE   AssertionError: assert 'true' is True\nE    +  where 'true' = coerce_env_value('true')"
+          },
+          {
+            "test_id": "tests.test_existing::test_basic_top_level_override",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "F.                                                                       [100%]\n=================================== FAILURES ===================================\n_________________________ test_coerce_env_value_types __________________________\ntests/test_existing.py:7: in test_coerce_env_value_types\n    assert coerce_env_value(\"true\") is True\nE   AssertionError: assert 'true' is True\nE    +  where 'true' = coerce_env_value('true')\n=========================== short test summary info ============================\nFAILED tests/test_existing.py::test_coerce_env_value_types - AssertionError: ...\n1 failed, 1 passed in 0.08s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1258.28,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.confighier-007.evaluation.test_issue::test_deep_merge_preserves_sibling_keys_and_handles_single_underscore_env_keys",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 3.0,
+            "message": "AssertionError: assert 'false' is False\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/confighier-007/evaluation/test_issue.py:33: in test_deep_merge_preserves_sibling_keys_and_handles_single_underscore_env_keys\n    assert resolved[\"debug\"] is False\nE   AssertionError: assert 'false' is False"
+          }
+        ],
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_ test_deep_merge_preserves_sibling_keys_and_handles_single_underscore_env_keys _\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/confighier-007/evaluation/test_issue.py:33: in test_deep_merge_preserves_sibling_keys_and_handles_single_underscore_env_keys\n    assert resolved[\"debug\"] is False\nE   AssertionError: assert 'false' is False\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/confighier-007/evaluation/test_issue.py::test_deep_merge_preserves_sibling_keys_and_handles_single_underscore_env_keys\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 1007.79,
+        "passed_count": 1,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.confighier-007.test_private::test_resolve_does_not_mutate_inputs_and_preserves_empty_string_override",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 5.0,
+            "message": ""
+          }
+        ],
+        "stdout": ".                                                                        [100%]\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "REGRESSION",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": true,
+      "private_passed": true,
+      "failure_classification": "REGRESSION_INTRODUCED",
+      "explanation": "Patch broke existing functionality: 1 PASS_TO_PASS preservation test(s) failed.",
+      "duration_ms": 3321.99,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:41.062247+00:00",
+      "completed_at": "2026-10-21T12:38:44.384268+00:00",
+      "agent_logs": "Loaded regression patch for confighier-007."
+    },
+    {
+      "run_id": "run-1792586317-07d0de",
+      "task_id": "idempobox-011",
+      "title": "Fix idempotency payload mismatch detection, canonical fingerprinting, and failed lock cleanup",
+      "difficulty": "hard",
+      "category": "idempotency",
+      "agent_id": "regression-baseline",
+      "provider": "offline",
+      "model": "regression",
+      "sandbox_mode": "subprocess",
+      "base_revision": "62ebe35109c0fa97d790cecb90be2d7156c13e1f",
+      "test_suite_hash": "f59f0a9866b5430ceacc1c19f3ef7cdf886c70c950994ebb7a8b06b7ad2a7892",
+      "patch_diff": "diff --git a/src/idempobox/processor.py b/src/idempobox/processor.py\nindex 9cac713..736dbb7 100644\n--- a/src/idempobox/processor.py\n+++ b/src/idempobox/processor.py\n@@ -4,37 +4,16 @@ from __future__ import annotations\n \n import hashlib\n import json\n-import threading\n from collections.abc import Callable\n-from dataclasses import dataclass\n from typing import Any\n \n-from idempobox.exceptions import IdempotencyConflictError, IdempotencyPayloadMismatchError\n-\n-VOLATILE_KEYS = {\"_trace_id\", \"_timestamp\", \"_request_id\"}\n-\n-\n-@dataclass\n-class IdempotencyRecord:\n-    key: str\n-    fingerprint: str\n-    status: str  # \"IN_PROGRESS\" or \"COMPLETED\"\n-    result: Any = None\n-\n \n def compute_payload_fingerprint(payload: dict[str, Any]) -> str:\n-    \"\"\"Compute SHA-256 fingerprint of a request payload.\"\"\"\n-    # BUG: Does not strip VOLATILE_KEYS recursively and does not sort keys!\n-    raw = json.dumps(payload)\n-    return hashlib.sha256(raw.encode(\"utf-8\")).hexdigest()\n+    return hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()\n \n \n class IdempotentProcessor:\n-    \"\"\"Thread-safe idempotent command execution coordinator.\"\"\"\n-\n     def __init__(self) -> None:\n-        self._lock = threading.Lock()\n-        self._records: dict[str, IdempotencyRecord] = {}\n         self.execution_count: int = 0\n \n     def process(\n@@ -43,36 +22,6 @@ class IdempotentProcessor:\n         payload: dict[str, Any],\n         handler: Callable[[dict[str, Any]], Any],\n     ) -> Any:\n-        if not idempotency_key or not idempotency_key.strip():\n-            raise ValueError(\"idempotency_key must be non-empty\")\n-\n-        fp = compute_payload_fingerprint(payload)\n-\n-        with self._lock:\n-            existing = self._records.get(idempotency_key)\n-            if existing is not None:\n-                # BUG 1: Does not check existing.fingerprint != fp to raise IdempotencyPayloadMismatchError!\n-                if existing.status == \"IN_PROGRESS\":\n-                    raise IdempotencyConflictError(\n-                        f\"Request with key {idempotency_key!r} is currently IN_PROGRESS\"\n-                    )\n-                return existing.result\n-\n-            self._records[idempotency_key] = IdempotencyRecord(\n-                key=idempotency_key,\n-                fingerprint=fp,\n-                status=\"IN_PROGRESS\",\n-            )\n-\n-        # BUG 3: If handler raises an exception, the record remains stuck in IN_PROGRESS!\n+        # REGRESSION: Executes handler every time without caching idempotent responses!\n         self.execution_count += 1\n-        result = handler(payload)\n-\n-        with self._lock:\n-            self._records[idempotency_key] = IdempotencyRecord(\n-                key=idempotency_key,\n-                fingerprint=fp,\n-                status=\"COMPLETED\",\n-                result=result,\n-            )\n-        return result\n+        return handler(payload)\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "d3ebe6813c87f315ae3a4b8752f2d8809c68e093a2957045e0bd90cd68f3a737",
+        "modified_files": [
+          "src/idempobox/processor.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 3,
+        "removed_lines": 54,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1219.68,
+        "passed_count": 0,
+        "failed_count": 2,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_exact_duplicate_replay_executes_handler_once",
+            "suite": "PASS_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "assert 2 == 1\n +  where 2 = <idempobox.processor.IdempotentProcessor object at 0x7d4d533b2270>.execution_count\ntests/test_existing.py:14: in test_exact_duplicate_replay_executes_handler_once\n    assert proc.execution_count == 1\nE   assert 2 == 1\nE    +  where 2 = <idempobox.processor.IdempotentProcessor object at 0x7d4d533b2270>.execution_count"
+          },
+          {
+            "test_id": "tests.test_existing::test_empty_key_rejected",
+            "suite": "PASS_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "Failed: DID NOT RAISE ValueError\ntests/test_existing.py:19: in test_empty_key_rejected\n    with pytest.raises(ValueError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE ValueError"
+          }
+        ],
+        "stdout": "FF                                                                       [100%]\n=================================== FAILURES ===================================\n______________ test_exact_duplicate_replay_executes_handler_once _______________\ntests/test_existing.py:14: in test_exact_duplicate_replay_executes_handler_once\n    assert proc.execution_count == 1\nE   assert 2 == 1\nE    +  where 2 = <idempobox.processor.IdempotentProcessor object at 0x7d4d533b2270>.execution_count\n___________________________ test_empty_key_rejected ____________________________\ntests/test_existing.py:19: in test_empty_key_rejected\n    with pytest.raises(ValueError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE ValueError\n=========================== short test summary info ============================\nFAILED tests/test_existing.py::test_exact_duplicate_replay_executes_handler_once\nFAILED tests/test_existing.py::test_empty_key_rejected - Failed: DID NOT RAIS...\n2 failed in 0.17s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1076.41,
+        "passed_count": 1,
+        "failed_count": 2,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.idempobox-011.evaluation.test_issue::test_key_reuse_with_different_payload_raises_mismatch_error",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "Failed: DID NOT RAISE IdempotencyPayloadMismatchError\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/idempobox-011/evaluation/test_issue.py:14: in test_key_reuse_with_different_payload_raises_mismatch_error\n    with pytest.raises(IdempotencyPayloadMismatchError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE IdempotencyPayloadMismatchError"
+          },
+          {
+            "test_id": "benchmarks.idempobox-011.evaluation.test_issue::test_volatile_headers_and_nested_key_order_ignored_in_fingerprint",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 2.0,
+            "message": "AssertionError: assert {'tx': 'xyz'} == {'tx': 'abc'}\n  \n  Differing items:\n  {'tx': 'xyz'} != {'tx': 'abc'}\n  Use -v to get more diff\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/idempobox-011/evaluation/test_issue.py:27: in test_volatile_headers_and_nested_key_order_ignored_in_fingerprint\n    assert res2 == {\"tx\": \"abc\"}\nE   AssertionError: assert {'tx': 'xyz'} == {'tx': 'abc'}\nE     \nE     Differing items:\nE     {'tx': 'xyz'} != {'tx': 'abc'}\nE     Use -v to get more diff"
+          },
+          {
+            "test_id": "benchmarks.idempobox-011.evaluation.test_issue::test_transient_handler_failure_releases_key_for_subsequent_retry",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 3.0,
+            "message": ""
+          }
+        ],
+        "stdout": "FF.                                                                      [100%]\n=================================== FAILURES ===================================\n_________ test_key_reuse_with_different_payload_raises_mismatch_error __________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/idempobox-011/evaluation/test_issue.py:14: in test_key_reuse_with_different_payload_raises_mismatch_error\n    with pytest.raises(IdempotencyPayloadMismatchError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE IdempotencyPayloadMismatchError\n______ test_volatile_headers_and_nested_key_order_ignored_in_fingerprint _______\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/idempobox-011/evaluation/test_issue.py:27: in test_volatile_headers_and_nested_key_order_ignored_in_fingerprint\n    assert res2 == {\"tx\": \"abc\"}\nE   AssertionError: assert {'tx': 'xyz'} == {'tx': 'abc'}\nE     \nE     Differing items:\nE     {'tx': 'xyz'} != {'tx': 'abc'}\nE     Use -v to get more diff\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/idempobox-011/evaluation/test_issue.py::test_key_reuse_with_different_payload_raises_mismatch_error\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/idempobox-011/evaluation/test_issue.py::test_volatile_headers_and_nested_key_order_ignored_in_fingerprint\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 3124.23,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.idempobox-011.test_private::test_concurrent_in_flight_duplicate_raises_conflict_and_cached_result_is_isolated",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 2003.0,
+            "message": "Failed: DID NOT RAISE IdempotencyConflictError\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/idempobox-011/test_private.py:23: in test_concurrent_in_flight_duplicate_raises_conflict_and_cached_result_is_isolated\n    with pytest.raises(IdempotencyConflictError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE IdempotencyConflictError"
+          }
+        ],
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_ test_concurrent_in_flight_duplicate_raises_conflict_and_cached_result_is_isolated _\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/idempobox-011/test_private.py:23: in test_concurrent_in_flight_duplicate_raises_conflict_and_cached_result_is_isolated\n    with pytest.raises(IdempotencyConflictError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE IdempotencyConflictError\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/idempobox-011/test_private.py::test_concurrent_in_flight_duplicate_raises_conflict_and_cached_result_is_isolated\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "REGRESSION",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": true,
+      "private_passed": false,
+      "failure_classification": "REGRESSION_INTRODUCED",
+      "explanation": "Patch broke existing functionality: 2 PASS_TO_PASS preservation test(s) failed.",
+      "duration_ms": 5541.15,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:41.053912+00:00",
+      "completed_at": "2026-10-21T12:38:46.595098+00:00",
+      "agent_logs": "Loaded regression patch for idempobox-011."
+    },
+    {
+      "run_id": "run-1792586317-07d0de",
+      "task_id": "ledgersql-004",
+      "title": "Fix atomic batch rollback and savepoint isolation in SQLiteLedger.execute_batch",
+      "difficulty": "medium",
+      "category": "sqlite_transactions",
+      "agent_id": "regression-baseline",
+      "provider": "offline",
+      "model": "regression",
+      "sandbox_mode": "subprocess",
+      "base_revision": "2c11583af21ce5690889725dcd1116bcb22ffcbe",
+      "test_suite_hash": "d98952270012d617f417f58bc4ba8fc5ff15c881c5d908d586fa2d299eb411bf",
+      "patch_diff": "diff --git a/src/ledgersql/ledger.py b/src/ledgersql/ledger.py\nindex 7dee62a..2176a38 100644\n--- a/src/ledgersql/ledger.py\n+++ b/src/ledgersql/ledger.py\n@@ -16,10 +16,8 @@ from ledgersql.models import (\n \n \n class SQLiteLedger:\n-    \"\"\"Double-entry ledger backed by SQLite.\"\"\"\n-\n     def __init__(self, db_path: str = \":memory:\") -> None:\n-        self._conn = sqlite3.connect(db_path)\n+        self._conn = sqlite3.connect(db_path, isolation_level=None)\n         self._conn.row_factory = sqlite3.Row\n         self._init_schema()\n \n@@ -41,23 +39,19 @@ class SQLiteLedger:\n             );\n             \"\"\"\n         )\n-        self._conn.commit()\n \n     def create_account(self, account_id: str, initial_balance_cents: int = 0, frozen: bool = False) -> None:\n-        if initial_balance_cents < 0:\n-            raise LedgerError(\"Initial balance cannot be negative\")\n         self._conn.execute(\n             \"INSERT INTO accounts (account_id, balance_cents, frozen) VALUES (?, ?, ?)\",\n             (account_id, initial_balance_cents, 1 if frozen else 0),\n         )\n-        self._conn.commit()\n \n     def get_balance(self, account_id: str) -> int:\n         row = self._conn.execute(\n             \"SELECT balance_cents FROM accounts WHERE account_id = ?\", (account_id,)\n         ).fetchone()\n         if not row:\n-            raise AccountNotFoundError(f\"Account not found: {account_id}\")\n+            raise AccountNotFoundError(account_id)\n         return int(row[\"balance_cents\"])\n \n     def total_supply(self) -> int:\n@@ -70,49 +64,6 @@ class SQLiteLedger:\n         ).fetchall()\n         return [dict(r) for r in rows]\n \n-    def _apply_single(self, spec: TransferSpec) -> None:\n-        if spec.amount_cents <= 0:\n-            raise LedgerError(\"Transfer amount must be positive\")\n-        if spec.from_account == spec.to_account:\n-            raise LedgerError(\"Cannot transfer to the same account\")\n-\n-        src = self._conn.execute(\n-            \"SELECT balance_cents, frozen FROM accounts WHERE account_id = ?\",\n-            (spec.from_account,),\n-        ).fetchone()\n-        if not src:\n-            raise AccountNotFoundError(f\"Source account not found: {spec.from_account}\")\n-        if src[\"frozen\"]:\n-            raise AccountFrozenError(f\"Source account is frozen: {spec.from_account}\")\n-        if src[\"balance_cents\"] < spec.amount_cents:\n-            raise InsufficientFundsError(f\"Insufficient funds in {spec.from_account}\")\n-\n-        # BUG: Debits sender and commits BEFORE validating receiver account!\n-        self._conn.execute(\n-            \"UPDATE accounts SET balance_cents = balance_cents - ? WHERE account_id = ?\",\n-            (spec.amount_cents, spec.from_account),\n-        )\n-\n-        dst = self._conn.execute(\n-            \"SELECT balance_cents, frozen FROM accounts WHERE account_id = ?\",\n-            (spec.to_account,),\n-        ).fetchone()\n-        if not dst:\n-            raise AccountNotFoundError(f\"Destination account not found: {spec.to_account}\")\n-        if dst[\"frozen\"]:\n-            raise AccountFrozenError(f\"Destination account is frozen: {spec.to_account}\")\n-\n-        self._conn.execute(\n-            \"UPDATE accounts SET balance_cents = balance_cents + ? WHERE account_id = ?\",\n-            (spec.amount_cents, spec.to_account),\n-        )\n-        self._conn.execute(\n-            \"INSERT INTO journal_entries (tx_id, from_account, to_account, amount_cents, memo) VALUES (?, ?, ?, ?, ?)\",\n-            (spec.tx_id, spec.from_account, spec.to_account, spec.amount_cents, spec.memo),\n-        )\n-        # BUG: Commits inside _apply_single, breaking atomic batch rollback!\n-        self._conn.commit()\n-\n     def transfer(self, spec: TransferSpec) -> None:\n         self.execute_batch([spec], allow_partial=False)\n \n@@ -122,12 +73,33 @@ class SQLiteLedger:\n         allow_partial: bool = False,\n     ) -> BatchResult:\n         result = BatchResult()\n-        for spec in transfers:\n-            try:\n-                self._apply_single(spec)\n-                result.succeeded.append(spec.tx_id)\n-            except LedgerError as exc:\n-                if not allow_partial:\n-                    raise\n-                result.failed[spec.tx_id] = str(exc)\n-        return result\n+        self._conn.execute(\"BEGIN\")\n+        try:\n+            for idx, spec in enumerate(transfers):\n+                sp = f\"sp_{idx}\"\n+                self._conn.execute(f\"SAVEPOINT {sp}\")\n+                try:\n+                    src = self._conn.execute(\"SELECT balance_cents, frozen FROM accounts WHERE account_id = ?\", (spec.from_account,)).fetchone()\n+                    dst = self._conn.execute(\"SELECT balance_cents, frozen FROM accounts WHERE account_id = ?\", (spec.to_account,)).fetchone()\n+                    if not src or not dst:\n+                        raise AccountNotFoundError(\"Missing account\")\n+                    if src[\"frozen\"] or dst[\"frozen\"]:\n+                        raise AccountFrozenError(\"Frozen\")\n+                    if src[\"balance_cents\"] < spec.amount_cents:\n+                        raise InsufficientFundsError(\"Overdraft\")\n+                    self._conn.execute(\"UPDATE accounts SET balance_cents = balance_cents - ? WHERE account_id = ?\", (spec.amount_cents, spec.from_account))\n+                    self._conn.execute(\"UPDATE accounts SET balance_cents = balance_cents + ? WHERE account_id = ?\", (spec.amount_cents, spec.to_account))\n+                    # REGRESSION: Forgot to insert into journal_entries!\n+                    self._conn.execute(f\"RELEASE SAVEPOINT {sp}\")\n+                    result.succeeded.append(spec.tx_id)\n+                except LedgerError as exc:\n+                    self._conn.execute(f\"ROLLBACK TO SAVEPOINT {sp}\")\n+                    self._conn.execute(f\"RELEASE SAVEPOINT {sp}\")\n+                    if not allow_partial:\n+                        raise\n+                    result.failed[spec.tx_id] = str(exc)\n+            self._conn.execute(\"COMMIT\")\n+            return result\n+        except Exception:\n+            self._conn.execute(\"ROLLBACK\")\n+            raise\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "815175daf63797a514f423eb9b011ec5d52636e97c481a286dec5667080f33de",
+        "modified_files": [
+          "src/ledgersql/ledger.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 32,
+        "removed_lines": 60,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1412.72,
+        "passed_count": 1,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_single_transfer_and_journal",
+            "suite": "PASS_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 5.0,
+            "message": "assert 0 == 1\n +  where 0 = len([])\ntests/test_existing.py:15: in test_single_transfer_and_journal\n    assert len(journal) == 1\nE   assert 0 == 1\nE    +  where 0 = len([])"
+          },
+          {
+            "test_id": "tests.test_existing::test_insufficient_funds_single_transfer",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 2.0,
+            "message": ""
+          }
+        ],
+        "stdout": "F.                                                                       [100%]\n=================================== FAILURES ===================================\n_______________________ test_single_transfer_and_journal _______________________\ntests/test_existing.py:15: in test_single_transfer_and_journal\n    assert len(journal) == 1\nE   assert 0 == 1\nE    +  where 0 = len([])\n=========================== short test summary info ============================\nFAILED tests/test_existing.py::test_single_transfer_and_journal - assert 0 == 1\n1 failed, 1 passed in 0.34s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 967.49,
+        "passed_count": 2,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.ledgersql-004.evaluation.test_issue::test_atomic_batch_rolls_back_all_transfers_on_later_failure",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 3.0,
+            "message": ""
+          },
+          {
+            "test_id": "benchmarks.ledgersql-004.evaluation.test_issue::test_partial_batch_savepoint_rolls_back_sender_debit_when_receiver_frozen",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 4.0,
+            "message": ""
+          }
+        ],
+        "stdout": "..                                                                       [100%]\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 826.96,
+        "passed_count": 1,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.ledgersql-004.test_private::test_atomic_batch_rolls_back_when_destination_missing",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 2.0,
+            "message": ""
+          },
+          {
+            "test_id": "private_evaluations.ledgersql-004.test_private::test_self_transfer_and_negative_amount_rejected_in_partial_batch",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "AssertionError: assert ['bad_self', ..._neg', 'good'] == ['good']\n  \n  At index 0 diff: 'bad_self' != 'good'\n  Left contains 2 more items, first extra item: 'bad_neg'\n  Use -v to get more diff\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/ledgersql-004/test_private.py:37: in test_self_transfer_and_negative_amount_rejected_in_partial_batch\n    assert res.succeeded == [\"good\"]\nE   AssertionError: assert ['bad_self', ..._neg', 'good'] == ['good']\nE     \nE     At index 0 diff: 'bad_self' != 'good'\nE     Left contains 2 more items, first extra item: 'bad_neg'\nE     Use -v to get more diff"
+          }
+        ],
+        "stdout": ".F                                                                       [100%]\n=================================== FAILURES ===================================\n_______ test_self_transfer_and_negative_amount_rejected_in_partial_batch _______\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/ledgersql-004/test_private.py:37: in test_self_transfer_and_negative_amount_rejected_in_partial_batch\n    assert res.succeeded == [\"good\"]\nE   AssertionError: assert ['bad_self', ..._neg', 'good'] == ['good']\nE     \nE     At index 0 diff: 'bad_self' != 'good'\nE     Left contains 2 more items, first extra item: 'bad_neg'\nE     Use -v to get more diff\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/ledgersql-004/test_private.py::test_self_transfer_and_negative_amount_rejected_in_partial_batch\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "REGRESSION",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": true,
+      "private_passed": false,
+      "failure_classification": "REGRESSION_INTRODUCED",
+      "explanation": "Patch broke existing functionality: 1 PASS_TO_PASS preservation test(s) failed.",
+      "duration_ms": 3385.25,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:41.331416+00:00",
+      "completed_at": "2026-10-21T12:38:44.716693+00:00",
+      "agent_logs": "Loaded regression patch for ledgersql-004."
+    },
+    {
+      "run_id": "run-1792586317-07d0de",
+      "task_id": "pagiflow-001",
+      "title": "Fix cursor=0 falsy termination and has_more=False echo loops in PaginatedCollector",
+      "difficulty": "easy",
+      "category": "pagination_api",
+      "agent_id": "regression-baseline",
+      "provider": "offline",
+      "model": "regression",
+      "sandbox_mode": "subprocess",
+      "base_revision": "164e51624d3e0b4cf9af0d086e8a5d4137ddae90",
+      "test_suite_hash": "6d28c10cb437b6a4d2269ccc9b43fec59b601fc1145b358c4ea5577a8af9e2b3",
+      "patch_diff": "diff --git a/src/pagiflow/client.py b/src/pagiflow/client.py\nindex 9d2924e..7cdc57c 100644\n--- a/src/pagiflow/client.py\n+++ b/src/pagiflow/client.py\n@@ -6,14 +6,14 @@ from collections.abc import Callable\n from typing import Any\n \n from pagiflow.cursor import normalize_envelope\n-from pagiflow.models import PaginationConfig, PaginationError\n+from pagiflow.models import PaginationConfig\n \n FetchFunc = Callable[[str | int | None], dict[str, Any]]\n TransformFunc = Callable[[dict[str, Any]], dict[str, Any]]\n \n \n class PaginatedCollector:\n-    \"\"\"Collects items across paginated API responses with deduplication and cycle protection.\"\"\"\n+    \"\"\"Collects items across paginated API responses.\"\"\"\n \n     def __init__(\n         self,\n@@ -30,40 +30,21 @@ class PaginatedCollector:\n         initial_cursor: str | int | None = None,\n     ) -> list[dict[str, Any]]:\n         collected: list[dict[str, Any]] = []\n-        seen_ids: set[Any] = set()\n-        seen_cursors: set[str] = set()\n         cursor: str | int | None = initial_cursor\n         self.pages_fetched = 0\n \n         while self.pages_fetched < self.config.max_pages:\n-            if cursor is not None and cursor != \"\":\n-                cursor_key = f\"{type(cursor).__name__}:{cursor}\"\n-                if self.config.detect_cycles and cursor_key in seen_cursors:\n-                    raise PaginationError(f\"Detected pagination cursor cycle at {cursor!r}\")\n-                seen_cursors.add(cursor_key)\n-\n             raw = fetch_page(cursor)\n             envelope = normalize_envelope(raw)\n             self.pages_fetched += 1\n \n-            # BUG 1: Unconditionally breaks on empty items, ignoring stop_on_empty_page=False\n-            if not envelope.items:\n-                break\n-\n-            for item in envelope.items:\n-                processed = self.transform(item) if self.transform else item\n-                if self.config.deduplicate and self.config.id_key and self.config.id_key in processed:\n-                    item_id = processed[self.config.id_key]\n-                    if item_id in seen_ids:\n-                        continue\n-                    seen_ids.add(item_id)\n-                collected.append(processed)\n+            # Regression: stripped deduplication, transform, and cycle detection!\n+            collected.extend(envelope.items)\n \n-            # BUG 2 & 3: Ignores explicit has_more=False when next_cursor is echoed,\n-            # and uses truthiness `if not envelope.next_cursor:` which fails on integer 0!\n-            if not envelope.next_cursor:\n+            if envelope.has_more is False:\n+                break\n+            if envelope.next_cursor is None or envelope.next_cursor == \"\":\n                 break\n-\n             cursor = envelope.next_cursor\n \n         return collected\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "3a65be7cf682a054c805d26d7c64d8965c9280354481339ca525d2daef99bd53",
+        "modified_files": [
+          "src/pagiflow/client.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 7,
+        "removed_lines": 26,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1240.61,
+        "passed_count": 2,
+        "failed_count": 2,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 4,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_standard_string_cursor_traversal",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 3.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_deduplication_across_pages",
+            "suite": "PASS_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 4.0,
+            "message": "assert [10, 20, 20, 30] == [10, 20, 30]\n  \n  At index 2 diff: 20 != 30\n  Left contains one more item: 30\n  Use -v to get more diff\ntests/test_existing.py:25: in test_deduplication_across_pages\n    assert [r[\"id\"] for r in res] == [10, 20, 30]\nE   assert [10, 20, 20, 30] == [10, 20, 30]\nE     \nE     At index 2 diff: 20 != 30\nE     Left contains one more item: 30\nE     Use -v to get more diff"
+          },
+          {
+            "test_id": "tests.test_existing::test_transform_callback_and_cycle_detection",
+            "suite": "PASS_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 2.0,
+            "message": "Failed: DID NOT RAISE PaginationError\ntests/test_existing.py:34: in test_transform_callback_and_cycle_detection\n    with pytest.raises(PaginationError, match=\"cycle\"):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE PaginationError"
+          },
+          {
+            "test_id": "tests.test_existing::test_normalize_envelope_errors",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": ".FF.                                                                     [100%]\n=================================== FAILURES ===================================\n_______________________ test_deduplication_across_pages ________________________\ntests/test_existing.py:25: in test_deduplication_across_pages\n    assert [r[\"id\"] for r in res] == [10, 20, 30]\nE   assert [10, 20, 20, 30] == [10, 20, 30]\nE     \nE     At index 2 diff: 20 != 30\nE     Left contains one more item: 30\nE     Use -v to get more diff\n_________________ test_transform_callback_and_cycle_detection __________________\ntests/test_existing.py:34: in test_transform_callback_and_cycle_detection\n    with pytest.raises(PaginationError, match=\"cycle\"):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE PaginationError\n=========================== short test summary info ============================\nFAILED tests/test_existing.py::test_deduplication_across_pages - assert [10, ...\nFAILED tests/test_existing.py::test_transform_callback_and_cycle_detection - ...\n2 failed, 2 passed in 0.30s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 1006.64,
+        "passed_count": 3,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.pagiflow-001.evaluation.test_issue::test_integer_zero_cursor_is_followed",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "benchmarks.pagiflow-001.evaluation.test_issue::test_has_more_false_stops_even_when_cursor_echoed",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 3.0,
+            "message": ""
+          },
+          {
+            "test_id": "benchmarks.pagiflow-001.evaluation.test_issue::test_empty_intermediate_page_continues_when_has_more_true",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "...                                                                      [100%]\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 856.87,
+        "passed_count": 1,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.pagiflow-001.test_private::test_string_zero_cursor_and_stop_on_empty_true",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "AssertionError: assert [{'id': 999}] == []\n  \n  Left contains one more item: {'id': 999}\n  Use -v to get more diff\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/pagiflow-001/test_private.py:21: in test_string_zero_cursor_and_stop_on_empty_true\n    assert c2.collect_all(lambda c: pages_stop[c]) == []\nE   AssertionError: assert [{'id': 999}] == []\nE     \nE     Left contains one more item: {'id': 999}\nE     Use -v to get more diff"
+          },
+          {
+            "test_id": "private_evaluations.pagiflow-001.test_private::test_nested_meta_envelope_with_zero_cursor",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "F.                                                                       [100%]\n=================================== FAILURES ===================================\n________________ test_string_zero_cursor_and_stop_on_empty_true ________________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/pagiflow-001/test_private.py:21: in test_string_zero_cursor_and_stop_on_empty_true\n    assert c2.collect_all(lambda c: pages_stop[c]) == []\nE   AssertionError: assert [{'id': 999}] == []\nE     \nE     Left contains one more item: {'id': 999}\nE     Use -v to get more diff\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/pagiflow-001/test_private.py::test_string_zero_cursor_and_stop_on_empty_true\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "REGRESSION",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": true,
+      "private_passed": false,
+      "failure_classification": "REGRESSION_INTRODUCED",
+      "explanation": "Patch broke existing functionality: 2 PASS_TO_PASS preservation test(s) failed.",
+      "duration_ms": 3223.48,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:41.474850+00:00",
+      "completed_at": "2026-10-21T12:38:44.698358+00:00",
+      "agent_logs": "Loaded regression patch for pagiflow-001."
+    },
+    {
+      "run_id": "run-1792586317-07d0de",
+      "task_id": "retryguard-008",
+      "title": "Fix max_retries off-by-one, Retry-After cap, non-retryable 4xx, and TokenBucket capacity ceiling",
+      "difficulty": "medium",
+      "category": "retry_ratelimit",
+      "agent_id": "regression-baseline",
+      "provider": "offline",
+      "model": "regression",
+      "sandbox_mode": "subprocess",
+      "base_revision": "5b34c261230cf918d49f7f3cd3a0cefb94c17494",
+      "test_suite_hash": "73c3163b895370feff02297e612324a557401a6d2e361f127861d12a943e3ab9",
+      "patch_diff": "diff --git a/src/retryguard/policy.py b/src/retryguard/policy.py\nindex 8cf9ccd..9a5a634 100644\n--- a/src/retryguard/policy.py\n+++ b/src/retryguard/policy.py\n@@ -6,8 +6,6 @@ from dataclasses import dataclass, field\n \n \n class HTTPError(Exception):\n-    \"\"\"Represents an HTTP status failure with optional Retry-After.\"\"\"\n-\n     def __init__(self, status_code: int, message: str = \"\", retry_after: float | None = None) -> None:\n         super().__init__(message or f\"HTTP {status_code}\")\n         self.status_code = status_code\n@@ -15,10 +13,8 @@ class HTTPError(Exception):\n \n \n class RetryExhaustedError(Exception):\n-    \"\"\"Raised when all retry attempts are exhausted.\"\"\"\n-\n     def __init__(self, attempts: int, last_exception: BaseException | None = None) -> None:\n-        super().__init__(f\"Exhausted after {attempts} attempts: {last_exception}\")\n+        super().__init__(f\"Exhausted after {attempts} attempts\")\n         self.attempts = attempts\n         self.last_exception = last_exception\n \n@@ -34,9 +30,5 @@ class RetryPolicy:\n     )\n \n     def compute_delay(self, retry_index: int, retry_after: float | None = None) -> float:\n-        \"\"\"Compute backoff delay for 0-indexed `retry_index`.\"\"\"\n-        if retry_after is not None:\n-            # BUG: Does not clamp retry_after to max_backoff!\n-            return max(0.0, retry_after)\n-        raw = self.base_backoff * (self.multiplier**retry_index)\n-        return min(self.max_backoff, raw)\n+        # REGRESSION: Always returns 0.0 instead of exponential backoff!\n+        return 0.0\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "d8c00fddf80177236e2c095fd34e741e8ea481fb68d6ba094703e028354c8e09",
+        "modified_files": [
+          "src/retryguard/policy.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 3,
+        "removed_lines": 11,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 665.03,
+        "passed_count": 2,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_immediate_success_on_first_try",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_exponential_backoff_calculation",
+            "suite": "PASS_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "assert 0.0 == 1.0\n +  where 0.0 = compute_delay(0)\n +    where compute_delay = RetryPolicy(max_retries=3, base_backoff=1.0, max_backoff=5.0, multiplier=2.0, retryable_status_codes={500, 408, 502, 503, 504, 429}).compute_delay\ntests/test_existing.py:15: in test_exponential_backoff_calculation\n    assert policy.compute_delay(0) == 1.0\nE   assert 0.0 == 1.0\nE    +  where 0.0 = compute_delay(0)\nE    +    where compute_delay = RetryPolicy(max_retries=3, base_backoff=1.0, max_backoff=5.0, multiplier=2.0, retryable_status_codes={500, 408, 502, 503, 504, 429}).compute_delay"
+          },
+          {
+            "test_id": "tests.test_existing::test_invalid_limiter_params",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": ".F.                                                                      [100%]\n=================================== FAILURES ===================================\n_____________________ test_exponential_backoff_calculation _____________________\ntests/test_existing.py:15: in test_exponential_backoff_calculation\n    assert policy.compute_delay(0) == 1.0\nE   assert 0.0 == 1.0\nE    +  where 0.0 = compute_delay(0)\nE    +    where compute_delay = RetryPolicy(max_retries=3, base_backoff=1.0, max_backoff=5.0, multiplier=2.0, retryable_status_codes={500, 408, 502, 503, 504, 429}).compute_delay\n=========================== short test summary info ============================\nFAILED tests/test_existing.py::test_exponential_backoff_calculation - assert ...\n1 failed, 2 passed in 0.10s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 914.99,
+        "passed_count": 0,
+        "failed_count": 3,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.retryguard-008.evaluation.test_issue::test_max_retries_zero_executes_once_and_max_retries_three_executes_four_times",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 5.0,
+            "message": "assert 0 == 1\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/retryguard-008/evaluation/test_issue.py:24: in test_max_retries_zero_executes_once_and_max_retries_three_executes_four_times\n    assert calls == 1\nE   assert 0 == 1"
+          },
+          {
+            "test_id": "benchmarks.retryguard-008.evaluation.test_issue::test_non_retryable_4xx_aborts_immediately_and_retry_after_is_capped",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "retryguard.policy.RetryExhaustedError: Exhausted after 3 attempts\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/retryguard-008/evaluation/test_issue.py:48: in test_non_retryable_4xx_aborts_immediately_and_retry_after_is_capped\n    exec_.execute(bad_request)\nsrc/retryguard/executor.py:47: in execute\n    raise RetryExhaustedError(attempts=attempts, last_exception=last_exc)\nE   retryguard.policy.RetryExhaustedError: Exhausted after 3 attempts"
+          },
+          {
+            "test_id": "benchmarks.retryguard-008.evaluation.test_issue::test_token_bucket_uses_injected_clock_and_caps_at_capacity",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "assert 3585172453.1678586 == 1.0\n +  where 3585172453.1678586 = <retryguard.limiter.TokenBucketLimiter object at 0x7eb33e29ef90>.available_tokens\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/retryguard-008/evaluation/test_issue.py:61: in test_token_bucket_uses_injected_clock_and_caps_at_capacity\n    assert limiter.available_tokens == 1.0\nE   assert 3585172453.1678586 == 1.0\nE    +  where 3585172453.1678586 = <retryguard.limiter.TokenBucketLimiter object at 0x7eb33e29ef90>.available_tokens"
+          }
+        ],
+        "stdout": "FFF                                                                      [100%]\n=================================== FAILURES ===================================\n_ test_max_retries_zero_executes_once_and_max_retries_three_executes_four_times _\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/retryguard-008/evaluation/test_issue.py:24: in test_max_retries_zero_executes_once_and_max_retries_three_executes_four_times\n    assert calls == 1\nE   assert 0 == 1\n_____ test_non_retryable_4xx_aborts_immediately_and_retry_after_is_capped ______\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/retryguard-008/evaluation/test_issue.py:48: in test_non_retryable_4xx_aborts_immediately_and_retry_after_is_capped\n    exec_.execute(bad_request)\nsrc/retryguard/executor.py:47: in execute\n    raise RetryExhaustedError(attempts=attempts, last_exception=last_exc)\nE   retryguard.policy.RetryExhaustedError: Exhausted after 3 attempts\n__________ test_token_bucket_uses_injected_clock_and_caps_at_capacity __________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/retryguard-008/evaluation/test_issue.py:61: in test_token_bucket_uses_injected_clock_and_caps_at_capacity\n    assert limiter.available_tokens == 1.0\nE   assert 3585172453.1678586 == 1.0\nE    +  where 3585172453.1678586 = <retryguard.limiter.TokenBucketLimiter object at 0x7eb33e29ef90>.available_tokens\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/retryguard-008/evaluation/test_issue.py::test_max_retries_zero_executes_once_and_max_retries_three_executes_four_times\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/retryguard-008/evaluation/test_issue.py::test_non_retryable_4xx_aborts_immediately_and_retry_after_is_capped\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks/retryguard-008/evaluation/test_issue.py::test_token_bucket_uses_injected_clock_and_caps_at_capacity\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1106.6,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.retryguard-008.test_private::test_429_with_retry_after_succeeds_on_final_retry",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 3.0,
+            "message": "retryguard.policy.RetryExhaustedError: Exhausted after 2 attempts\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/retryguard-008/test_private.py:17: in test_429_with_retry_after_succeeds_on_final_retry\n    res = exec_.execute(flaky_endpoint)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsrc/retryguard/executor.py:47: in execute\n    raise RetryExhaustedError(attempts=attempts, last_exception=last_exc)\nE   retryguard.policy.RetryExhaustedError: Exhausted after 2 attempts"
+          }
+        ],
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n______________ test_429_with_retry_after_succeeds_on_final_retry _______________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/retryguard-008/test_private.py:17: in test_429_with_retry_after_succeeds_on_final_retry\n    res = exec_.execute(flaky_endpoint)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsrc/retryguard/executor.py:47: in execute\n    raise RetryExhaustedError(attempts=attempts, last_exception=last_exc)\nE   retryguard.policy.RetryExhaustedError: Exhausted after 2 attempts\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/retryguard-008/test_private.py::test_429_with_retry_after_succeeds_on_final_retry\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "REGRESSION",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": true,
+      "private_passed": false,
+      "failure_classification": "REGRESSION_INTRODUCED",
+      "explanation": "Patch broke existing functionality: 1 PASS_TO_PASS preservation test(s) failed.",
+      "duration_ms": 2791.4,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:44.515112+00:00",
+      "completed_at": "2026-10-21T12:38:47.306539+00:00",
+      "agent_logs": "Loaded regression patch for retryguard-008."
+    },
+    {
+      "run_id": "run-1792586317-07d0de",
+      "task_id": "schemaver-009",
+      "title": "Fix multi-hop v1->v3 schema migration, shared mutable defaults, and unknown field round-tripping",
+      "difficulty": "medium",
+      "category": "serialization_compat",
+      "agent_id": "regression-baseline",
+      "provider": "offline",
+      "model": "regression",
+      "sandbox_mode": "subprocess",
+      "base_revision": "533f4da0afeb4385e97f393a9ac7fbf14bac9c67",
+      "test_suite_hash": "aa9d711f6079664db86c3378db9668aa55af215a04df73a2529a4d8b1d22c711",
+      "patch_diff": "diff --git a/src/schemaver/codec.py b/src/schemaver/codec.py\nindex 68489f6..0a84b26 100644\n--- a/src/schemaver/codec.py\n+++ b/src/schemaver/codec.py\n@@ -2,17 +2,14 @@\n \n from __future__ import annotations\n \n-import hashlib\n-import json\n+import copy\n from typing import Any\n \n CURRENT_SCHEMA_VERSION = 3\n-_DEFAULT_TAGS: list[str] = []\n+_KNOWN = {\"event_id\", \"schema_version\", \"first_name\", \"last_name\", \"amount_cents\", \"tags\"}\n \n \n class EventEnvelope:\n-    \"\"\"Normalized v3 event envelope.\"\"\"\n-\n     def __init__(\n         self,\n         event_id: str,\n@@ -20,7 +17,7 @@ class EventEnvelope:\n         last_name: str,\n         amount_cents: int,\n         schema_version: int = CURRENT_SCHEMA_VERSION,\n-        tags: list[str] = _DEFAULT_TAGS,  # BUG: Shared mutable default list!\n+        tags: list[str] | None = None,\n         extra: dict[str, Any] | None = None,\n     ) -> None:\n         self.event_id = event_id\n@@ -28,50 +25,42 @@ class EventEnvelope:\n         self.last_name = last_name\n         self.amount_cents = amount_cents\n         self.schema_version = schema_version\n-        self.tags = tags\n+        self.tags = list(tags) if tags is not None else []\n         self.extra = extra or {}\n \n \n def canonical_hash(payload: dict[str, Any]) -> str:\n-    \"\"\"Return deterministic SHA-256 hex digest of a JSON-serializable dictionary.\"\"\"\n-    raw = json.dumps(payload, sort_keys=True, separators=(\",\", \":\"))\n-    return hashlib.sha256(raw.encode(\"utf-8\")).hexdigest()\n+    # REGRESSION: Does not sort keys in canonical_hash!\n+    return str(list(payload.items()))\n \n \n class EventCodec:\n-    \"\"\"Migrates and serializes event payloads across schema versions 1, 2, and 3.\"\"\"\n-\n     def deserialize(self, raw: dict[str, Any]) -> EventEnvelope:\n-        # BUG: Mutates caller's `raw` in place and uses `if / elif` instead of chaining v1->v2->v3!\n-        data = raw\n+        data = copy.deepcopy(raw)\n         version = int(data.get(\"schema_version\", 1))\n-        if version not in (1, 2, 3):\n-            raise ValueError(f\"Unsupported schema_version: {version}\")\n-\n         if version == 1:\n-            full = str(data.pop(\"full_name\", \"\")).strip()\n-            parts = full.split(\" \", 1)\n+            parts = str(data.pop(\"full_name\", \"\")).strip().split(\" \", 1)\n             data[\"first_name\"] = parts[0] if parts else \"\"\n             data[\"last_name\"] = parts[1] if len(parts) > 1 else \"\"\n-            data[\"schema_version\"] = 2\n-        elif version == 2:\n+            version = 2\n+        if version == 2:\n             dollars = float(data.pop(\"amount_dollars\", 0.0))\n             data[\"amount_cents\"] = int(round(dollars * 100))\n             data[\"schema_version\"] = 3\n-\n-        tags = data.get(\"tags\", _DEFAULT_TAGS)\n+        extra = {k: v for k, v in data.items() if k not in _KNOWN}\n         return EventEnvelope(\n             event_id=str(data[\"event_id\"]),\n             first_name=str(data.get(\"first_name\", \"\")),\n             last_name=str(data.get(\"last_name\", \"\")),\n             amount_cents=int(data.get(\"amount_cents\", 0)),\n-            schema_version=int(data.get(\"schema_version\", CURRENT_SCHEMA_VERSION)),\n-            tags=tags,\n+            schema_version=3,\n+            tags=data.get(\"tags\"),\n+            extra=extra,\n         )\n \n     def serialize(self, envelope: EventEnvelope) -> dict[str, Any]:\n-        # BUG: Drops envelope.extra fields!\n         return {\n+            **envelope.extra,\n             \"event_id\": envelope.event_id,\n             \"schema_version\": envelope.schema_version,\n             \"first_name\": envelope.first_name,\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "06020ba181945280839c2452bb304b8e814318a3dc74c2fc322d18a171df9c55",
+        "modified_files": [
+          "src/schemaver/codec.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 15,
+        "removed_lines": 26,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 855.42,
+        "passed_count": 1,
+        "failed_count": 2,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_v3_native_roundtrip",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 2.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_canonical_hash_key_order_invariance",
+            "suite": "PASS_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 3.0,
+            "message": "assert \"[('b', 2), (... 9, 'y': 8})]\" == \"[('a', 1), (...}), ('b', 2)]\"\n  \n  - [('a', 1), ('nested', {'y': 8, 'z': 9}), ('b', 2)]\n  + [('b', 2), ('a', 1), ('nested', {'z': 9, 'y': 8})]\ntests/test_existing.py:26: in test_canonical_hash_key_order_invariance\n    assert canonical_hash(d1) == canonical_hash(d2)\nE   assert \"[('b', 2), (... 9, 'y': 8})]\" == \"[('a', 1), (...}), ('b', 2)]\"\nE     \nE     - [('a', 1), ('nested', {'y': 8, 'z': 9}), ('b', 2)]\nE     + [('b', 2), ('a', 1), ('nested', {'z': 9, 'y': 8})]"
+          },
+          {
+            "test_id": "tests.test_existing::test_unsupported_schema_version_raises",
+            "suite": "PASS_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "Failed: DID NOT RAISE ValueError\ntests/test_existing.py:31: in test_unsupported_schema_version_raises\n    with pytest.raises(ValueError, match=\"Unsupported schema_version\"):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE ValueError"
+          }
+        ],
+        "stdout": ".FF                                                                      [100%]\n=================================== FAILURES ===================================\n___________________ test_canonical_hash_key_order_invariance ___________________\ntests/test_existing.py:26: in test_canonical_hash_key_order_invariance\n    assert canonical_hash(d1) == canonical_hash(d2)\nE   assert \"[('b', 2), (... 9, 'y': 8})]\" == \"[('a', 1), (...}), ('b', 2)]\"\nE     \nE     - [('a', 1), ('nested', {'y': 8, 'z': 9}), ('b', 2)]\nE     + [('b', 2), ('a', 1), ('nested', {'z': 9, 'y': 8})]\n____________________ test_unsupported_schema_version_raises ____________________\ntests/test_existing.py:31: in test_unsupported_schema_version_raises\n    with pytest.raises(ValueError, match=\"Unsupported schema_version\"):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE ValueError\n=========================== short test summary info ============================\nFAILED tests/test_existing.py::test_canonical_hash_key_order_invariance - ass...\nFAILED tests/test_existing.py::test_unsupported_schema_version_raises - Faile...\n2 failed, 1 passed in 0.12s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 830.26,
+        "passed_count": 3,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.schemaver-009.evaluation.test_issue::test_v1_to_v3_multihop_migration_without_mutating_caller_dict",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 3.0,
+            "message": ""
+          },
+          {
+            "test_id": "benchmarks.schemaver-009.evaluation.test_issue::test_default_tags_are_isolated_across_instances",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "benchmarks.schemaver-009.evaluation.test_issue::test_unknown_forward_compatible_fields_preserved_on_roundtrip",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 3.0,
+            "message": ""
+          }
+        ],
+        "stdout": "...                                                                      [100%]\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 1039.29,
+        "passed_count": 1,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.schemaver-009.test_private::test_single_word_full_name_in_v1_and_deep_copy_of_extra",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": ".                                                                        [100%]\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "REGRESSION",
+      "resolved": false,
+      "issue_fixed": true,
+      "has_regression": true,
+      "private_passed": true,
+      "failure_classification": "REGRESSION_INTRODUCED",
+      "explanation": "Patch broke existing functionality: 2 PASS_TO_PASS preservation test(s) failed.",
+      "duration_ms": 2812.21,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:44.808514+00:00",
+      "completed_at": "2026-10-21T12:38:47.620759+00:00",
+      "agent_logs": "Loaded regression patch for schemaver-009."
+    },
+    {
+      "run_id": "run-1792586317-07d0de",
+      "task_id": "streamparse-006",
+      "title": "Fix multi-byte UTF-8 chunk boundary splitting and byte-offset tracking on quarantined records",
+      "difficulty": "medium",
+      "category": "streaming_parser",
+      "agent_id": "regression-baseline",
+      "provider": "offline",
+      "model": "regression",
+      "sandbox_mode": "subprocess",
+      "base_revision": "5d9fdb6c51dea9c7ff11fa9469dc20ac6faf817a",
+      "test_suite_hash": "f84e29fc0764c754b282327f2f084cfbf2ca82d4bb1483654f9d31d75fab088a",
+      "patch_diff": "diff --git a/src/streamparse/reader.py b/src/streamparse/reader.py\nindex f44afe4..3b61ba0 100644\n--- a/src/streamparse/reader.py\n+++ b/src/streamparse/reader.py\n@@ -7,7 +7,6 @@ from collections.abc import Iterable\n \n from streamparse.models import (\n     ErrorPolicy,\n-    MalformedRecordError,\n     ParsedRecord,\n     QuarantinedRecord,\n     StreamSummary,\n@@ -15,8 +14,6 @@ from streamparse.models import (\n \n \n class ChunkedNDJSONReader:\n-    \"\"\"Parses streaming byte chunks of NDJSON records with offset tracking.\"\"\"\n-\n     def __init__(\n         self,\n         error_policy: ErrorPolicy = ErrorPolicy.QUARANTINE,\n@@ -27,67 +24,17 @@ class ChunkedNDJSONReader:\n \n     def parse_chunks(self, chunks: Iterable[bytes]) -> StreamSummary:\n         summary = StreamSummary()\n-        # BUG 1: Decodes each chunk independently as str, crashing when multi-byte UTF-8 splits across chunks!\n-        text_buf = \"\"\n-        line_number = 0\n-        byte_offset = 0\n-\n-        for chunk in chunks:\n-            text_buf += chunk.decode(\"utf-8\")\n-            while \"\\n\" in text_buf:\n-                line_str, text_buf = text_buf.split(\"\\n\", 1)\n-                line_number += 1\n-                raw_len = len(line_str.encode(\"utf-8\")) + 1\n-                stripped = line_str.strip()\n-                if not stripped:\n-                    byte_offset += raw_len\n-                    continue\n-\n-                self._process_line(\n-                    stripped, line_number, byte_offset, raw_len, summary\n-                )\n-                # BUG 2: _process_line only updates byte_offset on success inside or inconsistent!\n-\n-        if text_buf.strip():\n-            line_number += 1\n-            raw_len = len(text_buf.encode(\"utf-8\"))\n-            self._process_line(text_buf.strip(), line_number, byte_offset, raw_len, summary)\n-\n+        full = b\"\".join(chunks)\n+        offset = 0\n+        for line_no, raw in enumerate(full.splitlines(keepends=True), start=1):\n+            txt = raw.rstrip(b\"\\r\\n\").decode(\"utf-8\", errors=\"replace\").strip()\n+            if txt:\n+                try:\n+                    obj = json.loads(txt)\n+                    summary.records.append(ParsedRecord(line_no, offset, obj))\n+                except Exception as exc:\n+                    # REGRESSION: Ignores ErrorPolicy.RAISE and required_fields validation!\n+                    summary.quarantined.append(QuarantinedRecord(line_no, offset, txt, str(exc)))\n+            offset += len(raw)\n+        summary.total_bytes_processed = offset\n         return summary\n-\n-    def _process_line(\n-        self,\n-        stripped: str,\n-        line_number: int,\n-        byte_offset: int,\n-        raw_len: int,\n-        summary: StreamSummary,\n-    ) -> None:\n-        try:\n-            obj = json.loads(stripped)\n-            if not isinstance(obj, dict):\n-                raise ValueError(\"Record must be a JSON object\")\n-            for req in self.required_fields:\n-                if req not in obj:\n-                    raise ValueError(f\"Missing required field: {req}\")\n-        except Exception as exc:\n-            if self.error_policy == ErrorPolicy.RAISE:\n-                raise MalformedRecordError(f\"Line {line_number}: {exc}\") from exc\n-            elif self.error_policy == ErrorPolicy.SKIP:\n-                summary.skipped_count += 1\n-                return\n-            else:\n-                summary.quarantined.append(\n-                    QuarantinedRecord(\n-                        line_number=line_number,\n-                        byte_offset=byte_offset,\n-                        raw_line=stripped,\n-                        reason=str(exc),\n-                    )\n-                )\n-                return\n-\n-        summary.records.append(\n-            ParsedRecord(line_number=line_number, byte_offset=byte_offset, data=obj)\n-        )\n-        summary.total_bytes_processed += raw_len\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "c97724bc517e5f9f1b50ddf60709799eebc25dee262ea5bf6208042b1a034dba",
+        "modified_files": [
+          "src/streamparse/reader.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 13,
+        "removed_lines": 66,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 642.46,
+        "passed_count": 1,
+        "failed_count": 2,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_single_chunk_valid_ndjson",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_raise_policy_raises_malformed_record_error",
+            "suite": "PASS_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "Failed: DID NOT RAISE MalformedRecordError\ntests/test_existing.py:19: in test_raise_policy_raises_malformed_record_error\n    with pytest.raises(MalformedRecordError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE MalformedRecordError"
+          },
+          {
+            "test_id": "tests.test_existing::test_required_fields_validation",
+            "suite": "PASS_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "Failed: DID NOT RAISE MalformedRecordError\ntests/test_existing.py:26: in test_required_fields_validation\n    with pytest.raises(MalformedRecordError, match=\"user\"):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE MalformedRecordError"
+          }
+        ],
+        "stdout": ".FF                                                                      [100%]\n=================================== FAILURES ===================================\n_______________ test_raise_policy_raises_malformed_record_error ________________\ntests/test_existing.py:19: in test_raise_policy_raises_malformed_record_error\n    with pytest.raises(MalformedRecordError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE MalformedRecordError\n_______________________ test_required_fields_validation ________________________\ntests/test_existing.py:26: in test_required_fields_validation\n    with pytest.raises(MalformedRecordError, match=\"user\"):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE MalformedRecordError\n=========================== short test summary info ============================\nFAILED tests/test_existing.py::test_raise_policy_raises_malformed_record_error\nFAILED tests/test_existing.py::test_required_fields_validation - Failed: DID ...\n2 failed, 1 passed in 0.08s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 773.65,
+        "passed_count": 2,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.streamparse-006.evaluation.test_issue::test_multibyte_utf8_split_across_small_byte_chunks",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 3.0,
+            "message": ""
+          },
+          {
+            "test_id": "benchmarks.streamparse-006.evaluation.test_issue::test_quarantine_advances_byte_offset_for_subsequent_records",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "..                                                                       [100%]\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1203.2,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.streamparse-006.test_private::test_crlf_split_across_chunks_and_skip_policy_offsets",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 2.0,
+            "message": "AssertionError: assert 0 == 1\n +  where 0 = StreamSummary(records=[ParsedRecord(line_number=1, byte_offset=0, data={'id': 1}), ParsedRecord(line_number=2, byte_of...arsedRecord(line_number=3, byte_offset=30, data={'id': 3})], quarantined=[], skipped_count=0, total_bytes_processed=39).skipped_count\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/streamparse-006/test_private.py:13: in test_crlf_split_across_chunks_and_skip_policy_offsets\n    assert summary.skipped_count == 1\nE   AssertionError: assert 0 == 1\nE    +  where 0 = StreamSummary(records=[ParsedRecord(line_number=1, byte_offset=0, data={'id': 1}), ParsedRecord(line_number=2, byte_of...arsedRecord(line_number=3, byte_offset=30, data={'id': 3})], quarantined=[], skipped_count=0, total_bytes_processed=39).skipped_count"
+          }
+        ],
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n____________ test_crlf_split_across_chunks_and_skip_policy_offsets _____________\n/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/streamparse-006/test_private.py:13: in test_crlf_split_across_chunks_and_skip_policy_offsets\n    assert summary.skipped_count == 1\nE   AssertionError: assert 0 == 1\nE    +  where 0 = StreamSummary(records=[ParsedRecord(line_number=1, byte_offset=0, data={'id': 1}), ParsedRecord(line_number=2, byte_of...arsedRecord(line_number=3, byte_offset=30, data={'id': 3})], quarantined=[], skipped_count=0, total_bytes_processed=39).skipped_count\n=========================== short test summary info ============================\nFAILED ../../../workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations/streamparse-006/test_private.py::test_crlf_split_across_chunks_and_skip_policy_offsets\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "REGRESSION",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": true,
+      "private_passed": false,
+      "failure_classification": "REGRESSION_INTRODUCED",
+      "explanation": "Patch broke existing functionality: 2 PASS_TO_PASS preservation test(s) failed.",
+      "duration_ms": 2701.55,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:44.829394+00:00",
+      "completed_at": "2026-10-21T12:38:47.530975+00:00",
+      "agent_logs": "Loaded regression patch for streamparse-006."
+    },
+    {
+      "run_id": "run-1792586317-07d0de",
+      "task_id": "ttlcachex-002",
+      "title": "Fix stale expired entries in get_many/__contains__ and preserve TTL on keep_ttl=True",
+      "difficulty": "easy",
+      "category": "cache_expiration",
+      "agent_id": "regression-baseline",
+      "provider": "offline",
+      "model": "regression",
+      "sandbox_mode": "subprocess",
+      "base_revision": "5ada1827a6cd2bcd1a36edb56475f33cff359b0a",
+      "test_suite_hash": "bfea2858738411a0af6eaf8686ffd6915d5e89ab08d79e88684e70514c22d82a",
+      "patch_diff": "diff --git a/src/ttlcachex/cache.py b/src/ttlcachex/cache.py\nindex 3850bd9..1165408 100644\n--- a/src/ttlcachex/cache.py\n+++ b/src/ttlcachex/cache.py\n@@ -51,16 +51,18 @@ class TTLCache:\n         keep_ttl: bool = False,\n     ) -> None:\n         now = self._clock()\n-        # BUG: ignores keep_ttl=True on existing live entry\n-        expires_at = self._compute_expiry(now, ttl)\n+        existing = self._store.get(key)\n+        if keep_ttl and existing is not None and not existing.is_expired(now) and ttl is None:\n+            expires_at = existing.expires_at\n+        else:\n+            expires_at = self._compute_expiry(now, ttl)\n \n-        if key in self._store:\n-            self._store.move_to_end(key)\n         self._store[key] = CacheEntry(value=value, expires_at=expires_at)\n         self.stats.sets += 1\n \n         while len(self._store) > self.maxsize:\n-            self._store.popitem(last=False)\n+            # REGRESSION: evicts most-recently-inserted item (last=True) instead of LRU (last=False)!\n+            self._store.popitem(last=True)\n             self.stats.lru_evictions += 1\n \n     def get(self, key: str, default: Any = None) -> Any:\n@@ -79,19 +81,21 @@ class TTLCache:\n         return entry.value\n \n     def get_many(self, keys: Iterable[str]) -> dict[str, Any]:\n-        # BUG: does not check expiration or update stats/LRU properly for expired entries\n         result: dict[str, Any] = {}\n         for k in keys:\n-            if k in self._store:\n-                self.stats.hits += 1\n-                result[k] = self._store[k].value\n-            else:\n-                self.stats.misses += 1\n+            marker = object()\n+            val = self.get(k, default=marker)\n+            if val is not marker:\n+                result[k] = val\n         return result\n \n     def __contains__(self, key: str) -> bool:\n-        # BUG: returns True for expired keys\n-        return key in self._store\n+        now = self._clock()\n+        entry = self._store.get(key)\n+        if entry is None or entry.is_expired(now):\n+            self._store.pop(key, None)\n+            return False\n+        return True\n \n     def delete(self, key: str) -> bool:\n         return self._store.pop(key, None) is not None\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "89266e62e1c9c815b4bff2d890940e80fc6748bf00ea13150b59c8aab84fc867",
+        "modified_files": [
+          "src/ttlcachex/cache.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 17,
+        "removed_lines": 13,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 853.6,
+        "passed_count": 3,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 4,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_single_get_set_and_expiration",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_lru_eviction_order",
+            "suite": "PASS_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "AssertionError: assert 2 is None\n +  where 2 = get('b')\n +    where get = <ttlcachex.cache.TTLCache object at 0x734a287e82d0>.get\ntests/test_existing.py:26: in test_lru_eviction_order\n    assert cache.get(\"b\") is None\nE   AssertionError: assert 2 is None\nE    +  where 2 = get('b')\nE    +    where get = <ttlcachex.cache.TTLCache object at 0x734a287e82d0>.get"
+          },
+          {
+            "test_id": "tests.test_existing::test_delete_and_clear",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_invalid_maxsize",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": ".F..                                                                     [100%]\n=================================== FAILURES ===================================\n___________________________ test_lru_eviction_order ____________________________\ntests/test_existing.py:26: in test_lru_eviction_order\n    assert cache.get(\"b\") is None\nE   AssertionError: assert 2 is None\nE    +  where 2 = get('b')\nE    +    where get = <ttlcachex.cache.TTLCache object at 0x734a287e82d0>.get\n=========================== short test summary info ============================\nFAILED tests/test_existing.py::test_lru_eviction_order - AssertionError: asse...\n1 failed, 3 passed in 0.13s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 309.8,
+        "passed_count": 3,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "benchmarks.ttlcachex-002.evaluation.test_issue::test_get_many_filters_expired_entries_and_updates_stats",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "benchmarks.ttlcachex-002.evaluation.test_issue::test_contains_respects_ttl_expiration",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "benchmarks.ttlcachex-002.evaluation.test_issue::test_set_with_keep_ttl_preserves_remaining_lifetime",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          }
+        ],
+        "stdout": "...                                                                      [100%]\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 309.99,
+        "passed_count": 2,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "private_evaluations.ttlcachex-002.test_private::test_keep_ttl_on_already_expired_key_uses_new_default_ttl",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "private_evaluations.ttlcachex-002.test_private::test_get_many_stores_none_values_without_confusion",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          }
+        ],
+        "stdout": "..                                                                       [100%]\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "REGRESSION",
+      "resolved": false,
+      "issue_fixed": true,
+      "has_regression": true,
+      "private_passed": true,
+      "failure_classification": "REGRESSION_INTRODUCED",
+      "explanation": "Patch broke existing functionality: 1 PASS_TO_PASS preservation test(s) failed.",
+      "duration_ms": 1594.91,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:38:46.735559+00:00",
+      "completed_at": "2026-10-21T12:38:48.330504+00:00",
+      "agent_logs": "Loaded regression patch for ttlcachex-002."
+    }
+  ]
+}

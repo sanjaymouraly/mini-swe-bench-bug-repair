@@ -1,0 +1,103 @@
+diff --git a/src/ledgersql/ledger.py b/src/ledgersql/ledger.py
+index 7dee62a..b4061b4 100644
+--- a/src/ledgersql/ledger.py
++++ b/src/ledgersql/ledger.py
+@@ -16,8 +16,6 @@ from ledgersql.models import (
+ 
+ 
+ class SQLiteLedger:
+-    """Double-entry ledger backed by SQLite."""
+-
+     def __init__(self, db_path: str = ":memory:") -> None:
+         self._conn = sqlite3.connect(db_path)
+         self._conn.row_factory = sqlite3.Row
+@@ -44,8 +42,6 @@ class SQLiteLedger:
+         self._conn.commit()
+ 
+     def create_account(self, account_id: str, initial_balance_cents: int = 0, frozen: bool = False) -> None:
+-        if initial_balance_cents < 0:
+-            raise LedgerError("Initial balance cannot be negative")
+         self._conn.execute(
+             "INSERT INTO accounts (account_id, balance_cents, frozen) VALUES (?, ?, ?)",
+             (account_id, initial_balance_cents, 1 if frozen else 0),
+@@ -71,37 +67,28 @@ class SQLiteLedger:
+         return [dict(r) for r in rows]
+ 
+     def _apply_single(self, spec: TransferSpec) -> None:
+-        if spec.amount_cents <= 0:
+-            raise LedgerError("Transfer amount must be positive")
+-        if spec.from_account == spec.to_account:
+-            raise LedgerError("Cannot transfer to the same account")
+-
+         src = self._conn.execute(
+             "SELECT balance_cents, frozen FROM accounts WHERE account_id = ?",
+             (spec.from_account,),
+         ).fetchone()
+         if not src:
+-            raise AccountNotFoundError(f"Source account not found: {spec.from_account}")
++            raise AccountNotFoundError(spec.from_account)
+         if src["frozen"]:
+-            raise AccountFrozenError(f"Source account is frozen: {spec.from_account}")
++            raise AccountFrozenError(spec.from_account)
+         if src["balance_cents"] < spec.amount_cents:
+-            raise InsufficientFundsError(f"Insufficient funds in {spec.from_account}")
++            raise InsufficientFundsError(spec.from_account)
+ 
+-        # BUG: Debits sender and commits BEFORE validating receiver account!
++        # Incomplete: still debits sender before checking destination frozen status without savepoint!
+         self._conn.execute(
+             "UPDATE accounts SET balance_cents = balance_cents - ? WHERE account_id = ?",
+             (spec.amount_cents, spec.from_account),
+         )
+-
+         dst = self._conn.execute(
+             "SELECT balance_cents, frozen FROM accounts WHERE account_id = ?",
+             (spec.to_account,),
+         ).fetchone()
+-        if not dst:
+-            raise AccountNotFoundError(f"Destination account not found: {spec.to_account}")
+-        if dst["frozen"]:
+-            raise AccountFrozenError(f"Destination account is frozen: {spec.to_account}")
+-
++        if not dst or dst["frozen"]:
++            raise AccountFrozenError(spec.to_account)
+         self._conn.execute(
+             "UPDATE accounts SET balance_cents = balance_cents + ? WHERE account_id = ?",
+             (spec.amount_cents, spec.to_account),
+@@ -110,8 +97,6 @@ class SQLiteLedger:
+             "INSERT INTO journal_entries (tx_id, from_account, to_account, amount_cents, memo) VALUES (?, ?, ?, ?, ?)",
+             (spec.tx_id, spec.from_account, spec.to_account, spec.amount_cents, spec.memo),
+         )
+-        # BUG: Commits inside _apply_single, breaking atomic batch rollback!
+-        self._conn.commit()
+ 
+     def transfer(self, spec: TransferSpec) -> None:
+         self.execute_batch([spec], allow_partial=False)
+@@ -122,12 +107,18 @@ class SQLiteLedger:
+         allow_partial: bool = False,
+     ) -> BatchResult:
+         result = BatchResult()
+-        for spec in transfers:
+-            try:
+-                self._apply_single(spec)
+-                result.succeeded.append(spec.tx_id)
+-            except LedgerError as exc:
+-                if not allow_partial:
+-                    raise
+-                result.failed[spec.tx_id] = str(exc)
+-        return result
++        try:
++            for spec in transfers:
++                try:
++                    self._apply_single(spec)
++                    result.succeeded.append(spec.tx_id)
++                except LedgerError as exc:
++                    if not allow_partial:
++                        self._conn.rollback()
++                        raise
++                    result.failed[spec.tx_id] = str(exc)
++            self._conn.commit()
++            return result
++        except Exception:
++            self._conn.rollback()
++            raise

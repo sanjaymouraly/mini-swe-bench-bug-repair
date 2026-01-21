@@ -1,0 +1,81 @@
+diff --git a/src/idempobox/processor.py b/src/idempobox/processor.py
+index 9cac713..582beb1 100644
+--- a/src/idempobox/processor.py
++++ b/src/idempobox/processor.py
+@@ -2,6 +2,7 @@
+ 
+ from __future__ import annotations
+ 
++import copy
+ import hashlib
+ import json
+ import threading
+@@ -22,10 +23,22 @@ class IdempotencyRecord:
+     result: Any = None
+ 
+ 
++def _strip_volatile(obj: Any) -> Any:
++    if isinstance(obj, dict):
++        return {
++            k: _strip_volatile(v)
++            for k, v in sorted(obj.items())
++            if k not in VOLATILE_KEYS
++        }
++    if isinstance(obj, list):
++        return [_strip_volatile(item) for item in obj]
++    return obj
++
++
+ def compute_payload_fingerprint(payload: dict[str, Any]) -> str:
+-    """Compute SHA-256 fingerprint of a request payload."""
+-    # BUG: Does not strip VOLATILE_KEYS recursively and does not sort keys!
+-    raw = json.dumps(payload)
++    """Compute canonical SHA-256 fingerprint of a semantic payload excluding volatile keys."""
++    cleaned = _strip_volatile(payload)
++    raw = json.dumps(cleaned, sort_keys=True, separators=(",", ":"))
+     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+ 
+ 
+@@ -51,12 +64,15 @@ class IdempotentProcessor:
+         with self._lock:
+             existing = self._records.get(idempotency_key)
+             if existing is not None:
+-                # BUG 1: Does not check existing.fingerprint != fp to raise IdempotencyPayloadMismatchError!
++                if existing.fingerprint != fp:
++                    raise IdempotencyPayloadMismatchError(
++                        f"Idempotency key {idempotency_key!r} reused with different payload"
++                    )
+                 if existing.status == "IN_PROGRESS":
+                     raise IdempotencyConflictError(
+                         f"Request with key {idempotency_key!r} is currently IN_PROGRESS"
+                     )
+-                return existing.result
++                return copy.deepcopy(existing.result)
+ 
+             self._records[idempotency_key] = IdempotencyRecord(
+                 key=idempotency_key,
+@@ -64,15 +80,19 @@ class IdempotentProcessor:
+                 status="IN_PROGRESS",
+             )
+ 
+-        # BUG 3: If handler raises an exception, the record remains stuck in IN_PROGRESS!
+-        self.execution_count += 1
+-        result = handler(payload)
++        try:
++            self.execution_count += 1
++            result = handler(payload)
++        except BaseException:
++            with self._lock:
++                self._records.pop(idempotency_key, None)
++            raise
+ 
+         with self._lock:
+             self._records[idempotency_key] = IdempotencyRecord(
+                 key=idempotency_key,
+                 fingerprint=fp,
+                 status="COMPLETED",
+-                result=result,
++                result=copy.deepcopy(result),
+             )
+-        return result
++        return copy.deepcopy(result)

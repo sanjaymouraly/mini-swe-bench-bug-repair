@@ -1,0 +1,33 @@
+{
+  "task_id": "cliwarden-010",
+  "title": "Fix --dry-run validation bypass, stderr usage error routing, and POSIX exit codes",
+  "difficulty": "easy",
+  "category": "cli_validation",
+  "package_name": "cliwarden",
+  "summary": "CLIRunner short-circuits on --dry-run before validating arguments, writes validation errors to stdout with exit code 1 instead of stderr with exit code 2, and mishandles KeyboardInterrupt.",
+  "issue_description": "# Issue: `CLIRunner` bypasses validation on `--dry-run`, uses wrong exit codes, and pollutes `stdout` on errors\n\n## Description\n`cliwarden` is a command-line runner enforcing structured exit codes:\n- `EXIT_OK = 0`\n- `EXIT_USAGE_ERROR = 2` (unknown flags, missing required `--target`, mutually exclusive `--fast` and `--thorough`, or invalid `--workers` count `<= 0` or `> 64`)\n- `EXIT_CONFIG_ERROR = 3` (`ConfigError` raised by handler)\n- `EXIT_RUNTIME_ERROR = 4` (unhandled `RuntimeError` raised by handler)\n- `EXIT_INTERRUPTED = 130` (`KeyboardInterrupt` raised by handler)\n\nThree bugs exist in `src/cliwarden/runner.py`:\n\n1. **`--dry-run` short-circuits BEFORE argument validation**:\n   When `--dry-run` is passed alongside invalid flags (e.g. `[\"--dry-run\", \"--workers\", \"0\"]` or `[\"--dry-run\", \"--fast\", \"--thorough\"]` or missing `--target`), `CLIRunner.run()` immediately returns `exit_code=0` without validating the arguments! `--dry-run` must validate all arguments first, and only skip invoking the handler after validation succeeds.\n2. **Validation errors return exit code `1` and print to `stdout` instead of `stderr`**:\n   Usage/validation errors must return `EXIT_USAGE_ERROR` (`2`) and write the error message to `stderr` (leaving `stdout` empty `\"\"`).\n3. **`KeyboardInterrupt` returns `1` instead of `EXIT_INTERRUPTED` (`130`)**:\n   When the command handler raises `KeyboardInterrupt`, `run()` catches `Exception` or returns `1` instead of returning `EXIT_INTERRUPTED` (`130`) with `\"Interrupted\n\"` on `stderr`.\n\n## Expected Behavior\n- Full argument validation always runs before `--dry-run` short-circuiting.\n- Usage/validation errors return `exit_code=2`, `stdout=\"\"`, and non-empty `stderr`.\n- `ConfigError` returns `exit_code=3`, `RuntimeError` returns `exit_code=4`, and `KeyboardInterrupt` returns `exit_code=130` (all writing error details to `stderr`).\n",
+  "reproduction_instructions": "pytest evaluation/test_issue.py -q",
+  "pinned_environment": {
+    "python_version": "3.12",
+    "dependencies": [
+      "pytest>=8.3.0"
+    ],
+    "test_command": "pytest -q",
+    "docker_image": "software-bug-repair-benchmark-runner:latest"
+  },
+  "base_revision": "f3f538a410816b18ee4a17825f24d125fc4987cf",
+  "allowed_files": [
+    "src/cliwarden/runner.py"
+  ],
+  "pass_to_pass_tests": [
+    "tests/test_existing.py"
+  ],
+  "fail_to_pass_tests": [
+    "evaluation/test_issue.py"
+  ],
+  "private_tests": [
+    "private_evaluations/cliwarden-010/test_private.py"
+  ],
+  "test_suite_hash": "7d44d8b91fb37a762a847a3f74dc4f29bd4683a9fb16a05e1bfe71e92ad48187",
+  "reference_patch_hash": "052a8c7c237790c9ff72970fc062966c840fe4c3249f23c5dc6eeca1aa1e2b02"
+}

@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "retryguard"
+version = "0.1.0"
+description = "RetryExecutor makes max_retries total attempts instead of 1 + max_retries, sleeps after the final failure, ignores max_backoff on Retry-After, retries non-retryable 4xx errors, and allows TokenBucketLimiter to exceed capacity."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

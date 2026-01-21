@@ -1,0 +1,79 @@
+diff --git a/src/retryguard/executor.py b/src/retryguard/executor.py
+index 292bcb0..ee8341f 100644
+--- a/src/retryguard/executor.py
++++ b/src/retryguard/executor.py
+@@ -24,24 +24,28 @@ class RetryExecutor:
+         self.sleep_history: list[float] = []
+ 
+     def execute(self, func: Callable[[], T]) -> T:
++        if self.policy.max_retries < 0:
++            raise ValueError("max_retries must be >= 0")
++
+         last_exc: BaseException | None = None
+-        attempts = 0
++        total_allowed = self.policy.max_retries + 1
+ 
+-        # BUG: Loops range(max_retries) instead of range(max_retries + 1),
+-        # retries non-retryable 4xx errors, and sleeps after the final failed attempt!
+-        for attempt in range(self.policy.max_retries):
+-            attempts += 1
++        for attempt in range(total_allowed):
+             try:
+                 return func()
+             except HTTPError as exc:
++                if exc.status_code not in self.policy.retryable_status_codes:
++                    raise
+                 last_exc = exc
+-                delay = self.policy.compute_delay(attempt, retry_after=exc.retry_after)
+-                self.sleep_history.append(delay)
+-                self._sleep(delay)
++                if attempt < self.policy.max_retries:
++                    delay = self.policy.compute_delay(attempt, retry_after=exc.retry_after)
++                    self.sleep_history.append(delay)
++                    self._sleep(delay)
+             except Exception as exc:
+                 last_exc = exc
+-                delay = self.policy.compute_delay(attempt)
+-                self.sleep_history.append(delay)
+-                self._sleep(delay)
++                if attempt < self.policy.max_retries:
++                    delay = self.policy.compute_delay(attempt)
++                    self.sleep_history.append(delay)
++                    self._sleep(delay)
+ 
+-        raise RetryExhaustedError(attempts=attempts, last_exception=last_exc)
++        raise RetryExhaustedError(attempts=total_allowed, last_exception=last_exc)
+diff --git a/src/retryguard/limiter.py b/src/retryguard/limiter.py
+index 9e2e466..d794d50 100644
+--- a/src/retryguard/limiter.py
++++ b/src/retryguard/limiter.py
+@@ -24,11 +24,10 @@ class TokenBucketLimiter:
+         self._last_ts = self._clock()
+ 
+     def _refill(self) -> None:
+-        # BUG: Uses time.time() instead of self._clock() and does not cap at self.capacity!
+-        now = time.time()
++        now = self._clock()
+         elapsed = max(0.0, now - self._last_ts)
+         self._last_ts = now
+-        self._tokens = self._tokens + elapsed * self.rate_per_sec
++        self._tokens = min(self.capacity, self._tokens + elapsed * self.rate_per_sec)
+ 
+     def try_acquire(self, tokens: float = 1.0) -> bool:
+         self._refill()
+diff --git a/src/retryguard/policy.py b/src/retryguard/policy.py
+index 8cf9ccd..2476e74 100644
+--- a/src/retryguard/policy.py
++++ b/src/retryguard/policy.py
+@@ -34,9 +34,8 @@ class RetryPolicy:
+     )
+ 
+     def compute_delay(self, retry_index: int, retry_after: float | None = None) -> float:
+-        """Compute backoff delay for 0-indexed `retry_index`."""
++        """Compute backoff delay for 0-indexed `retry_index`, clamped to `max_backoff`."""
+         if retry_after is not None:
+-            # BUG: Does not clamp retry_after to max_backoff!
+-            return max(0.0, retry_after)
++            return min(self.max_backoff, max(0.0, retry_after))
+         raw = self.base_backoff * (self.multiplier**retry_index)
+         return min(self.max_backoff, raw)

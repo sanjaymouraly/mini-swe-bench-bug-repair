@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chronoshift"
+version = "0.1.0"
+description = "DailyWindowScheduler shifts wall-clock hours across DST transitions by adding UTC timedeltas, fails to detect nonexistent spring-forward gap times, and miscomputes real elapsed seconds across offset changes."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

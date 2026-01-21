@@ -1,0 +1,34 @@
+{
+  "task_id": "ledgersql-004",
+  "title": "Fix atomic batch rollback and savepoint isolation in SQLiteLedger.execute_batch",
+  "difficulty": "medium",
+  "category": "sqlite_transactions",
+  "package_name": "ledgersql",
+  "summary": "SQLiteLedger commits intermediate transfers during atomic batches and leaves partial debit legs applied when a destination account check fails in partial batches.",
+  "issue_description": "# Issue: `SQLiteLedger.execute_batch` leaves partial transfers committed on failure\n\n## Description\n`SQLiteLedger` manages double-entry account balances and journal entries in SQLite. `execute_batch(transfers, allow_partial=False)` has two transaction-integrity bugs:\n\n1. **Atomic Batch (`allow_partial=False`) does not roll back earlier transfers**:\n   `_apply_transfer()` calls `self._conn.commit()` after each transfer (and updates the sender's balance before verifying whether the recipient account is frozen or missing). When transfer #3 in a 4-transfer atomic batch fails (`InsufficientFundsError` or `AccountFrozenError`), transfers #1 and #2 (plus the sender debit of transfer #3!) remain committed in SQLite! An atomic batch with `allow_partial=False` must be all-or-nothing: if any transfer fails, the entire batch must be rolled back and the exception re-raised.\n2. **Partial Batch (`allow_partial=True`) leaves half-applied debit leg on recipient failure**:\n   When `allow_partial=True`, each individual transfer in the batch should be isolated in its own SQLite `SAVEPOINT` (or validated atomically). Currently, if the sender has sufficient funds, the sender's balance is debited in SQLite before checking if the destination account is frozen; when `AccountFrozenError` is caught in `allow_partial=True`, the sender's debit is never rolled back, destroying money conservation!\n\n## Expected Behavior\n- When `allow_partial=False`, if any transfer in `transfers` fails, zero balance changes or `journal_entries` from the batch may persist in SQLite, and the `LedgerError` must be raised.\n- When `allow_partial=True`, each failed transfer must roll back its own changes completely (using a `SAVEPOINT`) while valid transfers in the same batch succeed and commit.\n- Total money across all accounts must remain strictly conserved across any combination of valid and invalid transfers.\n",
+  "reproduction_instructions": "pytest evaluation/test_issue.py -q",
+  "pinned_environment": {
+    "python_version": "3.12",
+    "dependencies": [
+      "pytest>=8.3.0"
+    ],
+    "test_command": "pytest -q",
+    "docker_image": "software-bug-repair-benchmark-runner:latest"
+  },
+  "base_revision": "2c11583af21ce5690889725dcd1116bcb22ffcbe",
+  "allowed_files": [
+    "src/ledgersql/ledger.py",
+    "src/ledgersql/models.py"
+  ],
+  "pass_to_pass_tests": [
+    "tests/test_existing.py"
+  ],
+  "fail_to_pass_tests": [
+    "evaluation/test_issue.py"
+  ],
+  "private_tests": [
+    "private_evaluations/ledgersql-004/test_private.py"
+  ],
+  "test_suite_hash": "d98952270012d617f417f58bc4ba8fc5ff15c881c5d908d586fa2d299eb411bf",
+  "reference_patch_hash": "4d661666880c8729abd0e23dcab51afa67b13b43feaeadb4573a2bf27181dd04"
+}

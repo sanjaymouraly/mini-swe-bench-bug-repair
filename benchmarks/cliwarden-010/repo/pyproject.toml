@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cliwarden"
+version = "0.1.0"
+description = "CLIRunner short-circuits on --dry-run before validating arguments, writes validation errors to stdout with exit code 1 instead of stderr with exit code 2, and mishandles KeyboardInterrupt."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

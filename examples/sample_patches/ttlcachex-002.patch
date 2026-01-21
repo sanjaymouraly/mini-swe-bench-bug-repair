@@ -1,0 +1,47 @@
+diff --git a/src/ttlcachex/cache.py b/src/ttlcachex/cache.py
+index 3850bd9..33efc2b 100644
+--- a/src/ttlcachex/cache.py
++++ b/src/ttlcachex/cache.py
+@@ -51,14 +51,12 @@ class TTLCache:
+         keep_ttl: bool = False,
+     ) -> None:
+         now = self._clock()
+-        # BUG: ignores keep_ttl=True on existing live entry
++        # Incomplete fix: still ignores keep_ttl!
+         expires_at = self._compute_expiry(now, ttl)
+-
+         if key in self._store:
+             self._store.move_to_end(key)
+         self._store[key] = CacheEntry(value=value, expires_at=expires_at)
+         self.stats.sets += 1
+-
+         while len(self._store) > self.maxsize:
+             self._store.popitem(last=False)
+             self.stats.lru_evictions += 1
+@@ -79,19 +77,18 @@ class TTLCache:
+         return entry.value
+ 
+     def get_many(self, keys: Iterable[str]) -> dict[str, Any]:
+-        # BUG: does not check expiration or update stats/LRU properly for expired entries
+         result: dict[str, Any] = {}
+         for k in keys:
+-            if k in self._store:
+-                self.stats.hits += 1
+-                result[k] = self._store[k].value
+-            else:
+-                self.stats.misses += 1
++            marker = object()
++            val = self.get(k, default=marker)
++            if val is not marker:
++                result[k] = val
+         return result
+ 
+     def __contains__(self, key: str) -> bool:
+-        # BUG: returns True for expired keys
+-        return key in self._store
++        now = self._clock()
++        entry = self._store.get(key)
++        return entry is not None and not entry.is_expired(now)
+ 
+     def delete(self, key: str) -> bool:
+         return self._store.pop(key, None) is not None

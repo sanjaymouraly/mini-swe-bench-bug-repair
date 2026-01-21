@@ -1,0 +1,58 @@
+diff --git a/src/ttlcachex/cache.py b/src/ttlcachex/cache.py
+index 3850bd9..1165408 100644
+--- a/src/ttlcachex/cache.py
++++ b/src/ttlcachex/cache.py
+@@ -51,16 +51,18 @@ class TTLCache:
+         keep_ttl: bool = False,
+     ) -> None:
+         now = self._clock()
+-        # BUG: ignores keep_ttl=True on existing live entry
+-        expires_at = self._compute_expiry(now, ttl)
++        existing = self._store.get(key)
++        if keep_ttl and existing is not None and not existing.is_expired(now) and ttl is None:
++            expires_at = existing.expires_at
++        else:
++            expires_at = self._compute_expiry(now, ttl)
+ 
+-        if key in self._store:
+-            self._store.move_to_end(key)
+         self._store[key] = CacheEntry(value=value, expires_at=expires_at)
+         self.stats.sets += 1
+ 
+         while len(self._store) > self.maxsize:
+-            self._store.popitem(last=False)
++            # REGRESSION: evicts most-recently-inserted item (last=True) instead of LRU (last=False)!
++            self._store.popitem(last=True)
+             self.stats.lru_evictions += 1
+ 
+     def get(self, key: str, default: Any = None) -> Any:
+@@ -79,19 +81,21 @@ class TTLCache:
+         return entry.value
+ 
+     def get_many(self, keys: Iterable[str]) -> dict[str, Any]:
+-        # BUG: does not check expiration or update stats/LRU properly for expired entries
+         result: dict[str, Any] = {}
+         for k in keys:
+-            if k in self._store:
+-                self.stats.hits += 1
+-                result[k] = self._store[k].value
+-            else:
+-                self.stats.misses += 1
++            marker = object()
++            val = self.get(k, default=marker)
++            if val is not marker:
++                result[k] = val
+         return result
+ 
+     def __contains__(self, key: str) -> bool:
+-        # BUG: returns True for expired keys
+-        return key in self._store
++        now = self._clock()
++        entry = self._store.get(key)
++        if entry is None or entry.is_expired(now):
++            self._store.pop(key, None)
++            return False
++        return True
+ 
+     def delete(self, key: str) -> bool:
+         return self._store.pop(key, None) is not None

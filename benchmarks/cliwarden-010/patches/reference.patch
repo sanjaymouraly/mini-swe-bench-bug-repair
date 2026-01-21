@@ -1,0 +1,90 @@
+diff --git a/src/cliwarden/runner.py b/src/cliwarden/runner.py
+index edf9d46..9dd44ea 100644
+--- a/src/cliwarden/runner.py
++++ b/src/cliwarden/runner.py
+@@ -24,6 +24,10 @@ class CLIResult:
+     stderr: str
+ 
+ 
++def _usage_error(message: str) -> CLIResult:
++    return CLIResult(exit_code=EXIT_USAGE_ERROR, stdout="", stderr=f"Usage error: {message}\n")
++
++
+ class CLIRunner:
+     """Validates CLI flags and executes a handler with POSIX exit codes."""
+ 
+@@ -33,10 +37,6 @@ class CLIRunner:
+     def run(self, argv: Sequence[str]) -> CLIResult:
+         args = list(argv)
+ 
+-        # BUG 1: Short-circuits on --dry-run BEFORE validating flags and arguments!
+-        if "--dry-run" in args:
+-            return CLIResult(exit_code=EXIT_OK, stdout="DRY RUN OK\n", stderr="")
+-
+         target: str | None = None
+         workers: int = 4
+         fast = False
+@@ -48,17 +48,16 @@ class CLIRunner:
+             tok = args[i]
+             if tok == "--target":
+                 if i + 1 >= len(args) or args[i + 1].startswith("--"):
+-                    # BUG 2: Returns exit_code=1 and writes error to stdout!
+-                    return CLIResult(exit_code=1, stdout="Error: --target requires a value\n", stderr="")
+-                target = args[i + 1]
++                    return _usage_error("--target requires a value")
++                target = args[i + 1].strip()
+                 i += 2
+             elif tok == "--workers":
+                 if i + 1 >= len(args):
+-                    return CLIResult(exit_code=1, stdout="Error: --workers requires an integer\n", stderr="")
++                    return _usage_error("--workers requires an integer")
+                 try:
+                     workers = int(args[i + 1])
+                 except ValueError:
+-                    return CLIResult(exit_code=1, stdout="Error: --workers must be an integer\n", stderr="")
++                    return _usage_error("--workers must be an integer")
+                 i += 2
+             elif tok == "--fast":
+                 fast = True
+@@ -70,14 +69,14 @@ class CLIRunner:
+                 dry_run = True
+                 i += 1
+             else:
+-                return CLIResult(exit_code=1, stdout=f"Error: Unknown option {tok}\n", stderr="")
++                return _usage_error(f"Unknown option {tok}")
+ 
+         if not target:
+-            return CLIResult(exit_code=1, stdout="Error: --target is required\n", stderr="")
++            return _usage_error("--target is required")
+         if fast and thorough:
+-            return CLIResult(exit_code=1, stdout="Error: --fast and --thorough are mutually exclusive\n", stderr="")
++            return _usage_error("--fast and --thorough are mutually exclusive")
+         if workers <= 0 or workers > 64:
+-            return CLIResult(exit_code=1, stdout="Error: --workers must be between 1 and 64\n", stderr="")
++            return _usage_error("--workers must be between 1 and 64")
+ 
+         opts = {
+             "target": target,
+@@ -86,11 +85,19 @@ class CLIRunner:
+             "dry_run": dry_run,
+         }
+ 
++        if dry_run:
++            return CLIResult(
++                exit_code=EXIT_OK,
++                stdout=f"DRY RUN OK: target={target} workers={workers} mode={opts['mode']}\n",
++                stderr="",
++            )
++
+         try:
+             out = self.handler(opts)
+             return CLIResult(exit_code=EXIT_OK, stdout=out, stderr="")
++        except KeyboardInterrupt:
++            return CLIResult(exit_code=EXIT_INTERRUPTED, stdout="", stderr="Interrupted\n")
+         except ConfigError as exc:
+             return CLIResult(exit_code=EXIT_CONFIG_ERROR, stdout="", stderr=f"Config error: {exc}\n")
+-        except BaseException as exc:
+-            # BUG 3: Catches KeyboardInterrupt here and returns 1 instead of 130!
+-            return CLIResult(exit_code=1, stdout="", stderr=f"Error: {exc}\n")
++        except Exception as exc:
++            return CLIResult(exit_code=EXIT_RUNTIME_ERROR, stdout="", stderr=f"Runtime error: {exc}\n")

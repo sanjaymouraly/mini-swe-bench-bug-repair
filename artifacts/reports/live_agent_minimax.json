@@ -1,0 +1,1500 @@
+{
+  "run_id": "run-1792582959-546fb3",
+  "run_name": "minimax-m3.1-flash:free (live agent suite v2)",
+  "benchmark_version": "1.0.0",
+  "agent_id": "custom_openai:minimax-m3.1-flash:free",
+  "provider": "custom_openai",
+  "model": "minimax-m3.1-flash:free",
+  "sandbox_mode": "docker",
+  "status": "COMPLETED",
+  "created_at": "2026-10-21T11:42:39.881579+00:00",
+  "completed_at": "2026-10-21T12:02:46.219274+00:00",
+  "total_tasks": 12,
+  "completed_tasks": 12,
+  "resolved_count": 7,
+  "resolved_rate": 58.33,
+  "issue_fix_count": 7,
+  "issue_fix_rate": 58.33,
+  "regression_count": 0,
+  "regression_free_count": 12,
+  "regression_free_rate": 100.0,
+  "patch_valid_count": 8,
+  "patch_valid_rate": 66.67,
+  "integrity_violation_count": 0,
+  "execution_failure_count": 0,
+  "total_duration_ms": 1206345.0,
+  "total_tokens": 45200,
+  "estimated_cost_usd": 0.0,
+  "is_demo": false,
+  "config_snapshot": {
+    "root_dir": "/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55",
+    "benchmarks_dir": "/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks",
+    "private_tests_dir": "/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations",
+    "artifacts_dir": "/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/artifacts",
+    "db_path": "/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/artifacts/bugbench.db",
+    "configured_sandbox_mode": "auto",
+    "effective_sandbox_mode": "docker",
+    "docker_image": "software-bug-repair-benchmark-runner:latest",
+    "default_timeout_seconds": 60,
+    "memory_limit_mb": 512,
+    "cpu_limit": 1.0,
+    "max_pids": 64,
+    "network_disabled": true
+  },
+  "category_breakdown": [
+    {
+      "category": "atomic_file_ops",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "cache_expiration",
+      "total": 1,
+      "resolved": 1,
+      "issue_fixed": 1,
+      "regressions": 0,
+      "resolved_rate": 100.0
+    },
+    {
+      "category": "cli_validation",
+      "total": 1,
+      "resolved": 1,
+      "issue_fixed": 1,
+      "regressions": 0,
+      "resolved_rate": 100.0
+    },
+    {
+      "category": "concurrency_races",
+      "total": 1,
+      "resolved": 1,
+      "issue_fixed": 1,
+      "regressions": 0,
+      "resolved_rate": 100.0
+    },
+    {
+      "category": "config_precedence",
+      "total": 1,
+      "resolved": 1,
+      "issue_fixed": 1,
+      "regressions": 0,
+      "resolved_rate": 100.0
+    },
+    {
+      "category": "idempotency",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "pagination_api",
+      "total": 1,
+      "resolved": 1,
+      "issue_fixed": 1,
+      "regressions": 0,
+      "resolved_rate": 100.0
+    },
+    {
+      "category": "retry_ratelimit",
+      "total": 1,
+      "resolved": 1,
+      "issue_fixed": 1,
+      "regressions": 0,
+      "resolved_rate": 100.0
+    },
+    {
+      "category": "serialization_compat",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "sqlite_transactions",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "streaming_parser",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "timezone_dst",
+      "total": 1,
+      "resolved": 1,
+      "issue_fixed": 1,
+      "regressions": 0,
+      "resolved_rate": 100.0
+    }
+  ],
+  "difficulty_breakdown": [
+    {
+      "difficulty": "easy",
+      "total": 4,
+      "resolved": 4,
+      "issue_fixed": 4,
+      "regressions": 0,
+      "resolved_rate": 100.0
+    },
+    {
+      "difficulty": "medium",
+      "total": 4,
+      "resolved": 1,
+      "issue_fixed": 1,
+      "regressions": 0,
+      "resolved_rate": 25.0
+    },
+    {
+      "difficulty": "hard",
+      "total": 4,
+      "resolved": 2,
+      "issue_fixed": 2,
+      "regressions": 0,
+      "resolved_rate": 50.0
+    }
+  ],
+  "task_results": [
+    {
+      "run_id": "run-1792582959-546fb3",
+      "task_id": "atomicvault-012",
+      "title": "Fix mid-write target loss, orphan temp cleanup, crash recovery, and path traversal in AtomicVault",
+      "difficulty": "hard",
+      "category": "atomic_file_ops",
+      "agent_id": "custom_openai:minimax-m3.1-flash:free",
+      "provider": "custom_openai",
+      "model": "minimax-m3.1-flash:free",
+      "sandbox_mode": "docker",
+      "base_revision": "8c37ed974430c739b689336b705e1e717dfee99b",
+      "test_suite_hash": "feb6bda2a00c0d6ba328dea3c4ee89123a3b3669cd84e34c6160c71885d1c33d",
+      "patch_diff": "",
+      "patch_validation": {
+        "is_empty": true,
+        "applies_cleanly": false,
+        "integrity_passed": false,
+        "patch_sha256": "",
+        "modified_files": [],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 0,
+        "removed_lines": 0,
+        "errors": [
+          "Patch is empty (no changes submitted)."
+        ]
+      },
+      "pass_to_pass": null,
+      "fail_to_pass": null,
+      "private_tests": null,
+      "execution_status": "COMPLETED",
+      "resolution_status": "NO_CHANGES",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": false,
+      "private_passed": false,
+      "failure_classification": "EMPTY_PATCH_SUBMITTED",
+      "explanation": "No code changes were generated or submitted.",
+      "duration_ms": 33.57,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T11:52:43.715736+00:00",
+      "completed_at": "2026-10-21T11:52:43.749356+00:00",
+      "agent_logs": "Empty choices returned by custom_openai (minimax-m3.1-flash:free). Provider returned no choices (attempt 2/2). Response keys: ['error']"
+    },
+    {
+      "run_id": "run-1792582959-546fb3",
+      "task_id": "chronoshift-005",
+      "title": "Fix DST wall-clock drift, nonexistent spring-forward times, and UTC elapsed calculation",
+      "difficulty": "hard",
+      "category": "timezone_dst",
+      "agent_id": "custom_openai:minimax-m3.1-flash:free",
+      "provider": "custom_openai",
+      "model": "minimax-m3.1-flash:free",
+      "sandbox_mode": "docker",
+      "base_revision": "2108290bab248cbb1ef6bba9d92d0f4f0a96c894",
+      "test_suite_hash": "314b86cb839ed3c60cd8114b7bd8f69984bc2510a085c0e781c7bad452fc37f6",
+      "patch_diff": "diff --git a/src/chronoshift/scheduler.py b/src/chronoshift/scheduler.py\nindex a35211d..f32104b 100644\n--- a/src/chronoshift/scheduler.py\n+++ b/src/chronoshift/scheduler.py\n@@ -19,9 +19,13 @@ def resolve_wall_time(\n     fold: int = 0,\n ) -> datetime:\n     \"\"\"Resolve a local wall-clock (date, hour, minute) in `tz_name`.\"\"\"\n+    if nonexistent_policy not in {\"raise\", \"shift_forward\"}:\n+        raise ValueError(\n+            \"nonexistent_policy must be either 'raise' or 'shift_forward'\"\n+        )\n+\n     tz = ZoneInfo(tz_name)\n-    # BUG: Does not check whether (target_date, hour, minute) is nonexistent in tz!\n-    return datetime(\n+    dt = datetime(\n         target_date.year,\n         target_date.month,\n         target_date.day,\n@@ -31,21 +35,40 @@ def resolve_wall_time(\n         fold=fold,\n     )\n \n+    roundtrip = dt.astimezone(UTC).astimezone(tz)\n+    is_nonexistent = (\n+        roundtrip.replace(tzinfo=None) != dt.replace(tzinfo=None)\n+        or roundtrip.utcoffset() != dt.utcoffset()\n+    )\n+\n+    if is_nonexistent:\n+        if nonexistent_policy == \"raise\":\n+            raise NonExistentTimeError(\n+                f\"Nonexistent local time {dt.replace(tzinfo=None)!s} in {tz_name}\"\n+            )\n+        return dt.replace(fold=0).astimezone(UTC).astimezone(tz)\n+\n+    return dt\n+\n \n def real_elapsed_seconds(start_dt: datetime, end_dt: datetime) -> float:\n     \"\"\"Return actual elapsed seconds between two timezone-aware datetimes.\"\"\"\n     if start_dt.tzinfo is None or end_dt.tzinfo is None:\n         raise ValueError(\"Both start_dt and end_dt must be timezone-aware\")\n-    # BUG: Strips tzinfo instead of converting to UTC, miscounting across DST!\n-    naive_start = start_dt.replace(tzinfo=None)\n-    naive_end = end_dt.replace(tzinfo=None)\n-    return (naive_end - naive_start).total_seconds()\n+\n+    start_utc = start_dt.astimezone(UTC)\n+    end_utc = end_dt.astimezone(UTC)\n+    return (end_utc - start_utc).total_seconds()\n \n \n class DailyWindowScheduler:\n     \"\"\"Generates recurring daily schedule instants in a target timezone.\"\"\"\n \n     def __init__(self, tz_name: str = \"UTC\", nonexistent_policy: str = \"shift_forward\") -> None:\n+        if nonexistent_policy not in {\"raise\", \"shift_forward\"}:\n+            raise ValueError(\n+                \"nonexistent_policy must be either 'raise' or 'shift_forward'\"\n+            )\n         self.tz_name = tz_name\n         self.nonexistent_policy = nonexistent_policy\n \n@@ -58,10 +81,14 @@ class DailyWindowScheduler:\n     ) -> list[datetime]:\n         if days <= 0:\n             return []\n-        tz = ZoneInfo(self.tz_name)\n-        first = resolve_wall_time(\n-            start_date, hour, minute, self.tz_name, nonexistent_policy=self.nonexistent_policy\n-        )\n-        first_utc = first.astimezone(UTC)\n-        # BUG: Adds 24h increments in UTC, shifting local wall time across DST!\n-        return [(first_utc + timedelta(days=i)).astimezone(tz) for i in range(days)]\n+\n+        return [\n+            resolve_wall_time(\n+                start_date + timedelta(days=i),\n+                hour,\n+                minute,\n+                self.tz_name,\n+                nonexistent_policy=self.nonexistent_policy,\n+            )\n+            for i in range(days)\n+        ]\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "d072b73bd09edbb57e806fa9fae9e3228d1d5f98fb5f6dfa2b5de67547162424",
+        "modified_files": [
+          "src/chronoshift/scheduler.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 40,
+        "removed_lines": 13,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 849.36,
+        "passed_count": 3,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_utc_daily_schedule",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_real_elapsed_seconds_rejects_naive_datetime",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_resolve_normal_wall_time",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "...                                                                      [100%]\n------------ generated xml file: /workspace/.junit_pass_to_pass.xml ------------\n3 passed in 0.03s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 904.32,
+        "passed_count": 2,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "eval_fail_to_pass::test_daily_schedule_preserves_wall_clock_across_spring_forward_dst",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_fail_to_pass::test_nonexistent_spring_forward_time_raise_and_shift",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "..                                                                       [100%]\n------------ generated xml file: /workspace/.junit_fail_to_pass.xml ------------\n2 passed in 0.03s\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 915.14,
+        "passed_count": 1,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "eval_private::test_fall_back_25_hour_day_and_fold_disambiguation",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": ".                                                                        [100%]\n-------------- generated xml file: /workspace/.junit_private.xml ---------------\n1 passed in 0.05s\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "RESOLVED",
+      "resolved": true,
+      "issue_fixed": true,
+      "has_regression": false,
+      "private_passed": true,
+      "failure_classification": "RESOLVED_CLEANLY",
+      "explanation": "Task resolved without regressions: FAIL_TO_PASS=2/2, PASS_TO_PASS=3/3, PRIVATE=1/1.",
+      "duration_ms": 2723.5,
+      "prompt_tokens": 1813,
+      "completion_tokens": 4087,
+      "total_tokens": 5900,
+      "estimated_cost_usd": 0.0,
+      "started_at": "2026-10-21T11:44:57.172250+00:00",
+      "completed_at": "2026-10-21T11:44:59.895780+00:00",
+      "agent_logs": "Model: minimax-m3.1-flash:free | Updated files in workspace: src/chronoshift/scheduler.py\nResponse length: 2841 chars"
+    },
+    {
+      "run_id": "run-1792582959-546fb3",
+      "task_id": "cliwarden-010",
+      "title": "Fix --dry-run validation bypass, stderr usage error routing, and POSIX exit codes",
+      "difficulty": "easy",
+      "category": "cli_validation",
+      "agent_id": "custom_openai:minimax-m3.1-flash:free",
+      "provider": "custom_openai",
+      "model": "minimax-m3.1-flash:free",
+      "sandbox_mode": "docker",
+      "base_revision": "f3f538a410816b18ee4a17825f24d125fc4987cf",
+      "test_suite_hash": "7d44d8b91fb37a762a847a3f74dc4f29bd4683a9fb16a05e1bfe71e92ad48187",
+      "patch_diff": "diff --git a/src/cliwarden/runner.py b/src/cliwarden/runner.py\nindex edf9d46..5aa4e5d 100644\n--- a/src/cliwarden/runner.py\n+++ b/src/cliwarden/runner.py\n@@ -33,10 +33,6 @@ class CLIRunner:\n     def run(self, argv: Sequence[str]) -> CLIResult:\n         args = list(argv)\n \n-        # BUG 1: Short-circuits on --dry-run BEFORE validating flags and arguments!\n-        if \"--dry-run\" in args:\n-            return CLIResult(exit_code=EXIT_OK, stdout=\"DRY RUN OK\\n\", stderr=\"\")\n-\n         target: str | None = None\n         workers: int = 4\n         fast = False\n@@ -48,17 +44,28 @@ class CLIRunner:\n             tok = args[i]\n             if tok == \"--target\":\n                 if i + 1 >= len(args) or args[i + 1].startswith(\"--\"):\n-                    # BUG 2: Returns exit_code=1 and writes error to stdout!\n-                    return CLIResult(exit_code=1, stdout=\"Error: --target requires a value\\n\", stderr=\"\")\n+                    return CLIResult(\n+                        exit_code=EXIT_USAGE_ERROR,\n+                        stdout=\"\",\n+                        stderr=\"Error: --target requires a value\\n\",\n+                    )\n                 target = args[i + 1]\n                 i += 2\n             elif tok == \"--workers\":\n                 if i + 1 >= len(args):\n-                    return CLIResult(exit_code=1, stdout=\"Error: --workers requires an integer\\n\", stderr=\"\")\n+                    return CLIResult(\n+                        exit_code=EXIT_USAGE_ERROR,\n+                        stdout=\"\",\n+                        stderr=\"Error: --workers requires an integer\\n\",\n+                    )\n                 try:\n                     workers = int(args[i + 1])\n                 except ValueError:\n-                    return CLIResult(exit_code=1, stdout=\"Error: --workers must be an integer\\n\", stderr=\"\")\n+                    return CLIResult(\n+                        exit_code=EXIT_USAGE_ERROR,\n+                        stdout=\"\",\n+                        stderr=\"Error: --workers must be an integer\\n\",\n+                    )\n                 i += 2\n             elif tok == \"--fast\":\n                 fast = True\n@@ -70,14 +77,33 @@ class CLIRunner:\n                 dry_run = True\n                 i += 1\n             else:\n-                return CLIResult(exit_code=1, stdout=f\"Error: Unknown option {tok}\\n\", stderr=\"\")\n+                return CLIResult(\n+                    exit_code=EXIT_USAGE_ERROR,\n+                    stdout=\"\",\n+                    stderr=f\"Error: Unknown option {tok}\\n\",\n+                )\n \n         if not target:\n-            return CLIResult(exit_code=1, stdout=\"Error: --target is required\\n\", stderr=\"\")\n+            return CLIResult(\n+                exit_code=EXIT_USAGE_ERROR,\n+                stdout=\"\",\n+                stderr=\"Error: --target is required\\n\",\n+            )\n         if fast and thorough:\n-            return CLIResult(exit_code=1, stdout=\"Error: --fast and --thorough are mutually exclusive\\n\", stderr=\"\")\n+            return CLIResult(\n+                exit_code=EXIT_USAGE_ERROR,\n+                stdout=\"\",\n+                stderr=\"Error: --fast and --thorough are mutually exclusive\\n\",\n+            )\n         if workers <= 0 or workers > 64:\n-            return CLIResult(exit_code=1, stdout=\"Error: --workers must be between 1 and 64\\n\", stderr=\"\")\n+            return CLIResult(\n+                exit_code=EXIT_USAGE_ERROR,\n+                stdout=\"\",\n+                stderr=\"Error: --workers must be between 1 and 64\\n\",\n+            )\n+\n+        if dry_run:\n+            return CLIResult(exit_code=EXIT_OK, stdout=\"DRY RUN OK\\n\", stderr=\"\")\n \n         opts = {\n             \"target\": target,\n@@ -90,7 +116,22 @@ class CLIRunner:\n             out = self.handler(opts)\n             return CLIResult(exit_code=EXIT_OK, stdout=out, stderr=\"\")\n         except ConfigError as exc:\n-            return CLIResult(exit_code=EXIT_CONFIG_ERROR, stdout=\"\", stderr=f\"Config error: {exc}\\n\")\n-        except BaseException as exc:\n-            # BUG 3: Catches KeyboardInterrupt here and returns 1 instead of 130!\n+            return CLIResult(\n+                exit_code=EXIT_CONFIG_ERROR,\n+                stdout=\"\",\n+                stderr=f\"Config error: {exc}\\n\",\n+            )\n+        except KeyboardInterrupt:\n+            return CLIResult(\n+                exit_code=EXIT_INTERRUPTED,\n+                stdout=\"\",\n+                stderr=\"Interrupted\\n\",\n+            )\n+        except RuntimeError as exc:\n+            return CLIResult(\n+                exit_code=EXIT_RUNTIME_ERROR,\n+                stdout=\"\",\n+                stderr=f\"Error: {exc}\\n\",\n+            )\n+        except Exception as exc:\n             return CLIResult(exit_code=1, stdout=\"\", stderr=f\"Error: {exc}\\n\")\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "61741cb13bee782ca5040a473c133052fe9496de663bde0cd0d684766abe6763",
+        "modified_files": [
+          "src/cliwarden/runner.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 56,
+        "removed_lines": 15,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 1055.77,
+        "passed_count": 2,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_valid_command_execution",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_config_error_exit_code",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          }
+        ],
+        "stdout": "..                                                                       [100%]\n------------ generated xml file: /workspace/.junit_pass_to_pass.xml ------------\n2 passed in 0.02s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 841.5,
+        "passed_count": 2,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "eval_fail_to_pass::test_dry_run_still_validates_invalid_arguments",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_fail_to_pass::test_keyboard_interrupt_and_runtime_error_exit_codes",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          }
+        ],
+        "stdout": "..                                                                       [100%]\n------------ generated xml file: /workspace/.junit_fail_to_pass.xml ------------\n2 passed in 0.03s\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 1014.56,
+        "passed_count": 1,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "eval_private::test_unknown_flag_and_missing_target_value_return_exit_2_on_stderr",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": ".                                                                        [100%]\n-------------- generated xml file: /workspace/.junit_private.xml ---------------\n1 passed in 0.04s\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "RESOLVED",
+      "resolved": true,
+      "issue_fixed": true,
+      "has_regression": false,
+      "private_passed": true,
+      "failure_classification": "RESOLVED_CLEANLY",
+      "explanation": "Task resolved without regressions: FAIL_TO_PASS=2/2, PASS_TO_PASS=2/2, PRIVATE=1/1.",
+      "duration_ms": 2953.61,
+      "prompt_tokens": 1959,
+      "completion_tokens": 3205,
+      "total_tokens": 5164,
+      "estimated_cost_usd": 0.0,
+      "started_at": "2026-10-21T11:43:54.171934+00:00",
+      "completed_at": "2026-10-21T11:43:57.125579+00:00",
+      "agent_logs": "Model: minimax-m3.1-flash:free | Updated files in workspace: src/cliwarden/runner.py\nResponse length: 4377 chars"
+    },
+    {
+      "run_id": "run-1792582959-546fb3",
+      "task_id": "concurqueue-003",
+      "title": "Fix check-then-act race condition and lost wakeups in KeyedResourcePool",
+      "difficulty": "hard",
+      "category": "concurrency_races",
+      "agent_id": "custom_openai:minimax-m3.1-flash:free",
+      "provider": "custom_openai",
+      "model": "minimax-m3.1-flash:free",
+      "sandbox_mode": "docker",
+      "base_revision": "4b0b1a5ad48b6fc87119cbcff1d3830437333942",
+      "test_suite_hash": "b73b6a3d5c5e38293586e87722a29f3877e5fc83174e85662d8a65779e3838ef",
+      "patch_diff": "diff --git a/src/concurqueue/pool.py b/src/concurqueue/pool.py\nindex 6ac45e8..64c85d6 100644\n--- a/src/concurqueue/pool.py\n+++ b/src/concurqueue/pool.py\n@@ -57,33 +57,37 @@ class KeyedResourcePool:\n         )\n \n     def acquire(self, key: str, timeout: float | None = None) -> bool:\n-        # BUG: Checks capacity with `if` instead of `while`, and mutates state outside lock!\n+        deadline = None if timeout is None else time.monotonic() + timeout\n+\n         with self._cond:\n-            if not self._can_acquire(key):\n-                waited = self._cond.wait(timeout=timeout)\n-                if not waited and not self._can_acquire(key):\n-                    raise PoolTimeoutError(f\"Timed out acquiring lease for key={key!r}\")\n-\n-        # Race window outside lock!\n-        time.sleep(0.0005)\n-        cur_key = self._key_counts.get(key, 0) + 1\n-        self._key_counts[key] = cur_key\n-        self._total_active += 1\n-        if self._total_active > self.peak_total:\n-            self.peak_total = self._total_active\n-        if cur_key > self.peak_per_key.get(key, 0):\n-            self.peak_per_key[key] = cur_key\n+            while not self._can_acquire(key):\n+                if deadline is None:\n+                    self._cond.wait()\n+                else:\n+                    remaining = deadline - time.monotonic()\n+                    if remaining <= 0:\n+                        raise PoolTimeoutError(\n+                            f\"Timed out acquiring lease for key={key!r}\"\n+                        )\n+                    self._cond.wait(timeout=remaining)\n+\n+            self._key_counts[key] = self._key_counts.get(key, 0) + 1\n+            self._total_active += 1\n+            if self._total_active > self.peak_total:\n+                self.peak_total = self._total_active\n+            if self._key_counts[key] > self.peak_per_key.get(key, 0):\n+                self.peak_per_key[key] = self._key_counts[key]\n+\n         return True\n \n     def release(self, key: str) -> None:\n-        # BUG: Mutates without lock, does not validate over-release, and uses single notify()\n-        cur = self._key_counts.get(key, 0)\n-        if cur <= 0:\n-            raise ReleaseError(f\"Key {key!r} has no active leases to release\")\n-        self._key_counts[key] = cur - 1\n-        self._total_active -= 1\n         with self._cond:\n-            self._cond.notify()\n+            cur = self._key_counts.get(key, 0)\n+            if cur <= 0:\n+                raise ReleaseError(f\"Key {key!r} has no active leases to release\")\n+            self._key_counts[key] = cur - 1\n+            self._total_active -= 1\n+            self._cond.notify_all()\n \n     def lease(self, key: str, timeout: float | None = None) -> LeaseContext:\n         return LeaseContext(self, key, timeout=timeout)\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "833da79d2b411910afdee5fd11379bebe96cace70a5deb0100e970b435416ce4",
+        "modified_files": [
+          "src/concurqueue/pool.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 26,
+        "removed_lines": 22,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 882.75,
+        "passed_count": 3,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_single_thread_lease_and_snapshot",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_over_release_raises_release_error",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_invalid_quota_configuration",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          }
+        ],
+        "stdout": "...                                                                      [100%]\n------------ generated xml file: /workspace/.junit_pass_to_pass.xml ------------\n3 passed in 0.02s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 951.53,
+        "passed_count": 2,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "eval_fail_to_pass::test_concurrent_contention_never_exceeds_per_key_or_total_limits",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 29.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_fail_to_pass::test_timeout_under_contention_with_multiple_waiters",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 61.0,
+            "message": ""
+          }
+        ],
+        "stdout": "..                                                                       [100%]\n------------ generated xml file: /workspace/.junit_fail_to_pass.xml ------------\n2 passed in 0.11s\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 863.55,
+        "passed_count": 1,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "eval_private::test_cross_key_notify_all_prevents_lost_wakeup",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 42.0,
+            "message": ""
+          }
+        ],
+        "stdout": ".                                                                        [100%]\n-------------- generated xml file: /workspace/.junit_private.xml ---------------\n1 passed in 0.06s\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "RESOLVED",
+      "resolved": true,
+      "issue_fixed": true,
+      "has_regression": false,
+      "private_passed": true,
+      "failure_classification": "RESOLVED_CLEANLY",
+      "explanation": "Task resolved without regressions: FAIL_TO_PASS=2/2, PASS_TO_PASS=3/3, PRIVATE=1/1.",
+      "duration_ms": 2738.21,
+      "prompt_tokens": 2011,
+      "completion_tokens": 1824,
+      "total_tokens": 3835,
+      "estimated_cost_usd": 0.0,
+      "started_at": "2026-10-21T11:44:16.637046+00:00",
+      "completed_at": "2026-10-21T11:44:19.375296+00:00",
+      "agent_logs": "Model: minimax-m3.1-flash:free | Updated files in workspace: src/concurqueue/pool.py\nResponse length: 3657 chars"
+    },
+    {
+      "run_id": "run-1792582959-546fb3",
+      "task_id": "confighier-007",
+      "title": "Fix deep merge sibling wiping, falsy CLI overrides, and single-underscore env keys",
+      "difficulty": "easy",
+      "category": "config_precedence",
+      "agent_id": "custom_openai:minimax-m3.1-flash:free",
+      "provider": "custom_openai",
+      "model": "minimax-m3.1-flash:free",
+      "sandbox_mode": "docker",
+      "base_revision": "80e78ad4aab07c16759f2c1458688dc8b9e6d4a9",
+      "test_suite_hash": "b5e304895f8e9cd5a73a1fe68a12f43c985101fa36fbeb9d26114ab0ac7de4dd",
+      "patch_diff": "diff --git a/src/confighier/loader.py b/src/confighier/loader.py\nindex 0a1779f..571c6fa 100644\n--- a/src/confighier/loader.py\n+++ b/src/confighier/loader.py\n@@ -29,12 +29,16 @@ def coerce_env_value(raw: str) -> Any:\n \n \n def deep_merge(base: Mapping[str, Any], override: Mapping[str, Any]) -> dict[str, Any]:\n-    \"\"\"Merge override mapping into base mapping.\"\"\"\n-    result = dict(base)\n+    \"\"\"Merge override mapping into base mapping without mutating either input.\"\"\"\n+    result = copy.deepcopy(dict(base))\n     for k, v in override.items():\n-        # BUG 1 & 2: Ignores falsy values (`if v:`) and overwrites nested dicts shallowly!\n-        if v:\n-            result[k] = v\n+        if v is None:\n+            continue\n+        base_value = result.get(k)\n+        if isinstance(v, Mapping) and isinstance(base_value, Mapping):\n+            result[k] = deep_merge(base_value, v)\n+        else:\n+            result[k] = copy.deepcopy(v)\n     return result\n \n \n@@ -46,8 +50,7 @@ def parse_env_vars(environ: Mapping[str, str], prefix: str = \"APP\") -> dict[str,\n         if not env_key.startswith(prefix_tag):\n             continue\n         remainder = env_key[len(prefix_tag) :]\n-        # BUG 3: Splits on single underscore `_` instead of double underscore `__`!\n-        parts = [p.lower() for p in remainder.split(\"_\") if p]\n+        parts = [part.lower() for part in remainder.split(\"__\") if part]\n         if not parts:\n             continue\n         cursor = parsed\n@@ -73,11 +76,11 @@ class ConfigLoader:\n         cli_overrides: Mapping[str, Any] | None = None,\n     ) -> dict[str, Any]:\n         merged = copy.deepcopy(dict(defaults))\n-        if profile:\n+        if profile is not None:\n             merged = deep_merge(merged, profile)\n-        if environ:\n+        if environ is not None:\n             env_layer = parse_env_vars(environ, prefix=self.env_prefix)\n             merged = deep_merge(merged, env_layer)\n-        if cli_overrides:\n+        if cli_overrides is not None:\n             merged = deep_merge(merged, cli_overrides)\n         return merged\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "a9a4ebb81f595988fc62ff598e1f36f7924acbf17a57e2f3481095354eff2a7d",
+        "modified_files": [
+          "src/confighier/loader.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 13,
+        "removed_lines": 10,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 863.05,
+        "passed_count": 2,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_coerce_env_value_types",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_basic_top_level_override",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "..                                                                       [100%]\n------------ generated xml file: /workspace/.junit_pass_to_pass.xml ------------\n2 passed in 0.02s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 857.3,
+        "passed_count": 1,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "eval_fail_to_pass::test_deep_merge_preserves_sibling_keys_and_handles_single_underscore_env_keys",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": ".                                                                        [100%]\n------------ generated xml file: /workspace/.junit_fail_to_pass.xml ------------\n1 passed in 0.02s\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 812.12,
+        "passed_count": 1,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "eval_private::test_resolve_does_not_mutate_inputs_and_preserves_empty_string_override",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          }
+        ],
+        "stdout": ".                                                                        [100%]\n-------------- generated xml file: /workspace/.junit_private.xml ---------------\n1 passed in 0.02s\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "RESOLVED",
+      "resolved": true,
+      "issue_fixed": true,
+      "has_regression": false,
+      "private_passed": true,
+      "failure_classification": "RESOLVED_CLEANLY",
+      "explanation": "Task resolved without regressions: FAIL_TO_PASS=1/1, PASS_TO_PASS=2/2, PRIVATE=1/1.",
+      "duration_ms": 2585.01,
+      "prompt_tokens": 1702,
+      "completion_tokens": 4895,
+      "total_tokens": 6597,
+      "estimated_cost_usd": 0.0,
+      "started_at": "2026-10-21T11:45:48.932848+00:00",
+      "completed_at": "2026-10-21T11:45:51.517883+00:00",
+      "agent_logs": "Model: minimax-m3.1-flash:free | Updated files in workspace: src/confighier/loader.py\nResponse length: 2943 chars"
+    },
+    {
+      "run_id": "run-1792582959-546fb3",
+      "task_id": "idempobox-011",
+      "title": "Fix idempotency payload mismatch detection, canonical fingerprinting, and failed lock cleanup",
+      "difficulty": "hard",
+      "category": "idempotency",
+      "agent_id": "custom_openai:minimax-m3.1-flash:free",
+      "provider": "custom_openai",
+      "model": "minimax-m3.1-flash:free",
+      "sandbox_mode": "docker",
+      "base_revision": "62ebe35109c0fa97d790cecb90be2d7156c13e1f",
+      "test_suite_hash": "f59f0a9866b5430ceacc1c19f3ef7cdf886c70c950994ebb7a8b06b7ad2a7892",
+      "patch_diff": "diff --git a/src/idempobox/processor.py b/src/idempobox/processor.py\nindex 9cac713..30b04fa 100644\n--- a/src/idempobox/processor.py\n+++ b/src/idempobox/processor.py\n@@ -22,10 +22,25 @@ class IdempotencyRecord:\n     result: Any = None\n \n \n+def _remove_volatile_keys(value: Any) -> Any:\n+    \"\"\"Recursively remove volatile transport metadata from a payload.\"\"\"\n+    if isinstance(value, dict):\n+        return {\n+            key: _remove_volatile_keys(item)\n+            for key, item in value.items()\n+            if key not in VOLATILE_KEYS\n+        }\n+    if isinstance(value, list):\n+        return [_remove_volatile_keys(item) for item in value]\n+    if isinstance(value, tuple):\n+        return tuple(_remove_volatile_keys(item) for item in value)\n+    return value\n+\n+\n def compute_payload_fingerprint(payload: dict[str, Any]) -> str:\n-    \"\"\"Compute SHA-256 fingerprint of a request payload.\"\"\"\n-    # BUG: Does not strip VOLATILE_KEYS recursively and does not sort keys!\n-    raw = json.dumps(payload)\n+    \"\"\"Compute a canonical SHA-256 fingerprint of a request payload.\"\"\"\n+    canonical_payload = _remove_volatile_keys(payload)\n+    raw = json.dumps(canonical_payload, sort_keys=True)\n     return hashlib.sha256(raw.encode(\"utf-8\")).hexdigest()\n \n \n@@ -51,28 +66,36 @@ class IdempotentProcessor:\n         with self._lock:\n             existing = self._records.get(idempotency_key)\n             if existing is not None:\n-                # BUG 1: Does not check existing.fingerprint != fp to raise IdempotencyPayloadMismatchError!\n+                if existing.fingerprint != fp:\n+                    raise IdempotencyPayloadMismatchError(\n+                        f\"Request with key {idempotency_key!r} has a different payload\"\n+                    )\n                 if existing.status == \"IN_PROGRESS\":\n                     raise IdempotencyConflictError(\n                         f\"Request with key {idempotency_key!r} is currently IN_PROGRESS\"\n                     )\n                 return existing.result\n \n-            self._records[idempotency_key] = IdempotencyRecord(\n+            record = IdempotencyRecord(\n                 key=idempotency_key,\n                 fingerprint=fp,\n                 status=\"IN_PROGRESS\",\n             )\n-\n-        # BUG 3: If handler raises an exception, the record remains stuck in IN_PROGRESS!\n-        self.execution_count += 1\n-        result = handler(payload)\n+            self._records[idempotency_key] = record\n+            self.execution_count += 1\n+\n+        try:\n+            result = handler(payload)\n+        except BaseException:\n+            with self._lock:\n+                current = self._records.get(idempotency_key)\n+                if current is record and current.status == \"IN_PROGRESS\":\n+                    del self._records[idempotency_key]\n+            raise\n \n         with self._lock:\n-            self._records[idempotency_key] = IdempotencyRecord(\n-                key=idempotency_key,\n-                fingerprint=fp,\n-                status=\"COMPLETED\",\n-                result=result,\n-            )\n+            current = self._records.get(idempotency_key)\n+            if current is record:\n+                current.status = \"COMPLETED\"\n+                current.result = result\n         return result\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "6d3cadafd34f896b30e21a84232c3630b19ea06ae017de1148611104d03d4dea",
+        "modified_files": [
+          "src/idempobox/processor.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 38,
+        "removed_lines": 15,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 1177.14,
+        "passed_count": 2,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_exact_duplicate_replay_executes_handler_once",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_empty_key_rejected",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          }
+        ],
+        "stdout": "..                                                                       [100%]\n------------ generated xml file: /workspace/.junit_pass_to_pass.xml ------------\n2 passed in 0.02s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 993.01,
+        "passed_count": 3,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "eval_fail_to_pass::test_key_reuse_with_different_payload_raises_mismatch_error",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_fail_to_pass::test_volatile_headers_and_nested_key_order_ignored_in_fingerprint",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_fail_to_pass::test_transient_handler_failure_releases_key_for_subsequent_retry",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          }
+        ],
+        "stdout": "...                                                                      [100%]\n------------ generated xml file: /workspace/.junit_fail_to_pass.xml ------------\n3 passed in 0.03s\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1016.49,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "eval_private::test_concurrent_in_flight_duplicate_raises_conflict_and_cached_result_is_isolated",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "AssertionError: assert {'items': [1, 2, 999]} == {'items': [1, 2]}\n  \n  Differing items:\n  {'items': [1, 2, 999]} != {'items': [1, 2]}\n  Use -v to get more diff\n/eval_private.py:33: in test_concurrent_in_flight_duplicate_raises_conflict_and_cached_result_is_isolated\n    assert out2 == {\"items\": [1, 2]}\nE   AssertionError: assert {'items': [1, 2, 999]} == {'items': [1, 2]}\nE     \nE     Differing items:\nE     {'items': [1, 2, 999]} != {'items': [1, 2]}\nE     Use -v to get more diff"
+          }
+        ],
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_ test_concurrent_in_flight_duplicate_raises_conflict_and_cached_result_is_isolated _\n/eval_private.py:33: in test_concurrent_in_flight_duplicate_raises_conflict_and_cached_result_is_isolated\n    assert out2 == {\"items\": [1, 2]}\nE   AssertionError: assert {'items': [1, 2, 999]} == {'items': [1, 2]}\nE     \nE     Differing items:\nE     {'items': [1, 2, 999]} != {'items': [1, 2]}\nE     Use -v to get more diff\n-------------- generated xml file: /workspace/.junit_private.xml ---------------\n=========================== short test summary info ============================\nFAILED ../eval_private.py::test_concurrent_in_flight_duplicate_raises_conflict_and_cached_result_is_isolated\n1 failed in 0.04s\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "UNRESOLVED",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": false,
+      "private_passed": false,
+      "failure_classification": "PRIVATE_EVALUATION_TESTS_FAILED",
+      "explanation": "Public issue tests passed, but 1 private boundary/property test(s) failed (0/1 passed).",
+      "duration_ms": 3231.01,
+      "prompt_tokens": 1727,
+      "completion_tokens": 4125,
+      "total_tokens": 5852,
+      "estimated_cost_usd": 0.0,
+      "started_at": "2026-10-21T11:48:41.529071+00:00",
+      "completed_at": "2026-10-21T11:48:44.760115+00:00",
+      "agent_logs": "Model: minimax-m3.1-flash:free | Updated files in workspace: src/idempobox/processor.py\nResponse length: 3388 chars"
+    },
+    {
+      "run_id": "run-1792582959-546fb3",
+      "task_id": "ledgersql-004",
+      "title": "Fix atomic batch rollback and savepoint isolation in SQLiteLedger.execute_batch",
+      "difficulty": "medium",
+      "category": "sqlite_transactions",
+      "agent_id": "custom_openai:minimax-m3.1-flash:free",
+      "provider": "custom_openai",
+      "model": "minimax-m3.1-flash:free",
+      "sandbox_mode": "docker",
+      "base_revision": "2c11583af21ce5690889725dcd1116bcb22ffcbe",
+      "test_suite_hash": "d98952270012d617f417f58bc4ba8fc5ff15c881c5d908d586fa2d299eb411bf",
+      "patch_diff": "",
+      "patch_validation": {
+        "is_empty": true,
+        "applies_cleanly": false,
+        "integrity_passed": false,
+        "patch_sha256": "",
+        "modified_files": [],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 0,
+        "removed_lines": 0,
+        "errors": [
+          "Patch is empty (no changes submitted)."
+        ]
+      },
+      "pass_to_pass": null,
+      "fail_to_pass": null,
+      "private_tests": null,
+      "execution_status": "COMPLETED",
+      "resolution_status": "NO_CHANGES",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": false,
+      "private_passed": false,
+      "failure_classification": "EMPTY_PATCH_SUBMITTED",
+      "explanation": "No code changes were generated or submitted.",
+      "duration_ms": 32.16,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T11:55:53.890688+00:00",
+      "completed_at": "2026-10-21T11:55:53.922888+00:00",
+      "agent_logs": "Empty choices returned by custom_openai (minimax-m3.1-flash:free). Provider returned no choices (attempt 2/2). Response keys: ['error']"
+    },
+    {
+      "run_id": "run-1792582959-546fb3",
+      "task_id": "pagiflow-001",
+      "title": "Fix cursor=0 falsy termination and has_more=False echo loops in PaginatedCollector",
+      "difficulty": "easy",
+      "category": "pagination_api",
+      "agent_id": "custom_openai:minimax-m3.1-flash:free",
+      "provider": "custom_openai",
+      "model": "minimax-m3.1-flash:free",
+      "sandbox_mode": "docker",
+      "base_revision": "164e51624d3e0b4cf9af0d086e8a5d4137ddae90",
+      "test_suite_hash": "6d28c10cb437b6a4d2269ccc9b43fec59b601fc1145b358c4ea5577a8af9e2b3",
+      "patch_diff": "diff --git a/src/pagiflow/client.py b/src/pagiflow/client.py\nindex 9d2924e..937f748 100644\n--- a/src/pagiflow/client.py\n+++ b/src/pagiflow/client.py\n@@ -46,10 +46,6 @@ class PaginatedCollector:\n             envelope = normalize_envelope(raw)\n             self.pages_fetched += 1\n \n-            # BUG 1: Unconditionally breaks on empty items, ignoring stop_on_empty_page=False\n-            if not envelope.items:\n-                break\n-\n             for item in envelope.items:\n                 processed = self.transform(item) if self.transform else item\n                 if self.config.deduplicate and self.config.id_key and self.config.id_key in processed:\n@@ -59,9 +55,18 @@ class PaginatedCollector:\n                     seen_ids.add(item_id)\n                 collected.append(processed)\n \n-            # BUG 2 & 3: Ignores explicit has_more=False when next_cursor is echoed,\n-            # and uses truthiness `if not envelope.next_cursor:` which fails on integer 0!\n-            if not envelope.next_cursor:\n+            if envelope.has_more is False:\n+                break\n+\n+            has_next_cursor = envelope.next_cursor is not None and envelope.next_cursor != \"\"\n+\n+            if not envelope.items:\n+                if self.config.stop_on_empty_page:\n+                    break\n+                if not envelope.has_more or not has_next_cursor:\n+                    break\n+\n+            if not has_next_cursor:\n                 break\n \n             cursor = envelope.next_cursor\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "c9082d6bf620b737be3ea7eb6b9f84a6e8802c5649ea91ec1860c201149666e8",
+        "modified_files": [
+          "src/pagiflow/client.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 12,
+        "removed_lines": 7,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 974.92,
+        "passed_count": 4,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 4,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_standard_string_cursor_traversal",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_deduplication_across_pages",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_transform_callback_and_cycle_detection",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_normalize_envelope_errors",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          }
+        ],
+        "stdout": "....                                                                     [100%]\n------------ generated xml file: /workspace/.junit_pass_to_pass.xml ------------\n4 passed in 0.02s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 983.34,
+        "passed_count": 3,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "eval_fail_to_pass::test_integer_zero_cursor_is_followed",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_fail_to_pass::test_has_more_false_stops_even_when_cursor_echoed",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_fail_to_pass::test_empty_intermediate_page_continues_when_has_more_true",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          }
+        ],
+        "stdout": "...                                                                      [100%]\n------------ generated xml file: /workspace/.junit_fail_to_pass.xml ------------\n3 passed in 0.02s\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 822.31,
+        "passed_count": 2,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "eval_private::test_string_zero_cursor_and_stop_on_empty_true",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_private::test_nested_meta_envelope_with_zero_cursor",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          }
+        ],
+        "stdout": "..                                                                       [100%]\n-------------- generated xml file: /workspace/.junit_private.xml ---------------\n2 passed in 0.03s\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "RESOLVED",
+      "resolved": true,
+      "issue_fixed": true,
+      "has_regression": false,
+      "private_passed": true,
+      "failure_classification": "RESOLVED_CLEANLY",
+      "explanation": "Task resolved without regressions: FAIL_TO_PASS=3/3, PASS_TO_PASS=4/4, PRIVATE=2/2.",
+      "duration_ms": 2822.64,
+      "prompt_tokens": 2105,
+      "completion_tokens": 3031,
+      "total_tokens": 5136,
+      "estimated_cost_usd": 0.0,
+      "started_at": "2026-10-21T11:49:16.582274+00:00",
+      "completed_at": "2026-10-21T11:49:19.404944+00:00",
+      "agent_logs": "Model: minimax-m3.1-flash:free | Updated files in workspace: src/pagiflow/client.py\nResponse length: 2593 chars"
+    },
+    {
+      "run_id": "run-1792582959-546fb3",
+      "task_id": "retryguard-008",
+      "title": "Fix max_retries off-by-one, Retry-After cap, non-retryable 4xx, and TokenBucket capacity ceiling",
+      "difficulty": "medium",
+      "category": "retry_ratelimit",
+      "agent_id": "custom_openai:minimax-m3.1-flash:free",
+      "provider": "custom_openai",
+      "model": "minimax-m3.1-flash:free",
+      "sandbox_mode": "docker",
+      "base_revision": "5b34c261230cf918d49f7f3cd3a0cefb94c17494",
+      "test_suite_hash": "73c3163b895370feff02297e612324a557401a6d2e361f127861d12a943e3ab9",
+      "patch_diff": "diff --git a/src/retryguard/executor.py b/src/retryguard/executor.py\nindex 292bcb0..411929f 100644\n--- a/src/retryguard/executor.py\n+++ b/src/retryguard/executor.py\n@@ -27,19 +27,26 @@ class RetryExecutor:\n         last_exc: BaseException | None = None\n         attempts = 0\n \n-        # BUG: Loops range(max_retries) instead of range(max_retries + 1),\n-        # retries non-retryable 4xx errors, and sleeps after the final failed attempt!\n-        for attempt in range(self.policy.max_retries):\n+        for attempt in range(self.policy.max_retries + 1):\n             attempts += 1\n             try:\n                 return func()\n             except HTTPError as exc:\n+                if exc.status_code not in self.policy.retryable_status_codes:\n+                    raise\n+\n                 last_exc = exc\n+                if attempt >= self.policy.max_retries:\n+                    break\n+\n                 delay = self.policy.compute_delay(attempt, retry_after=exc.retry_after)\n                 self.sleep_history.append(delay)\n                 self._sleep(delay)\n             except Exception as exc:\n                 last_exc = exc\n+                if attempt >= self.policy.max_retries:\n+                    break\n+\n                 delay = self.policy.compute_delay(attempt)\n                 self.sleep_history.append(delay)\n                 self._sleep(delay)\ndiff --git a/src/retryguard/limiter.py b/src/retryguard/limiter.py\nindex 9e2e466..1e255f9 100644\n--- a/src/retryguard/limiter.py\n+++ b/src/retryguard/limiter.py\n@@ -24,11 +24,13 @@ class TokenBucketLimiter:\n         self._last_ts = self._clock()\n \n     def _refill(self) -> None:\n-        # BUG: Uses time.time() instead of self._clock() and does not cap at self.capacity!\n-        now = time.time()\n+        now = self._clock()\n         elapsed = max(0.0, now - self._last_ts)\n         self._last_ts = now\n-        self._tokens = self._tokens + elapsed * self.rate_per_sec\n+        self._tokens = min(\n+            self.capacity,\n+            self._tokens + elapsed * self.rate_per_sec,\n+        )\n \n     def try_acquire(self, tokens: float = 1.0) -> bool:\n         self._refill()\ndiff --git a/src/retryguard/policy.py b/src/retryguard/policy.py\nindex 8cf9ccd..1df0db0 100644\n--- a/src/retryguard/policy.py\n+++ b/src/retryguard/policy.py\n@@ -36,7 +36,6 @@ class RetryPolicy:\n     def compute_delay(self, retry_index: int, retry_after: float | None = None) -> float:\n         \"\"\"Compute backoff delay for 0-indexed `retry_index`.\"\"\"\n         if retry_after is not None:\n-            # BUG: Does not clamp retry_after to max_backoff!\n-            return max(0.0, retry_after)\n+            return min(self.max_backoff, max(0.0, retry_after))\n         raw = self.base_backoff * (self.multiplier**retry_index)\n         return min(self.max_backoff, raw)\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "d82cd2ca55554bae74241cd3b9d7a94768941fd565d86f9919206a77275f5c2a",
+        "modified_files": [
+          "src/retryguard/executor.py",
+          "src/retryguard/limiter.py",
+          "src/retryguard/policy.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 16,
+        "removed_lines": 8,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 928.22,
+        "passed_count": 3,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_immediate_success_on_first_try",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_exponential_backoff_calculation",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_invalid_limiter_params",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "...                                                                      [100%]\n------------ generated xml file: /workspace/.junit_pass_to_pass.xml ------------\n3 passed in 0.03s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 1395.66,
+        "passed_count": 3,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "eval_fail_to_pass::test_max_retries_zero_executes_once_and_max_retries_three_executes_four_times",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_fail_to_pass::test_non_retryable_4xx_aborts_immediately_and_retry_after_is_capped",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_fail_to_pass::test_token_bucket_uses_injected_clock_and_caps_at_capacity",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          }
+        ],
+        "stdout": "...                                                                      [100%]\n------------ generated xml file: /workspace/.junit_fail_to_pass.xml ------------\n3 passed in 0.04s\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 1466.74,
+        "passed_count": 1,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 1,
+        "test_cases": [
+          {
+            "test_id": "eval_private::test_429_with_retry_after_succeeds_on_final_retry",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": ".                                                                        [100%]\n-------------- generated xml file: /workspace/.junit_private.xml ---------------\n1 passed in 0.03s\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "RESOLVED",
+      "resolved": true,
+      "issue_fixed": true,
+      "has_regression": false,
+      "private_passed": true,
+      "failure_classification": "RESOLVED_CLEANLY",
+      "explanation": "Task resolved without regressions: FAIL_TO_PASS=3/3, PASS_TO_PASS=3/3, PRIVATE=1/1.",
+      "duration_ms": 3831.36,
+      "prompt_tokens": 2174,
+      "completion_tokens": 4198,
+      "total_tokens": 6372,
+      "estimated_cost_usd": 0.0,
+      "started_at": "2026-10-21T11:49:55.794061+00:00",
+      "completed_at": "2026-10-21T11:49:59.625451+00:00",
+      "agent_logs": "Model: minimax-m3.1-flash:free | Updated files in workspace: src/retryguard/executor.py, src/retryguard/limiter.py, src/retryguard/policy.py\nResponse length: 4446 chars"
+    },
+    {
+      "run_id": "run-1792582959-546fb3",
+      "task_id": "schemaver-009",
+      "title": "Fix multi-hop v1->v3 schema migration, shared mutable defaults, and unknown field round-tripping",
+      "difficulty": "medium",
+      "category": "serialization_compat",
+      "agent_id": "custom_openai:minimax-m3.1-flash:free",
+      "provider": "custom_openai",
+      "model": "minimax-m3.1-flash:free",
+      "sandbox_mode": "docker",
+      "base_revision": "533f4da0afeb4385e97f393a9ac7fbf14bac9c67",
+      "test_suite_hash": "aa9d711f6079664db86c3378db9668aa55af215a04df73a2529a4d8b1d22c711",
+      "patch_diff": "",
+      "patch_validation": {
+        "is_empty": true,
+        "applies_cleanly": false,
+        "integrity_passed": false,
+        "patch_sha256": "",
+        "modified_files": [],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 0,
+        "removed_lines": 0,
+        "errors": [
+          "Patch is empty (no changes submitted)."
+        ]
+      },
+      "pass_to_pass": null,
+      "fail_to_pass": null,
+      "private_tests": null,
+      "execution_status": "COMPLETED",
+      "resolution_status": "NO_CHANGES",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": false,
+      "private_passed": false,
+      "failure_classification": "EMPTY_PATCH_SUBMITTED",
+      "explanation": "No code changes were generated or submitted.",
+      "duration_ms": 32.86,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:00:02.039398+00:00",
+      "completed_at": "2026-10-21T12:00:02.072303+00:00",
+      "agent_logs": "Empty choices returned by custom_openai (minimax-m3.1-flash:free). Provider returned no choices (attempt 2/2). Response keys: ['error']"
+    },
+    {
+      "run_id": "run-1792582959-546fb3",
+      "task_id": "streamparse-006",
+      "title": "Fix multi-byte UTF-8 chunk boundary splitting and byte-offset tracking on quarantined records",
+      "difficulty": "medium",
+      "category": "streaming_parser",
+      "agent_id": "custom_openai:minimax-m3.1-flash:free",
+      "provider": "custom_openai",
+      "model": "minimax-m3.1-flash:free",
+      "sandbox_mode": "docker",
+      "base_revision": "5d9fdb6c51dea9c7ff11fa9469dc20ac6faf817a",
+      "test_suite_hash": "f84e29fc0764c754b282327f2f084cfbf2ca82d4bb1483654f9d31d75fab088a",
+      "patch_diff": "",
+      "patch_validation": {
+        "is_empty": true,
+        "applies_cleanly": false,
+        "integrity_passed": false,
+        "patch_sha256": "",
+        "modified_files": [],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 0,
+        "removed_lines": 0,
+        "errors": [
+          "Patch is empty (no changes submitted)."
+        ]
+      },
+      "pass_to_pass": null,
+      "fail_to_pass": null,
+      "private_tests": null,
+      "execution_status": "COMPLETED",
+      "resolution_status": "NO_CHANGES",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": false,
+      "private_passed": false,
+      "failure_classification": "EMPTY_PATCH_SUBMITTED",
+      "explanation": "No code changes were generated or submitted.",
+      "duration_ms": 31.84,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:02:46.173651+00:00",
+      "completed_at": "2026-10-21T12:02:46.205523+00:00",
+      "agent_logs": "Empty choices returned by custom_openai (minimax-m3.1-flash:free). Provider returned no choices (attempt 2/2). Response keys: ['error']"
+    },
+    {
+      "run_id": "run-1792582959-546fb3",
+      "task_id": "ttlcachex-002",
+      "title": "Fix stale expired entries in get_many/__contains__ and preserve TTL on keep_ttl=True",
+      "difficulty": "easy",
+      "category": "cache_expiration",
+      "agent_id": "custom_openai:minimax-m3.1-flash:free",
+      "provider": "custom_openai",
+      "model": "minimax-m3.1-flash:free",
+      "sandbox_mode": "docker",
+      "base_revision": "5ada1827a6cd2bcd1a36edb56475f33cff359b0a",
+      "test_suite_hash": "bfea2858738411a0af6eaf8686ffd6915d5e89ab08d79e88684e70514c22d82a",
+      "patch_diff": "diff --git a/src/ttlcachex/cache.py b/src/ttlcachex/cache.py\nindex 3850bd9..cc28cc9 100644\n--- a/src/ttlcachex/cache.py\n+++ b/src/ttlcachex/cache.py\n@@ -51,8 +51,16 @@ class TTLCache:\n         keep_ttl: bool = False,\n     ) -> None:\n         now = self._clock()\n-        # BUG: ignores keep_ttl=True on existing live entry\n-        expires_at = self._compute_expiry(now, ttl)\n+        existing = self._store.get(key)\n+\n+        if (\n+            keep_ttl\n+            and existing is not None\n+            and not existing.is_expired(now)\n+        ):\n+            expires_at = existing.expires_at\n+        else:\n+            expires_at = self._compute_expiry(now, ttl)\n \n         if key in self._store:\n             self._store.move_to_end(key)\n@@ -79,19 +87,36 @@ class TTLCache:\n         return entry.value\n \n     def get_many(self, keys: Iterable[str]) -> dict[str, Any]:\n-        # BUG: does not check expiration or update stats/LRU properly for expired entries\n+        now = self._clock()\n         result: dict[str, Any] = {}\n-        for k in keys:\n-            if k in self._store:\n-                self.stats.hits += 1\n-                result[k] = self._store[k].value\n-            else:\n+\n+        for key in keys:\n+            entry = self._store.get(key)\n+            if entry is None:\n+                self.stats.misses += 1\n+                continue\n+            if entry.is_expired(now):\n+                del self._store[key]\n+                self.stats.expired_evictions += 1\n                 self.stats.misses += 1\n+                continue\n+\n+            self._store.move_to_end(key)\n+            self.stats.hits += 1\n+            result[key] = entry.value\n+\n         return result\n \n     def __contains__(self, key: str) -> bool:\n-        # BUG: returns True for expired keys\n-        return key in self._store\n+        now = self._clock()\n+        entry = self._store.get(key)\n+        if entry is None:\n+            return False\n+        if entry.is_expired(now):\n+            del self._store[key]\n+            self.stats.expired_evictions += 1\n+            return False\n+        return True\n \n     def delete(self, key: str) -> bool:\n         return self._store.pop(key, None) is not None\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "3c95007f193d4b607b291d9c10b59c9b83fb88ce15c0c6073ac8f9da6f9b22e8",
+        "modified_files": [
+          "src/ttlcachex/cache.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 35,
+        "removed_lines": 10,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 905.85,
+        "passed_count": 4,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 4,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_single_get_set_and_expiration",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_lru_eviction_order",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_delete_and_clear",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_invalid_maxsize",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          }
+        ],
+        "stdout": "....                                                                     [100%]\n------------ generated xml file: /workspace/.junit_pass_to_pass.xml ------------\n4 passed in 0.02s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 823.26,
+        "passed_count": 3,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "eval_fail_to_pass::test_get_many_filters_expired_entries_and_updates_stats",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_fail_to_pass::test_contains_respects_ttl_expiration",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_fail_to_pass::test_set_with_keep_ttl_preserves_remaining_lifetime",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          }
+        ],
+        "stdout": "...                                                                      [100%]\n------------ generated xml file: /workspace/.junit_fail_to_pass.xml ------------\n3 passed in 0.02s\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 902.41,
+        "passed_count": 2,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "eval_private::test_keep_ttl_on_already_expired_key_uses_new_default_ttl",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_private::test_get_many_stores_none_values_without_confusion",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "..                                                                       [100%]\n-------------- generated xml file: /workspace/.junit_private.xml ---------------\n2 passed in 0.03s\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "RESOLVED",
+      "resolved": true,
+      "issue_fixed": true,
+      "has_regression": false,
+      "private_passed": true,
+      "failure_classification": "RESOLVED_CLEANLY",
+      "explanation": "Task resolved without regressions: FAIL_TO_PASS=3/3, PASS_TO_PASS=4/4, PRIVATE=2/2.",
+      "duration_ms": 2672.13,
+      "prompt_tokens": 1867,
+      "completion_tokens": 4477,
+      "total_tokens": 6344,
+      "estimated_cost_usd": 0.0,
+      "started_at": "2026-10-21T11:56:37.836927+00:00",
+      "completed_at": "2026-10-21T11:56:40.509083+00:00",
+      "agent_logs": "Model: minimax-m3.1-flash:free | Updated files in workspace: src/ttlcachex/cache.py\nResponse length: 3599 chars"
+    }
+  ]
+}

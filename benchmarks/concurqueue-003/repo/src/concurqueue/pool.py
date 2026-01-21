@@ -1,0 +1,102 @@
+"""Keyed concurrency pool implementation."""
+
+from __future__ import annotations
+
+import threading
+import time
+from types import TracebackType
+
+from concurqueue.exceptions import PoolTimeoutError, QuotaConfigurationError, ReleaseError
+
+
+class LeaseContext:
+    """Context manager for an acquired key lease."""
+
+    def __init__(self, pool: KeyedResourcePool, key: str, timeout: float | None = None) -> None:
+        self.pool = pool
+        self.key = key
+        self.timeout = timeout
+        self._acquired = False
+
+    def __enter__(self) -> LeaseContext:
+        self.pool.acquire(self.key, timeout=self.timeout)
+        self._acquired = True
+        return self
+
+    def __exit__(
+        self,
+        exc_type: type[BaseException] | None,
+        exc_val: BaseException | None,
+        exc_tb: TracebackType | None,
+    ) -> None:
+        if self._acquired:
+            self._acquired = False
+            self.pool.release(self.key)
+
+
+class KeyedResourcePool:
+    """Coordinates global and per-key concurrency quotas across threads."""
+
+    def __init__(self, max_total: int = 10, max_per_key: int = 2) -> None:
+        if max_total <= 0 or max_per_key <= 0 or max_per_key > max_total:
+            raise QuotaConfigurationError(
+                "max_total and max_per_key must be > 0 and max_per_key <= max_total"
+            )
+        self.max_total = max_total
+        self.max_per_key = max_per_key
+        self._cond = threading.Condition()
+        self._total_active = 0
+        self._key_counts: dict[str, int] = {}
+        self.peak_total = 0
+        self.peak_per_key: dict[str, int] = {}
+
+    def _can_acquire(self, key: str) -> bool:
+        return (
+            self._total_active < self.max_total
+            and self._key_counts.get(key, 0) < self.max_per_key
+        )
+
+    def acquire(self, key: str, timeout: float | None = None) -> bool:
+        # BUG: Checks capacity with `if` instead of `while`, and mutates state outside lock!
+        with self._cond:
+            if not self._can_acquire(key):
+                waited = self._cond.wait(timeout=timeout)
+                if not waited and not self._can_acquire(key):
+                    raise PoolTimeoutError(f"Timed out acquiring lease for key={key!r}")
+
+        # Race window outside lock!
+        time.sleep(0.0005)
+        cur_key = self._key_counts.get(key, 0) + 1
+        self._key_counts[key] = cur_key
+        self._total_active += 1
+        if self._total_active > self.peak_total:
+            self.peak_total = self._total_active
+        if cur_key > self.peak_per_key.get(key, 0):
+            self.peak_per_key[key] = cur_key
+        return True
+
+    def release(self, key: str) -> None:
+        # BUG: Mutates without lock, does not validate over-release, and uses single notify()
+        cur = self._key_counts.get(key, 0)
+        if cur <= 0:
+            raise ReleaseError(f"Key {key!r} has no active leases to release")
+        self._key_counts[key] = cur - 1
+        self._total_active -= 1
+        with self._cond:
+            self._cond.notify()
+
+    def lease(self, key: str, timeout: float | None = None) -> LeaseContext:
+        return LeaseContext(self, key, timeout=timeout)
+
+    def active_for_key(self, key: str) -> int:
+        with self._cond:
+            return self._key_counts.get(key, 0)
+
+    @property
+    def total_active(self) -> int:
+        with self._cond:
+            return self._total_active
+
+    def snapshot(self) -> dict[str, int]:
+        with self._cond:
+            return {k: v for k, v in self._key_counts.items() if v > 0}

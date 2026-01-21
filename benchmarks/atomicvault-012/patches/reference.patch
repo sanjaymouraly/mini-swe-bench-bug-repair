@@ -1,0 +1,119 @@
+diff --git a/src/atomicvault/storage.py b/src/atomicvault/storage.py
+index b2a3320..0228590 100644
+--- a/src/atomicvault/storage.py
++++ b/src/atomicvault/storage.py
+@@ -4,6 +4,9 @@ from __future__ import annotations
+ 
+ import hashlib
+ import json
++import os
++import shutil
++import uuid
+ from collections.abc import Callable
+ from pathlib import Path
+ from typing import BinaryIO
+@@ -32,11 +35,18 @@ class AtomicVault:
+             self._write_manifest({})
+ 
+     def _resolve_path(self, rel_path: str) -> Path:
+-        # BUG 1: Only checks startswith(".."), allowing "a/../../escape.txt"!
+         clean = rel_path.replace("\\", "/").strip()
+-        if not clean or clean.startswith("/") or clean.startswith(".."):
++        if not clean or clean.startswith("/") or ":" in clean:
+             raise VaultSecurityError(f"Unsafe path: {rel_path}")
+-        return self.root / clean
++        parts = Path(clean).parts
++        if ".." in parts:
++            raise VaultSecurityError(f"Path traversal rejected: {rel_path}")
++        candidate = (self.root / clean).resolve()
++        if not candidate.is_relative_to(self.root) or candidate == self.root:
++            raise VaultSecurityError(f"Path escapes vault root: {rel_path}")
++        if candidate == self.manifest_path or candidate.name.endswith((".tmp", ".bak")):
++            raise VaultSecurityError(f"Reserved vault filename rejected: {rel_path}")
++        return candidate
+ 
+     def _read_manifest(self) -> dict[str, str]:
+         if not self.manifest_path.exists():
+@@ -44,7 +54,14 @@ class AtomicVault:
+         return json.loads(self.manifest_path.read_text(encoding="utf-8"))
+ 
+     def _write_manifest(self, data: dict[str, str]) -> None:
+-        self.manifest_path.write_text(json.dumps(data, indent=2, sort_keys=True), encoding="utf-8")
++        tmp_manifest = self.root / f".manifest.{uuid.uuid4().hex[:8]}.tmp"
++        try:
++            tmp_manifest.write_text(
++                json.dumps(data, indent=2, sort_keys=True), encoding="utf-8"
++            )
++            os.replace(tmp_manifest, self.manifest_path)
++        finally:
++            tmp_manifest.unlink(missing_ok=True)
+ 
+     def put(
+         self,
+@@ -54,26 +71,28 @@ class AtomicVault:
+     ) -> str:
+         target = self._resolve_path(rel_path)
+         target.parent.mkdir(parents=True, exist_ok=True)
+-        tmp_path = target.with_name(target.name + ".tmp")
++        tmp_path = target.with_name(f".{target.name}.{uuid.uuid4().hex[:8]}.tmp")
+         bak_path = target.with_name(target.name + ".bak")
+ 
+-        # BUG 2: Moves live target to .bak BEFORE writing tmp_path, and doesn't clean up tmp_path on failure!
+-        if keep_backup and target.exists():
+-            target.replace(bak_path)
+-
+         try:
+             with open(tmp_path, "wb") as f:
+                 if callable(content_or_writer):
+                     content_or_writer(f)
+                 else:
+                     f.write(content_or_writer)
++                f.flush()
+         except Exception as exc:
++            tmp_path.unlink(missing_ok=True)
+             raise VaultWriteError(f"Failed writing {rel_path}: {exc}") from exc
+ 
+-        tmp_path.replace(target)
++        if keep_backup and target.exists():
++            shutil.copy2(target, bak_path)
++
++        os.replace(tmp_path, target)
+         digest = sha256_bytes(target.read_bytes())
+         manifest = self._read_manifest()
+-        manifest[rel_path.replace("\\", "/")] = digest
++        norm_rel = target.relative_to(self.root).as_posix()
++        manifest[norm_rel] = digest
+         self._write_manifest(manifest)
+         return digest
+ 
+@@ -84,5 +103,28 @@ class AtomicVault:
+         return target.read_bytes()
+ 
+     def recover(self) -> dict[str, str]:
+-        # BUG 3: Does not remove orphaned .tmp files or restore .bak files when target is missing!
+-        return self._read_manifest()
++        # Step 1: Delete any orphaned .tmp files
++        for tmp_file in list(self.root.rglob("*.tmp")):
++            if tmp_file.is_file():
++                tmp_file.unlink(missing_ok=True)
++
++        # Step 2: Restore any .bak file whose primary artifact file is missing
++        for bak_file in list(self.root.rglob("*.bak")):
++            if not bak_file.is_file():
++                continue
++            primary = bak_file.with_name(bak_file.name[:-4])
++            if not primary.exists():
++                os.replace(bak_file, primary)
++
++        # Step 3: Rebuild manifest from live artifact files
++        rebuilt: dict[str, str] = {}
++        for fpath in sorted(self.root.rglob("*")):
++            if not fpath.is_file():
++                continue
++            if fpath == self.manifest_path or fpath.name.endswith((".tmp", ".bak")):
++                continue
++            rel = fpath.relative_to(self.root).as_posix()
++            rebuilt[rel] = sha256_bytes(fpath.read_bytes())
++
++        self._write_manifest(rebuilt)
++        return rebuilt

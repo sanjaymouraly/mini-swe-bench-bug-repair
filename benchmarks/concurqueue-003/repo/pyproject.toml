@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "concurqueue"
+version = "0.1.0"
+description = "KeyedResourcePool checks and mutates active lease counters outside a synchronized while-loop and uses single notify(), causing quota overruns and deadlocks under concurrent contention."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

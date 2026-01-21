@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini SWE-Bench — Automated Software Bug Repair Evaluation</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="top-header">
+    <div class="brand-wrap">
+      <div class="brand-logo" aria-hidden="true">SB</div>
+      <div>
+        <h1 class="brand-title">Mini SWE-Bench <span class="version-pill" id="header-version">v1.0.0</span></h1>
+        <p class="brand-subtitle">Automated Software Bug Repair Evaluation &amp; Regression Safety Harness</p>
+      </div>
+    </div>
+    <nav class="main-nav" role="navigation" aria-label="Main Navigation">
+      <button class="nav-btn active" data-tab="overview" id="nav-overview">Overview</button>
+      <button class="nav-btn" data-tab="tasks" id="nav-tasks">Task Library (12)</button>
+      <button class="nav-btn" data-tab="evaluate" id="nav-evaluate">Run Evaluation</button>
+      <button class="nav-btn" data-tab="results" id="nav-results">Results &amp; Diffs</button>
+      <button class="nav-btn" data-tab="comparison" id="nav-comparison">Comparison &amp; Regressions</button>
+      <button class="nav-btn" data-tab="providers" id="nav-providers">Providers &amp; Settings</button>
+    </nav>
+  </header>
+
+  <div class="disclaimer-banner" id="disclaimer-banner">
+    <strong>Independent Benchmark Notice:</strong>
+    <span id="disclaimer-text">This is an independent SWE-bench-inspired practice benchmark. It is not an official SWE-bench dataset, evaluation, or contribution, and its scores are not directly comparable with official SWE-bench results.</span>
+  </div>
+
+  <main class="container">
+    <!-- TAB 1: OVERVIEW -->
+    <section class="tab-panel active" id="tab-overview">
+      <div class="section-header">
+        <div>
+          <h2>Benchmark Overview &amp; Quality Gates</h2>
+          <p class="muted">Real-time dataset integrity, baseline verification, and execution telemetry.</p>
+        </div>
+        <div class="action-group">
+          <button class="btn btn-secondary" id="btn-quick-noop">Run No-Op Baseline</button>
+          <button class="btn btn-primary" id="btn-quick-reference">Run Reference Oracle</button>
+        </div>
+      </div>
+
+      <div class="kpi-grid" id="overview-kpis">
+        <div class="kpi-card">
+          <span class="kpi-label">Benchmark Tasks</span>
+          <strong class="kpi-value" id="kpi-total-tasks">12</strong>
+          <span class="kpi-sub" id="kpi-difficulty-split">4 Easy · 4 Medium · 4 Hard</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Dataset Quality Gate</span>
+          <strong class="kpi-value status-text-pass" id="kpi-validation-status">Verified</strong>
+          <span class="kpi-sub" id="kpi-validation-sub">8/8 quality checks per task</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Recorded Runs</span>
+          <strong class="kpi-value" id="kpi-total-runs">0</strong>
+          <span class="kpi-sub" id="kpi-best-rate">Reference Oracle: 100.0%</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Active Sandbox Mode</span>
+          <strong class="kpi-value" id="kpi-sandbox-mode">auto</strong>
+          <span class="kpi-sub">Network disabled · Isolated FS</span>
+        </div>
+      </div>
+
+      <div class="two-col-grid">
+        <div class="card">
+          <h3>Recent Evaluation Runs</h3>
+          <div class="table-wrap">
+            <table class="data-table" id="overview-runs-table">
+              <thead>
+                <tr>
+                  <th>Run Name</th>
+                  <th>Agent / Mode</th>
+                  <th>Resolved</th>
+                  <th>Issue Fixed</th>
+                  <th>Regressions</th>
+                  <th>Status</th>
+                  <th>Inspect</th>
+                </tr>
+              </thead>
+              <tbody id="overview-runs-tbody">
+                <tr><td colspan="7" class="empty-cell">Loading evaluation runs...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Dataset Quality Gate Verification (8 Checks / Task)</h3>
+          <div id="validation-summary-box" class="validation-box">
+            <p class="muted">Loading dataset validation report...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: TASK LIBRARY & INSPECTOR -->
+    <section class="tab-panel" id="tab-tasks">
+      <div class="section-header">
+        <div>
+          <h2>Benchmark Task Library</h2>
+          <p class="muted">12 independent Python repositories spanning realistic engineering failure modes.</p>
+        </div>
+        <div class="filter-bar">
+          <input type="search" id="task-search" class="input-control" placeholder="Search ID, package, or keyword..." />
+          <select id="task-difficulty-filter" class="input-control">
+            <option value="">All Difficulties</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+          <select id="task-category-filter" class="input-control">
+            <option value="">All 12 Categories</option>
+            <option value="pagination_api">Pagination &amp; API</option>
+            <option value="cache_expiration">Cache Expiration</option>
+            <option value="concurrency_races">Concurrency &amp; Races</option>
+            <option value="sqlite_transactions">SQLite Transactions</option>
+            <option value="timezone_dst">Timezones &amp; DST</option>
+            <option value="streaming_parser">Streaming Parser</option>
+            <option value="config_precedence">Config Precedence</option>
+            <option value="retry_ratelimit">Retry &amp; Rate Limiting</option>
+            <option value="serialization_compat">Serialization &amp; Compat</option>
+            <option value="cli_validation">CLI Validation</option>
+            <option value="idempotency">Idempotency</option>
+            <option value="atomic_file_ops">Atomic File Ops</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="tasks-layout">
+        <div class="task-list-col" id="task-list-container"></div>
+        <div class="task-detail-col card" id="task-detail-panel">
+          <p class="muted">Select a benchmark task on the left to inspect its issue report, reproduction steps, allowed files, and buggy source code.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: LAUNCH EVALUATION & LIVE LOGS -->
+    <section class="tab-panel" id="tab-evaluate">
+      <div class="section-header">
+        <div>
+          <h2>Launch Benchmark Evaluation</h2>
+          <p class="muted">Execute offline patches, reference/baseline suites, or AI coding agents in isolated sandboxes.</p>
+        </div>
+      </div>
+
+      <div class="two-col-grid">
+        <form class="card form-stack" id="launch-run-form">
+          <h3>Evaluation Configuration</h3>
+          <div class="form-row">
+            <label for="eval-run-name">Run Name</label>
+            <input type="text" id="eval-run-name" class="input-control" placeholder="e.g., Custom Patch Verification" />
+          </div>
+          <div class="form-row">
+            <label for="eval-provider">Evaluation Mode / Agent Adapter</label>
+            <select id="eval-provider" class="input-control">
+              <option value="reference">Reference Oracle (100% Verified Solutions)</option>
+              <option value="noop">No-Op Baseline (Unmodified Buggy Repos)</option>
+              <option value="incomplete">Incomplete Patch Baseline (Partial Fixes)</option>
+              <option value="regression">Regression-Inducing Baseline (Breaks Existing Tests)</option>
+              <option value="offline">Offline Manual Patch (Paste Unified Git Diff)</option>
+              <option value="openai">OpenAI API Adapter</option>
+              <option value="anthropic">Anthropic Claude API Adapter</option>
+              <option value="openrouter">OpenRouter API Adapter</option>
+              <option value="custom_openai">Custom OpenAI-Compatible Endpoint</option>
+              <option value="ollama">Local Ollama / Open-Weights Server</option>
+              <option value="codex_cli">Codex CLI Agent</option>
+              <option value="claude_code_cli">Claude Code CLI Agent</option>
+            </select>
+          </div>
+          <div class="form-row" id="offline-patch-group" style="display:none;">
+            <label for="eval-patch-text">Unified Git Diff (`.patch` content)</label>
+            <textarea id="eval-patch-text" class="code-textarea" rows="7" placeholder="--- a/src/...\n+++ b/src/..."></textarea>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-row">
+              <label for="eval-task-filter">Target Task</label>
+              <select id="eval-task-filter" class="input-control">
+                <option value="">All 12 Benchmark Tasks</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="eval-difficulty">Difficulty Filter</label>
+              <select id="eval-difficulty" class="input-control">
+                <option value="">All Difficulties</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-row">
+              <label for="eval-workers">Parallel Workers</label>
+              <input type="number" id="eval-workers" class="input-control" value="2" min="1" max="8" />
+            </div>
+            <div class="form-row">
+              <label for="eval-timeout">Per-Task Timeout (sec)</label>
+              <input type="number" id="eval-timeout" class="input-control" value="60" min="10" max="600" />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="btn-start-eval">Start Evaluation Run</button>
+            <button type="button" class="btn btn-danger" id="btn-cancel-eval" style="display:none;">Cancel Active Run</button>
+          </div>
+        </form>
+
+        <div class="card">
+          <div class="log-header">
+            <h3>Live Execution Telemetry &amp; Logs</h3>
+            <span class="badge" id="live-run-status-badge">IDLE</span>
+          </div>
+          <div class="progress-bar-outer">
+            <div class="progress-bar-inner" id="live-progress-bar" style="width: 0%;"></div>
+          </div>
+          <pre class="log-console" id="live-run-logs">Ready. Configure and launch an evaluation run on the left to stream execution logs.</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: EVALUATION RESULTS & UNIFIED DIFFS -->
+    <section class="tab-panel" id="tab-results">
+      <div class="section-header">
+        <div>
+          <h2>Evaluation Results, Test Outcomes &amp; Patch Diffs</h2>
+          <p class="muted">Inspect per-task grading categories, preservation tests, private tests, and unified diffs.</p>
+        </div>
+        <div class="filter-bar">
+          <select id="results-run-select" class="input-control"></select>
+          <button class="btn btn-secondary" id="btn-export-json">Export JSON</button>
+          <button class="btn btn-secondary" id="btn-export-jsonl">Export JSONL</button>
+          <button class="btn btn-secondary" id="btn-export-csv">Export CSV</button>
+        </div>
+      </div>
+
+      <div id="selected-run-summary-bar" class="kpi-grid"></div>
+
+      <div class="results-split">
+        <div class="card">
+          <h3>Per-Task Grading Breakdown</h3>
+          <div class="table-wrap">
+            <table class="data-table" id="run-tasks-table">
+              <thead>
+                <tr>
+                  <th>Task ID</th>
+                  <th>Difficulty</th>
+                  <th>Status</th>
+                  <th>FAIL_TO_PASS</th>
+                  <th>PASS_TO_PASS</th>
+                  <th>Private</th>
+                  <th>Regression</th>
+                  <th>Duration</th>
+                </tr>
+              </thead>
+              <tbody id="run-tasks-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card" id="task-result-inspector">
+          <h3>Task Grade &amp; Patch Diff Inspector</h3>
+          <p class="muted">Click any task row on the left to inspect its unified Git diff, integrity check, and individual pytest assertions.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: MODEL / RUN COMPARISON & REGRESSION ANALYSIS -->
+    <section class="tab-panel" id="tab-comparison">
+      <div class="section-header">
+        <div>
+          <h2>Agent / Run Comparison &amp; Regression Safety Analysis</h2>
+          <p class="muted">Compare issue resolution rate against regression introduction across multiple runs.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Performance &amp; Regression Comparison Chart</h3>
+        <div id="comparison-chart-container" class="chart-box"></div>
+      </div>
+
+      <div class="card">
+        <h3>Side-by-Side Run Metrics</h3>
+        <div class="table-wrap">
+          <table class="data-table" id="comparison-summary-table">
+            <thead>
+              <tr>
+                <th>Run Name</th>
+                <th>Agent / Model</th>
+                <th>Sandbox</th>
+                <th>Resolved (%)</th>
+                <th>Issue Fixed (%)</th>
+                <th>Regression-Free (%)</th>
+                <th>Patch Valid (%)</th>
+                <th>Total Duration</th>
+              </tr>
+            </thead>
+            <tbody id="comparison-summary-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Per-Task Resolution vs. Regression Matrix</h3>
+        <div class="table-wrap" id="comparison-matrix-wrap"></div>
+      </div>
+    </section>
+
+    <!-- TAB 6: PROVIDERS & SETTINGS -->
+    <section class="tab-panel" id="tab-providers">
+      <div class="section-header">
+        <div>
+          <h2>AI Provider &amp; Coding Agent Configuration</h2>
+          <p class="muted">Configure commercial APIs, OpenRouter, custom OpenAI-compatible servers, or local Ollama endpoints.</p>
+        </div>
+      </div>
+
+      <div class="info-callout">
+        <strong>API Billing &amp; Privacy Notice:</strong>
+        External AI providers are strictly optional; the entire benchmark, offline patch evaluator, and reference/no-op baselines work 100% locally without paid APIs. Note that a consumer <em>ChatGPT Plus/Pro</em> subscription does not include OpenAI API credits. API keys are redacted from logs and never committed to Git. If you provide a Base URL and API Key without a model name, Mini SWE-Bench will query <code>/v1/models</code> to discover available models automatically.
+      </div>
+
+      <div class="two-col-grid">
+        <div class="card">
+          <h3>Supported Adapters &amp; Status</h3>
+          <div id="providers-list-container" class="provider-cards-list"></div>
+        </div>
+
+        <form class="card form-stack" id="provider-config-form">
+          <h3>Configure &amp; Test Provider</h3>
+          <div class="form-row">
+            <label for="cfg-provider">Provider</label>
+            <select id="cfg-provider" class="input-control">
+              <option value="openai">OpenAI API (openai)</option>
+              <option value="anthropic">Anthropic Claude API (anthropic)</option>
+              <option value="openrouter">OpenRouter (openrouter)</option>
+              <option value="custom_openai">Custom OpenAI-Compatible (custom_openai)</option>
+              <option value="ollama">Local Ollama Server (ollama)</option>
+              <option value="codex_cli">Codex CLI (codex_cli)</option>
+              <option value="claude_code_cli">Claude Code CLI (claude_code_cli)</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="cfg-base-url">API Base URL</label>
+            <input type="text" id="cfg-base-url" class="input-control" placeholder="https://api.openai.com/v1" />
+          </div>
+          <div class="form-row">
+            <label for="cfg-api-key">API Key (leave blank for local Ollama)</label>
+            <input type="password" id="cfg-api-key" class="input-control" placeholder="sk-..." autocomplete="off" />
+          </div>
+          <div class="form-row">
+            <label for="cfg-model">Preferred Model (leave blank to auto-discover)</label>
+            <input type="text" id="cfg-model" class="input-control" placeholder="e.g., gpt-4o or qwen2.5-coder:7b" />
+          </div>
+          <div class="form-grid-2">
+            <div class="form-row">
+              <label for="cfg-temp">Temperature</label>
+              <input type="number" step="0.1" id="cfg-temp" class="input-control" value="0.0" min="0" max="2" />
+            </div>
+            <div class="form-row">
+              <label for="cfg-max-tokens">Max Tokens</label>
+              <input type="number" id="cfg-max-tokens" class="input-control" value="4096" min="256" max="32768" />
+            </div>
+          </div>
+          <fieldset class="cost-fieldset">
+            <legend>Cost control <span class="muted">(optional — leave blank to use provider-reported pricing)</span></legend>
+            <div class="form-grid-2">
+              <div class="form-row">
+                <label for="cfg-input-cost">Input $ / 1k tokens</label>
+                <input type="number" step="0.000001" id="cfg-input-cost" class="input-control" placeholder="auto" min="0" />
+              </div>
+              <div class="form-row">
+                <label for="cfg-output-cost">Output $ / 1k tokens</label>
+                <input type="number" step="0.000001" id="cfg-output-cost" class="input-control" placeholder="auto" min="0" />
+              </div>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-row">
+                <label for="cfg-max-cost">Max spend per run ($)</label>
+                <input type="number" step="0.01" id="cfg-max-cost" class="input-control" value="5.00" min="0" />
+              </div>
+              <div class="form-row">
+                <label for="cfg-use-builtin">Bundled price estimates</label>
+                <select id="cfg-use-builtin" class="input-control">
+                  <option value="false">Off (recommended)</option>
+                  <option value="true">On (labelled estimate)</option>
+                </select>
+              </div>
+            </div>
+            <p class="muted" style="font-size:11.5px;margin:0;">
+              A cost is only reported when the provider returned real token usage <em>and</em> a price is known.
+              Blank rates are shown as &quot;n/a&quot; (unmeasured), never as $0.00.
+            </p>
+          </fieldset>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="btn-save-provider">Save Configuration</button>
+            <button type="button" class="btn btn-secondary" id="btn-test-provider">Test Connection &amp; Discover Models</button>
+          </div>
+          <div id="provider-test-result" class="connection-result-box"></div>
+        </form>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3>Easy-Connect Presets</h3>
+        <p class="muted">
+          One click to prefill the base URL and key for a provider. Cost tier shows the expected
+          spend: <strong>free</strong> (local/self-hosted), <strong>paid</strong> (commercial API),
+          <strong>mixed</strong> (paid and free models), <strong>varies</strong> (your own gateway).
+        </p>
+        <div id="provider-presets-container" class="preset-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

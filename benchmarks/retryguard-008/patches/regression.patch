@@ -1,0 +1,37 @@
+diff --git a/src/retryguard/policy.py b/src/retryguard/policy.py
+index 8cf9ccd..9a5a634 100644
+--- a/src/retryguard/policy.py
++++ b/src/retryguard/policy.py
+@@ -6,8 +6,6 @@ from dataclasses import dataclass, field
+ 
+ 
+ class HTTPError(Exception):
+-    """Represents an HTTP status failure with optional Retry-After."""
+-
+     def __init__(self, status_code: int, message: str = "", retry_after: float | None = None) -> None:
+         super().__init__(message or f"HTTP {status_code}")
+         self.status_code = status_code
+@@ -15,10 +13,8 @@ class HTTPError(Exception):
+ 
+ 
+ class RetryExhaustedError(Exception):
+-    """Raised when all retry attempts are exhausted."""
+-
+     def __init__(self, attempts: int, last_exception: BaseException | None = None) -> None:
+-        super().__init__(f"Exhausted after {attempts} attempts: {last_exception}")
++        super().__init__(f"Exhausted after {attempts} attempts")
+         self.attempts = attempts
+         self.last_exception = last_exception
+ 
+@@ -34,9 +30,5 @@ class RetryPolicy:
+     )
+ 
+     def compute_delay(self, retry_index: int, retry_after: float | None = None) -> float:
+-        """Compute backoff delay for 0-indexed `retry_index`."""
+-        if retry_after is not None:
+-            # BUG: Does not clamp retry_after to max_backoff!
+-            return max(0.0, retry_after)
+-        raw = self.base_backoff * (self.multiplier**retry_index)
+-        return min(self.max_backoff, raw)
++        # REGRESSION: Always returns 0.0 instead of exponential backoff!
++        return 0.0

@@ -1,0 +1,82 @@
+diff --git a/src/chronoshift/scheduler.py b/src/chronoshift/scheduler.py
+index a35211d..4fe2471 100644
+--- a/src/chronoshift/scheduler.py
++++ b/src/chronoshift/scheduler.py
+@@ -10,6 +10,17 @@ class NonExistentTimeError(ValueError):
+     """Raised when a local wall-clock time falls inside a DST spring-forward gap."""
+ 
+ 
++def _is_nonexistent_wall_time(dt: datetime, tz: ZoneInfo) -> bool:
++    roundtrip = dt.replace(fold=0).astimezone(UTC).astimezone(tz)
++    return (
++        roundtrip.year != dt.year
++        or roundtrip.month != dt.month
++        or roundtrip.day != dt.day
++        or roundtrip.hour != dt.hour
++        or roundtrip.minute != dt.minute
++    )
++
++
+ def resolve_wall_time(
+     target_date: date,
+     hour: int,
+@@ -20,8 +31,7 @@ def resolve_wall_time(
+ ) -> datetime:
+     """Resolve a local wall-clock (date, hour, minute) in `tz_name`."""
+     tz = ZoneInfo(tz_name)
+-    # BUG: Does not check whether (target_date, hour, minute) is nonexistent in tz!
+-    return datetime(
++    candidate = datetime(
+         target_date.year,
+         target_date.month,
+         target_date.day,
+@@ -30,16 +40,22 @@ def resolve_wall_time(
+         tzinfo=tz,
+         fold=fold,
+     )
++    if _is_nonexistent_wall_time(candidate, tz):
++        if nonexistent_policy == "raise":
++            raise NonExistentTimeError(
++                f"Nonexistent local time {target_date} {hour:02d}:{minute:02d} in {tz_name}"
++            )
++        if nonexistent_policy == "shift_forward":
++            return candidate.replace(fold=0).astimezone(UTC).astimezone(tz)
++        raise ValueError(f"Unsupported nonexistent_policy: {nonexistent_policy}")
++    return candidate
+ 
+ 
+ def real_elapsed_seconds(start_dt: datetime, end_dt: datetime) -> float:
+     """Return actual elapsed seconds between two timezone-aware datetimes."""
+     if start_dt.tzinfo is None or end_dt.tzinfo is None:
+         raise ValueError("Both start_dt and end_dt must be timezone-aware")
+-    # BUG: Strips tzinfo instead of converting to UTC, miscounting across DST!
+-    naive_start = start_dt.replace(tzinfo=None)
+-    naive_end = end_dt.replace(tzinfo=None)
+-    return (naive_end - naive_start).total_seconds()
++    return (end_dt.astimezone(UTC) - start_dt.astimezone(UTC)).total_seconds()
+ 
+ 
+ class DailyWindowScheduler:
+@@ -58,10 +74,15 @@ class DailyWindowScheduler:
+     ) -> list[datetime]:
+         if days <= 0:
+             return []
+-        tz = ZoneInfo(self.tz_name)
+-        first = resolve_wall_time(
+-            start_date, hour, minute, self.tz_name, nonexistent_policy=self.nonexistent_policy
+-        )
+-        first_utc = first.astimezone(UTC)
+-        # BUG: Adds 24h increments in UTC, shifting local wall time across DST!
+-        return [(first_utc + timedelta(days=i)).astimezone(tz) for i in range(days)]
++        occurrences: list[datetime] = []
++        for i in range(days):
++            cur_date = start_date + timedelta(days=i)
++            dt = resolve_wall_time(
++                cur_date,
++                hour,
++                minute,
++                self.tz_name,
++                nonexistent_policy=self.nonexistent_policy,
++            )
++            occurrences.append(dt)
++        return occurrences

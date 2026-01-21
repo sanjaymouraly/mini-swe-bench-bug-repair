@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pagiflow"
+version = "0.1.0"
+description = "PaginatedCollector stops early when next_cursor is integer 0, loops extra pages when has_more=False echoes a cursor token, and aborts on empty intermediate pages."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

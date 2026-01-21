@@ -1,0 +1,52 @@
+diff --git a/src/pagiflow/client.py b/src/pagiflow/client.py
+index 9d2924e..bb45b5d 100644
+--- a/src/pagiflow/client.py
++++ b/src/pagiflow/client.py
+@@ -12,6 +12,14 @@ FetchFunc = Callable[[str | int | None], dict[str, Any]]
+ TransformFunc = Callable[[dict[str, Any]], dict[str, Any]]
+ 
+ 
++def _has_valid_cursor(cursor: str | int | None) -> bool:
++    if cursor is None:
++        return False
++    if isinstance(cursor, str) and cursor == "":
++        return False
++    return True
++
++
+ class PaginatedCollector:
+     """Collects items across paginated API responses with deduplication and cycle protection."""
+ 
+@@ -36,7 +44,7 @@ class PaginatedCollector:
+         self.pages_fetched = 0
+ 
+         while self.pages_fetched < self.config.max_pages:
+-            if cursor is not None and cursor != "":
++            if _has_valid_cursor(cursor):
+                 cursor_key = f"{type(cursor).__name__}:{cursor}"
+                 if self.config.detect_cycles and cursor_key in seen_cursors:
+                     raise PaginationError(f"Detected pagination cursor cycle at {cursor!r}")
+@@ -46,8 +54,7 @@ class PaginatedCollector:
+             envelope = normalize_envelope(raw)
+             self.pages_fetched += 1
+ 
+-            # BUG 1: Unconditionally breaks on empty items, ignoring stop_on_empty_page=False
+-            if not envelope.items:
++            if not envelope.items and self.config.stop_on_empty_page:
+                 break
+ 
+             for item in envelope.items:
+@@ -59,9 +66,10 @@ class PaginatedCollector:
+                     seen_ids.add(item_id)
+                 collected.append(processed)
+ 
+-            # BUG 2 & 3: Ignores explicit has_more=False when next_cursor is echoed,
+-            # and uses truthiness `if not envelope.next_cursor:` which fails on integer 0!
+-            if not envelope.next_cursor:
++            if envelope.has_more is False:
++                break
++
++            if not _has_valid_cursor(envelope.next_cursor):
+                 break
+ 
+             cursor = envelope.next_cursor

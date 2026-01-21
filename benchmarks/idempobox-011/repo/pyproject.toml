@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "idempobox"
+version = "0.1.0"
+description = "IdempotentProcessor silently returns cached results when an idempotency key is reused with a different payload, includes volatile trace headers in fingerprints, and leaves failed executions permanently locked in IN_PROGRESS."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

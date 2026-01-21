@@ -1,0 +1,99 @@
+diff --git a/src/ledgersql/ledger.py b/src/ledgersql/ledger.py
+index 7dee62a..3fa664c 100644
+--- a/src/ledgersql/ledger.py
++++ b/src/ledgersql/ledger.py
+@@ -19,7 +19,7 @@ class SQLiteLedger:
+     """Double-entry ledger backed by SQLite."""
+ 
+     def __init__(self, db_path: str = ":memory:") -> None:
+-        self._conn = sqlite3.connect(db_path)
++        self._conn = sqlite3.connect(db_path, isolation_level=None)
+         self._conn.row_factory = sqlite3.Row
+         self._init_schema()
+ 
+@@ -41,16 +41,20 @@ class SQLiteLedger:
+             );
+             """
+         )
+-        self._conn.commit()
+ 
+     def create_account(self, account_id: str, initial_balance_cents: int = 0, frozen: bool = False) -> None:
+         if initial_balance_cents < 0:
+             raise LedgerError("Initial balance cannot be negative")
+-        self._conn.execute(
+-            "INSERT INTO accounts (account_id, balance_cents, frozen) VALUES (?, ?, ?)",
+-            (account_id, initial_balance_cents, 1 if frozen else 0),
+-        )
+-        self._conn.commit()
++        self._conn.execute("BEGIN")
++        try:
++            self._conn.execute(
++                "INSERT INTO accounts (account_id, balance_cents, frozen) VALUES (?, ?, ?)",
++                (account_id, initial_balance_cents, 1 if frozen else 0),
++            )
++            self._conn.execute("COMMIT")
++        except Exception:
++            self._conn.execute("ROLLBACK")
++            raise
+ 
+     def get_balance(self, account_id: str) -> int:
+         row = self._conn.execute(
+@@ -70,7 +74,7 @@ class SQLiteLedger:
+         ).fetchall()
+         return [dict(r) for r in rows]
+ 
+-    def _apply_single(self, spec: TransferSpec) -> None:
++    def _apply_single_in_tx(self, spec: TransferSpec) -> None:
+         if spec.amount_cents <= 0:
+             raise LedgerError("Transfer amount must be positive")
+         if spec.from_account == spec.to_account:
+@@ -87,7 +91,6 @@ class SQLiteLedger:
+         if src["balance_cents"] < spec.amount_cents:
+             raise InsufficientFundsError(f"Insufficient funds in {spec.from_account}")
+ 
+-        # BUG: Debits sender and commits BEFORE validating receiver account!
+         self._conn.execute(
+             "UPDATE accounts SET balance_cents = balance_cents - ? WHERE account_id = ?",
+             (spec.amount_cents, spec.from_account),
+@@ -110,8 +113,6 @@ class SQLiteLedger:
+             "INSERT INTO journal_entries (tx_id, from_account, to_account, amount_cents, memo) VALUES (?, ?, ?, ?, ?)",
+             (spec.tx_id, spec.from_account, spec.to_account, spec.amount_cents, spec.memo),
+         )
+-        # BUG: Commits inside _apply_single, breaking atomic batch rollback!
+-        self._conn.commit()
+ 
+     def transfer(self, spec: TransferSpec) -> None:
+         self.execute_batch([spec], allow_partial=False)
+@@ -122,12 +123,23 @@ class SQLiteLedger:
+         allow_partial: bool = False,
+     ) -> BatchResult:
+         result = BatchResult()
+-        for spec in transfers:
+-            try:
+-                self._apply_single(spec)
+-                result.succeeded.append(spec.tx_id)
+-            except LedgerError as exc:
+-                if not allow_partial:
+-                    raise
+-                result.failed[spec.tx_id] = str(exc)
+-        return result
++        self._conn.execute("BEGIN")
++        try:
++            for idx, spec in enumerate(transfers):
++                sp_name = f"sp_tx_{idx}"
++                self._conn.execute(f"SAVEPOINT {sp_name}")
++                try:
++                    self._apply_single_in_tx(spec)
++                    self._conn.execute(f"RELEASE SAVEPOINT {sp_name}")
++                    result.succeeded.append(spec.tx_id)
++                except LedgerError as exc:
++                    self._conn.execute(f"ROLLBACK TO SAVEPOINT {sp_name}")
++                    self._conn.execute(f"RELEASE SAVEPOINT {sp_name}")
++                    if not allow_partial:
++                        raise
++                    result.failed[spec.tx_id] = str(exc)
++            self._conn.execute("COMMIT")
++            return result
++        except Exception:
++            self._conn.execute("ROLLBACK")
++            raise

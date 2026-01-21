@@ -1,0 +1,96 @@
+"""CLI argument parser, validator, and structured exit-code runner."""
+
+from __future__ import annotations
+
+from collections.abc import Callable, Sequence
+from dataclasses import dataclass
+from typing import Any
+
+EXIT_OK = 0
+EXIT_USAGE_ERROR = 2
+EXIT_CONFIG_ERROR = 3
+EXIT_RUNTIME_ERROR = 4
+EXIT_INTERRUPTED = 130
+
+
+class ConfigError(Exception):
+    """Raised when configuration file or environment is invalid."""
+
+
+@dataclass
+class CLIResult:
+    exit_code: int
+    stdout: str
+    stderr: str
+
+
+class CLIRunner:
+    """Validates CLI flags and executes a handler with POSIX exit codes."""
+
+    def __init__(self, handler: Callable[[dict[str, Any]], str] | None = None) -> None:
+        self.handler = handler or (lambda opts: f"Executed on {opts['target']} (workers={opts['workers']})\n")
+
+    def run(self, argv: Sequence[str]) -> CLIResult:
+        args = list(argv)
+
+        # BUG 1: Short-circuits on --dry-run BEFORE validating flags and arguments!
+        if "--dry-run" in args:
+            return CLIResult(exit_code=EXIT_OK, stdout="DRY RUN OK\n", stderr="")
+
+        target: str | None = None
+        workers: int = 4
+        fast = False
+        thorough = False
+        dry_run = False
+
+        i = 0
+        while i < len(args):
+            tok = args[i]
+            if tok == "--target":
+                if i + 1 >= len(args) or args[i + 1].startswith("--"):
+                    # BUG 2: Returns exit_code=1 and writes error to stdout!
+                    return CLIResult(exit_code=1, stdout="Error: --target requires a value\n", stderr="")
+                target = args[i + 1]
+                i += 2
+            elif tok == "--workers":
+                if i + 1 >= len(args):
+                    return CLIResult(exit_code=1, stdout="Error: --workers requires an integer\n", stderr="")
+                try:
+                    workers = int(args[i + 1])
+                except ValueError:
+                    return CLIResult(exit_code=1, stdout="Error: --workers must be an integer\n", stderr="")
+                i += 2
+            elif tok == "--fast":
+                fast = True
+                i += 1
+            elif tok == "--thorough":
+                thorough = True
+                i += 1
+            elif tok == "--dry-run":
+                dry_run = True
+                i += 1
+            else:
+                return CLIResult(exit_code=1, stdout=f"Error: Unknown option {tok}\n", stderr="")
+
+        if not target:
+            return CLIResult(exit_code=1, stdout="Error: --target is required\n", stderr="")
+        if fast and thorough:
+            return CLIResult(exit_code=1, stdout="Error: --fast and --thorough are mutually exclusive\n", stderr="")
+        if workers <= 0 or workers > 64:
+            return CLIResult(exit_code=1, stdout="Error: --workers must be between 1 and 64\n", stderr="")
+
+        opts = {
+            "target": target,
+            "workers": workers,
+            "mode": "fast" if fast else ("thorough" if thorough else "normal"),
+            "dry_run": dry_run,
+        }
+
+        try:
+            out = self.handler(opts)
+            return CLIResult(exit_code=EXIT_OK, stdout=out, stderr="")
+        except ConfigError as exc:
+            return CLIResult(exit_code=EXIT_CONFIG_ERROR, stdout="", stderr=f"Config error: {exc}\n")
+        except BaseException as exc:
+            # BUG 3: Catches KeyboardInterrupt here and returns 1 instead of 130!
+            return CLIResult(exit_code=1, stdout="", stderr=f"Error: {exc}\n")

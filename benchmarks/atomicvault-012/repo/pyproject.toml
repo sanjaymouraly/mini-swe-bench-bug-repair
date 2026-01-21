@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "atomicvault"
+version = "0.1.0"
+description = "AtomicVault moves live files to .bak before completing temp writes (destroying live files when a writer fails mid-stream), fails to clean up .tmp files or restore .bak files on recover(), and allows nested '..' path traversal."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

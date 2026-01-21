@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ttlcachex"
+version = "0.1.0"
+description = "TTLCache returns expired entries in get_many() and `key in cache`, miscounts hit/miss metrics on expired batch reads, and overwrites remaining TTL when set(..., keep_ttl=True) is called."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

@@ -1,0 +1,64 @@
+# Reproducible pinned dependencies for Mini SWE-Bench
+# (software-bug-repair-benchmark) — Python >= 3.12
+#
+# Regenerate with:
+#   python -m venv .venv
+#   .venv/bin/pip install -e ".[dev]"
+#   .venv/bin/pip freeze --exclude-editable | grep -viE "^-e |^software-bug" \
+#       | sort -f > requirements.lock
+#
+# This file covers the runtime + development dependency set for the
+# orchestrator, CLI, API and dashboard. The isolated Docker evaluation
+# runner has its own, smaller pinned set in docker/requirements-runner.txt.
+
+# --- Runtime ---
+annotated-doc==0.0.5
+annotated-types==0.8.0
+anyio==4.15.1
+ast_serialize==0.13.1
+certifi==2026.10.19
+click==8.5.0
+fastapi==0.156.8
+greenlet==3.5.6
+h11==0.16.0
+httpcore==1.0.9
+httptools==0.9.0
+httpx==0.28.1
+idna==3.20
+librt==0.16.0
+markdown-it-py==4.2.0
+mdurl==0.1.2
+opentelemetry-api==1.45.1
+packaging==26.3
+pathspec==1.1.1
+pydantic==2.14.1
+pydantic_core==2.50.1
+pyee==14.0.0
+Pygments==2.21.0
+python-dotenv==1.2.4
+python-multipart==0.0.32
+PyYAML==6.0.3
+rich==15.0.0
+shellingham==1.5.4
+starlette==1.9.0
+typer==0.27.3
+typing-inspection==0.4.4
+typing_extensions==4.16.0
+uvicorn==0.54.0
+uvloop==0.23.0
+watchfiles==1.3.0
+websockets==17.3
+
+# --- Development / CI ---
+coverage==7.16.2
+hypothesis==6.170.5
+iniconfig==2.3.1
+mypy==2.4.0
+mypy_extensions==1.1.0
+playwright==1.64.0
+pluggy==1.7.0
+pytest==9.1.1
+pytest-asyncio==1.4.0
+pytest-cov==7.1.0
+ruff==0.17.1
+sortedcontainers==2.4.0

@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "streamparse"
+version = "0.1.0"
+description = "ChunkedNDJSONReader decodes byte chunks before splitting lines (failing when multi-byte UTF-8 chars or CRLF split across chunks) and fails to advance byte_offset when quarantining/skipping malformed records."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

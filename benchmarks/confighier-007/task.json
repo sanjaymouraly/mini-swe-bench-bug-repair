@@ -1,0 +1,33 @@
+{
+  "task_id": "confighier-007",
+  "title": "Fix deep merge sibling wiping, falsy CLI overrides, and single-underscore env keys",
+  "difficulty": "easy",
+  "category": "config_precedence",
+  "package_name": "confighier",
+  "summary": "ConfigLoader wipes sibling nested keys during layer merging, ignores explicit falsy CLI overrides (False, 0, ''), and splits single underscores in env var names instead of only double underscores.",
+  "issue_description": "# Issue: `ConfigLoader` drops sibling nested keys, ignores `False`/`0`/`\"\"` CLI overrides, and misparses single underscores in env vars\n\n## Description\n`ConfigLoader` merges configuration from 4 layers in increasing precedence:\n`defaults < profile < env_vars < cli_overrides`.\n\nThree bugs exist in `src/confighier/loader.py`:\n\n1. **Shallow dictionary merge wipes nested sibling settings**:\n   When `profile`, `env_vars`, or `cli_overrides` overrides a single key inside a nested section (e.g., `{\"db\": {\"port\": 5433}}`), `merge_layers` uses shallow assignment (`result[k] = v`), wiping out `db.host` and `db.max_connections` from the lower-priority layer! Nested dictionaries must be merged recursively without mutating the caller's input dictionaries.\n2. **Falsy CLI overrides (`False`, `0`, `\"\"`, `[]`) are ignored**:\n   In `apply_cli_overrides`, the filter uses `if v:` instead of `if v is not None:`, so passing `--no-debug` (`{\"debug\": False}`) or `{\"retries\": 0}` is discarded and the default `True` / `3` remains active! Only `None` values in `cli_overrides` mean \"flag not provided on CLI\".\n3. **Environment variable hierarchy splitting on single `_` instead of `__`**:\n   Environment variables use `PREFIX__SECTION__FIELD_NAME` where double underscore `__` separates hierarchy levels and single underscore `_` is part of the key name (e.g. `APP__DB__MAX_CONNECTIONS=20` -> `{\"db\": {\"max_connections\": 20}}`). Currently `parse_env_vars` splits on `\"_\"` after stripping the prefix, turning `MAX_CONNECTIONS` into nested `{\"max\": {\"connections\": 20}}`!\n\n## Expected Behavior\n- Nested dicts are deep-merged across all 4 precedence layers without mutating input dicts.\n- `cli_overrides` ignores keys whose value is `None`, but preserves `False`, `0`, `\"\"`, and `[]`.\n- `parse_env_vars` splits hierarchy levels strictly on `\"__\"`, preserving single underscores in lowercase key names.\n",
+  "reproduction_instructions": "pytest evaluation/test_issue.py -q",
+  "pinned_environment": {
+    "python_version": "3.12",
+    "dependencies": [
+      "pytest>=8.3.0"
+    ],
+    "test_command": "pytest -q",
+    "docker_image": "software-bug-repair-benchmark-runner:latest"
+  },
+  "base_revision": "80e78ad4aab07c16759f2c1458688dc8b9e6d4a9",
+  "allowed_files": [
+    "src/confighier/loader.py"
+  ],
+  "pass_to_pass_tests": [
+    "tests/test_existing.py"
+  ],
+  "fail_to_pass_tests": [
+    "evaluation/test_issue.py"
+  ],
+  "private_tests": [
+    "private_evaluations/confighier-007/test_private.py"
+  ],
+  "test_suite_hash": "b5e304895f8e9cd5a73a1fe68a12f43c985101fa36fbeb9d26114ab0ac7de4dd",
+  "reference_patch_hash": "d99a95815603a4b4ca3d61f87ae8a24697ea96ffa0457521a878da40ad976418"
+}

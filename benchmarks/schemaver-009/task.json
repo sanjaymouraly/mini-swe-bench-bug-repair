@@ -1,0 +1,33 @@
+{
+  "task_id": "schemaver-009",
+  "title": "Fix multi-hop v1->v3 schema migration, shared mutable defaults, and unknown field round-tripping",
+  "difficulty": "medium",
+  "category": "serialization_compat",
+  "package_name": "schemaver",
+  "summary": "EventCodec only performs single-hop migration on v1 payloads, shares a mutable default tags list across instances, mutates caller dicts in-place, and strips forward-compatible unknown fields on round-trip.",
+  "issue_description": "# Issue: `EventCodec` fails multi-hop `v1 -> v3` migration, shares mutable default `tags`, and drops unknown fields\n\n## Description\n`schemaver` deserializes versioned event payloads (`schema_version` 1, 2, or 3) into the current `v3` `EventEnvelope` and re-serializes them with forward/backward compatibility. Four bugs occur:\n\n1. **Multi-hop `v1 -> v2 -> v3` migration stops at `v2`**:\n   In `EventCodec.deserialize(raw)`, a `v1` payload (which has `\"full_name\"` and `\"amount_dollars\"`) is migrated to `v2` (splitting `\"full_name\"` into `\"first_name\"` and `\"last_name\"`), but `elif version == 2:` is used instead of chaining into the `v2 -> v3` migration (which converts `\"amount_dollars\"` to integer `\"amount_cents\"` and sets `schema_version = 3`).\n2. **In-place mutation of caller's input dictionary**:\n   `deserialize(raw)` mutates the caller's `raw` dictionary directly during migration.\n3. **Shared mutable default `tags` list**:\n   When `\"tags\"` is omitted in a payload, `EventEnvelope` uses a shared default list reference, so appending to `env1.tags` mutates `env2.tags` across unrelated deserialized events!\n4. **Forward-compatible unknown fields are dropped on `serialize()`**:\n   When a newer producer includes extra fields not in the known v3 schema (e.g., `\"region\": \"ap-south-1\"`, `\"experiment_id\": 42`), `deserialize()` drops them instead of storing them in `envelope.extra` and re-emitting them in `serialize()`.\n\n## Expected Behavior\n- `v1` and `v2` payloads migrate all the way to `v3` (`schema_version=3`, `first_name`, `last_name`, `amount_cents`, `tags`) without mutating the input dict.\n- Each `EventEnvelope` gets an independent `tags` list and `extra` dict.\n- Unknown fields are preserved in `envelope.extra` and included at the top level when `codec.serialize(envelope)` is called.\n",
+  "reproduction_instructions": "pytest evaluation/test_issue.py -q",
+  "pinned_environment": {
+    "python_version": "3.12",
+    "dependencies": [
+      "pytest>=8.3.0"
+    ],
+    "test_command": "pytest -q",
+    "docker_image": "software-bug-repair-benchmark-runner:latest"
+  },
+  "base_revision": "533f4da0afeb4385e97f393a9ac7fbf14bac9c67",
+  "allowed_files": [
+    "src/schemaver/codec.py"
+  ],
+  "pass_to_pass_tests": [
+    "tests/test_existing.py"
+  ],
+  "fail_to_pass_tests": [
+    "evaluation/test_issue.py"
+  ],
+  "private_tests": [
+    "private_evaluations/schemaver-009/test_private.py"
+  ],
+  "test_suite_hash": "aa9d711f6079664db86c3378db9668aa55af215a04df73a2529a4d8b1d22c711",
+  "reference_patch_hash": "5380eff80d99da685de81dd40396bf40482fa1182bcf21797e41f96c4696d986"
+}

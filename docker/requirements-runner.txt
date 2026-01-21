@@ -1,0 +1,11 @@
+# Pinned test-runner dependencies for the isolated evaluation sandbox image.
+# Versions are exact pins so that the sandbox environment is reproducible.
+pytest==8.3.5
+iniconfig==2.0.0
+packaging==24.2
+pluggy==1.5.0
+exceptiongroup==1.2.2; python_version < "3.11"
+tomli==2.2.1; python_version < "3.11"
+hypothesis==6.123.2
+attrs==24.2.0
+sortedcontainers==2.4.0

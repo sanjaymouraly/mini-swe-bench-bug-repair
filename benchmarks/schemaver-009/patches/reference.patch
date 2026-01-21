@@ -1,0 +1,111 @@
+diff --git a/src/schemaver/codec.py b/src/schemaver/codec.py
+index 68489f6..6ea1edc 100644
+--- a/src/schemaver/codec.py
++++ b/src/schemaver/codec.py
+@@ -2,12 +2,20 @@
+ 
+ from __future__ import annotations
+ 
++import copy
+ import hashlib
+ import json
+ from typing import Any
+ 
+ CURRENT_SCHEMA_VERSION = 3
+-_DEFAULT_TAGS: list[str] = []
++_KNOWN_V3_FIELDS = {
++    "event_id",
++    "schema_version",
++    "first_name",
++    "last_name",
++    "amount_cents",
++    "tags",
++}
+ 
+ 
+ class EventEnvelope:
+@@ -20,7 +28,7 @@ class EventEnvelope:
+         last_name: str,
+         amount_cents: int,
+         schema_version: int = CURRENT_SCHEMA_VERSION,
+-        tags: list[str] = _DEFAULT_TAGS,  # BUG: Shared mutable default list!
++        tags: list[str] | None = None,
+         extra: dict[str, Any] | None = None,
+     ) -> None:
+         self.event_id = event_id
+@@ -28,8 +36,8 @@ class EventEnvelope:
+         self.last_name = last_name
+         self.amount_cents = amount_cents
+         self.schema_version = schema_version
+-        self.tags = tags
+-        self.extra = extra or {}
++        self.tags = list(tags) if tags is not None else []
++        self.extra = copy.deepcopy(extra) if extra is not None else {}
+ 
+ 
+ def canonical_hash(payload: dict[str, Any]) -> str:
+@@ -42,8 +50,7 @@ class EventCodec:
+     """Migrates and serializes event payloads across schema versions 1, 2, and 3."""
+ 
+     def deserialize(self, raw: dict[str, Any]) -> EventEnvelope:
+-        # BUG: Mutates caller's `raw` in place and uses `if / elif` instead of chaining v1->v2->v3!
+-        data = raw
++        data = copy.deepcopy(raw)
+         version = int(data.get("schema_version", 1))
+         if version not in (1, 2, 3):
+             raise ValueError(f"Unsupported schema_version: {version}")
+@@ -53,29 +60,40 @@ class EventCodec:
+             parts = full.split(" ", 1)
+             data["first_name"] = parts[0] if parts else ""
+             data["last_name"] = parts[1] if len(parts) > 1 else ""
++            version = 2
+             data["schema_version"] = 2
+-        elif version == 2:
+-            dollars = float(data.pop("amount_dollars", 0.0))
+-            data["amount_cents"] = int(round(dollars * 100))
++
++        if version == 2:
++            if "amount_dollars" in data:
++                dollars = float(data.pop("amount_dollars", 0.0))
++                data["amount_cents"] = int(round(dollars * 100))
++            version = 3
+             data["schema_version"] = 3
+ 
+-        tags = data.get("tags", _DEFAULT_TAGS)
++        raw_tags = data.get("tags")
++        tags = list(raw_tags) if isinstance(raw_tags, list) else []
++        extra = {k: v for k, v in data.items() if k not in _KNOWN_V3_FIELDS}
++
+         return EventEnvelope(
+             event_id=str(data["event_id"]),
+             first_name=str(data.get("first_name", "")),
+             last_name=str(data.get("last_name", "")),
+             amount_cents=int(data.get("amount_cents", 0)),
+-            schema_version=int(data.get("schema_version", CURRENT_SCHEMA_VERSION)),
++            schema_version=CURRENT_SCHEMA_VERSION,
+             tags=tags,
++            extra=extra,
+         )
+ 
+     def serialize(self, envelope: EventEnvelope) -> dict[str, Any]:
+-        # BUG: Drops envelope.extra fields!
+-        return {
+-            "event_id": envelope.event_id,
+-            "schema_version": envelope.schema_version,
+-            "first_name": envelope.first_name,
+-            "last_name": envelope.last_name,
+-            "amount_cents": envelope.amount_cents,
+-            "tags": list(envelope.tags),
+-        }
++        out: dict[str, Any] = copy.deepcopy(envelope.extra)
++        out.update(
++            {
++                "event_id": envelope.event_id,
++                "schema_version": envelope.schema_version,
++                "first_name": envelope.first_name,
++                "last_name": envelope.last_name,
++                "amount_cents": envelope.amount_cents,
++                "tags": list(envelope.tags),
++            }
++        )
++        return out

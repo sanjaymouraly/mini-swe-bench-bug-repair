@@ -1,0 +1,56 @@
+diff --git a/src/ttlcachex/cache.py b/src/ttlcachex/cache.py
+index 3850bd9..116b394 100644
+--- a/src/ttlcachex/cache.py
++++ b/src/ttlcachex/cache.py
+@@ -51,8 +51,16 @@ class TTLCache:
+         keep_ttl: bool = False,
+     ) -> None:
+         now = self._clock()
+-        # BUG: ignores keep_ttl=True on existing live entry
+-        expires_at = self._compute_expiry(now, ttl)
++        existing = self._store.get(key)
++        if existing is not None and existing.is_expired(now):
++            del self._store[key]
++            self.stats.expired_evictions += 1
++            existing = None
++
++        if keep_ttl and existing is not None and ttl is None:
++            expires_at = existing.expires_at
++        else:
++            expires_at = self._compute_expiry(now, ttl)
+ 
+         if key in self._store:
+             self._store.move_to_end(key)
+@@ -79,19 +87,24 @@ class TTLCache:
+         return entry.value
+ 
+     def get_many(self, keys: Iterable[str]) -> dict[str, Any]:
+-        # BUG: does not check expiration or update stats/LRU properly for expired entries
+         result: dict[str, Any] = {}
+         for k in keys:
+-            if k in self._store:
+-                self.stats.hits += 1
+-                result[k] = self._store[k].value
+-            else:
+-                self.stats.misses += 1
++            marker = object()
++            val = self.get(k, default=marker)
++            if val is not marker:
++                result[k] = val
+         return result
+ 
+     def __contains__(self, key: str) -> bool:
+-        # BUG: returns True for expired keys
+-        return key in self._store
++        now = self._clock()
++        entry = self._store.get(key)
++        if entry is None:
++            return False
++        if entry.is_expired(now):
++            del self._store[key]
++            self.stats.expired_evictions += 1
++            return False
++        return True
+ 
+     def delete(self, key: str) -> bool:
+         return self._store.pop(key, None) is not None

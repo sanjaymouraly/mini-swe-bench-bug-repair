@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "confighier"
+version = "0.1.0"
+description = "ConfigLoader wipes sibling nested keys during layer merging, ignores explicit falsy CLI overrides (False, 0, ''), and splits single underscores in env var names instead of only double underscores."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

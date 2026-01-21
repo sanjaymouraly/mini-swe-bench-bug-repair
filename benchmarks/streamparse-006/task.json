@@ -1,0 +1,34 @@
+{
+  "task_id": "streamparse-006",
+  "title": "Fix multi-byte UTF-8 chunk boundary splitting and byte-offset tracking on quarantined records",
+  "difficulty": "medium",
+  "category": "streaming_parser",
+  "package_name": "streamparse",
+  "summary": "ChunkedNDJSONReader decodes byte chunks before splitting lines (failing when multi-byte UTF-8 chars or CRLF split across chunks) and fails to advance byte_offset when quarantining/skipping malformed records.",
+  "issue_description": "# Issue: `ChunkedNDJSONReader` corrupts multi-byte UTF-8 across chunk boundaries and miscalculates `byte_offset` after malformed lines\n\n## Description\n`ChunkedNDJSONReader` streams arbitrary-sized `bytes` chunks of NDJSON records with configurable `ErrorPolicy` (`RAISE`, `SKIP`, `QUARANTINE`) and required field validation. Two bugs occur:\n\n1. **Multi-byte UTF-8 characters split across `bytes` chunks**:\n   `parse_chunks()` calls `chunk.decode(\"utf-8\")` on each incoming `bytes` chunk individually before buffering. When a multi-byte UTF-8 sequence (e.g., `\u20ac`, `\u00e9`, `\ud83d\ude80`) straddles the boundary between two chunks, `chunk.decode(\"utf-8\")` raises `UnicodeDecodeError`! The reader must buffer raw `bytes` (splitting on `b\"\\n\"`) and decode complete lines, or use an incremental decoder while tracking exact raw byte lengths.\n2. **Incorrect `byte_offset` after malformed records in `QUARANTINE` / `SKIP` mode**:\n   Each `ParsedRecord` and `QuarantinedRecord` records the starting `byte_offset` (0-indexed byte position in the stream where that line began, including `\\r\\n` or `\\n` lengths of prior lines) and 1-indexed `line_number`. Currently, when a line fails JSON parsing or required-field validation, the error branch `continue`s before advancing `current_byte_offset += len(raw_line_with_newline)`, causing all subsequent records to have shifted byte offsets!\n\n## Expected Behavior\n- Arbitrary chunk boundaries (even 1-byte or 3-byte chunks splitting multi-byte UTF-8 characters or `\\r\\n` delimiters) must produce identical parsed records to single-chunk parsing.\n- Empty/whitespace-only lines must still advance `current_byte_offset` by their exact byte length and increment `line_number`.\n- Malformed JSON lines or records missing `required_fields` must be handled according to `error_policy` (`RAISE`, `SKIP`, `QUARANTINE`), and `current_byte_offset` must always advance by the exact raw byte length of every line (including its trailing `\\r\\n` or `\\n`).\n",
+  "reproduction_instructions": "pytest evaluation/test_issue.py -q",
+  "pinned_environment": {
+    "python_version": "3.12",
+    "dependencies": [
+      "pytest>=8.3.0"
+    ],
+    "test_command": "pytest -q",
+    "docker_image": "software-bug-repair-benchmark-runner:latest"
+  },
+  "base_revision": "5d9fdb6c51dea9c7ff11fa9469dc20ac6faf817a",
+  "allowed_files": [
+    "src/streamparse/reader.py",
+    "src/streamparse/models.py"
+  ],
+  "pass_to_pass_tests": [
+    "tests/test_existing.py"
+  ],
+  "fail_to_pass_tests": [
+    "evaluation/test_issue.py"
+  ],
+  "private_tests": [
+    "private_evaluations/streamparse-006/test_private.py"
+  ],
+  "test_suite_hash": "f84e29fc0764c754b282327f2f084cfbf2ca82d4bb1483654f9d31d75fab088a",
+  "reference_patch_hash": "6a97901b000a93f227600e0d135db1320df3bbe725990b722b43b5f9efbfea43"
+}

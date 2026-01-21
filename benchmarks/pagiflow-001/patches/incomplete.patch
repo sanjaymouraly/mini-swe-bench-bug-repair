@@ -1,0 +1,28 @@
+diff --git a/src/pagiflow/client.py b/src/pagiflow/client.py
+index 9d2924e..ecf7fb0 100644
+--- a/src/pagiflow/client.py
++++ b/src/pagiflow/client.py
+@@ -46,10 +46,6 @@ class PaginatedCollector:
+             envelope = normalize_envelope(raw)
+             self.pages_fetched += 1
+ 
+-            # BUG 1: Unconditionally breaks on empty items, ignoring stop_on_empty_page=False
+-            if not envelope.items:
+-                break
+-
+             for item in envelope.items:
+                 processed = self.transform(item) if self.transform else item
+                 if self.config.deduplicate and self.config.id_key and self.config.id_key in processed:
+@@ -59,8 +55,10 @@ class PaginatedCollector:
+                     seen_ids.add(item_id)
+                 collected.append(processed)
+ 
+-            # BUG 2 & 3: Ignores explicit has_more=False when next_cursor is echoed,
+-            # and uses truthiness `if not envelope.next_cursor:` which fails on integer 0!
++            if envelope.has_more is False:
++                break
++
++            # Still buggy on integer 0 cursor!
+             if not envelope.next_cursor:
+                 break
+ 

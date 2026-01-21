@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "schemaver"
+version = "0.1.0"
+description = "EventCodec only performs single-hop migration on v1 payloads, shares a mutable default tags list across instances, mutates caller dicts in-place, and strips forward-compatible unknown fields on round-trip."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

@@ -1,0 +1,44 @@
+diff --git a/src/confighier/loader.py b/src/confighier/loader.py
+index 0a1779f..225a0ae 100644
+--- a/src/confighier/loader.py
++++ b/src/confighier/loader.py
+@@ -29,12 +29,15 @@ def coerce_env_value(raw: str) -> Any:
+ 
+ 
+ def deep_merge(base: Mapping[str, Any], override: Mapping[str, Any]) -> dict[str, Any]:
+-    """Merge override mapping into base mapping."""
+-    result = dict(base)
++    """Recursively merge `override` into `base`, ignoring only `None` override values."""
++    result: dict[str, Any] = copy.deepcopy(dict(base))
+     for k, v in override.items():
+-        # BUG 1 & 2: Ignores falsy values (`if v:`) and overwrites nested dicts shallowly!
+-        if v:
+-            result[k] = v
++        if v is None:
++            continue
++        if isinstance(v, Mapping) and isinstance(result.get(k), Mapping):
++            result[k] = deep_merge(result[k], v)
++        else:
++            result[k] = copy.deepcopy(v)
+     return result
+ 
+ 
+@@ -46,8 +49,7 @@ def parse_env_vars(environ: Mapping[str, str], prefix: str = "APP") -> dict[str,
+         if not env_key.startswith(prefix_tag):
+             continue
+         remainder = env_key[len(prefix_tag) :]
+-        # BUG 3: Splits on single underscore `_` instead of double underscore `__`!
+-        parts = [p.lower() for p in remainder.split("_") if p]
++        parts = [p.lower() for p in remainder.split("__") if p]
+         if not parts:
+             continue
+         cursor = parsed
+@@ -72,7 +74,7 @@ class ConfigLoader:
+         environ: Mapping[str, str] | None = None,
+         cli_overrides: Mapping[str, Any] | None = None,
+     ) -> dict[str, Any]:
+-        merged = copy.deepcopy(dict(defaults))
++        merged: dict[str, Any] = copy.deepcopy(dict(defaults))
+         if profile:
+             merged = deep_merge(merged, profile)
+         if environ:

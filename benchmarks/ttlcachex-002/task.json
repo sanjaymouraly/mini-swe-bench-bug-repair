@@ -1,0 +1,34 @@
+{
+  "task_id": "ttlcachex-002",
+  "title": "Fix stale expired entries in get_many/__contains__ and preserve TTL on keep_ttl=True",
+  "difficulty": "easy",
+  "category": "cache_expiration",
+  "package_name": "ttlcachex",
+  "summary": "TTLCache returns expired entries in get_many() and `key in cache`, miscounts hit/miss metrics on expired batch reads, and overwrites remaining TTL when set(..., keep_ttl=True) is called.",
+  "issue_description": "# Issue: `TTLCache` serves stale expired items in `get_many()` / `__contains__()` and resets TTL on `keep_ttl=True`\n\n## Description\n`TTLCache` is an in-memory LRU+TTL cache with injectable monotonic clock support. We found three bugs:\n\n1. **`get_many(keys)` ignores TTL expiration**:\n   `get_many()` looks up keys directly in `self._store` without checking whether entries have expired at the current clock timestamp. Expired entries are returned to the caller, not evicted, and recorded as cache hits instead of misses/expirations.\n2. **`key in cache` (`__contains__`) returns `True` for expired keys**:\n   Checking `if k in cache:` returns `True` even after the key's TTL has elapsed, whereas `cache.get(k)` returns `None`. `__contains__` must evict expired entries and return `False` without incrementing hit/miss counters.\n3. **`set(key, value, keep_ttl=True)` resets TTL instead of preserving remaining TTL**:\n   When updating an existing **unexpired** entry with `keep_ttl=True` (and `ttl=None`), `set()` overwrites `expires_at` using `default_ttl` instead of keeping the existing entry's `expires_at`. If the existing entry was already expired (or did not exist), `keep_ttl=True` should fall back to `ttl` / `default_ttl`.\n\n## Expected Behavior\n- `get_many(keys)` must evict expired entries, increment `stats.misses` and `stats.expired_evictions` for expired keys, update LRU order and `stats.hits` for live keys, and return only live `{key: value}` pairs.\n- `key in cache` must return `False` (and purge the expired entry) if the key is expired.\n- `set(key, value, keep_ttl=True)` must preserve the existing `expires_at` timestamp when updating a currently live key.\n",
+  "reproduction_instructions": "pytest evaluation/test_issue.py -q",
+  "pinned_environment": {
+    "python_version": "3.12",
+    "dependencies": [
+      "pytest>=8.3.0"
+    ],
+    "test_command": "pytest -q",
+    "docker_image": "software-bug-repair-benchmark-runner:latest"
+  },
+  "base_revision": "5ada1827a6cd2bcd1a36edb56475f33cff359b0a",
+  "allowed_files": [
+    "src/ttlcachex/cache.py",
+    "src/ttlcachex/stats.py"
+  ],
+  "pass_to_pass_tests": [
+    "tests/test_existing.py"
+  ],
+  "fail_to_pass_tests": [
+    "evaluation/test_issue.py"
+  ],
+  "private_tests": [
+    "private_evaluations/ttlcachex-002/test_private.py"
+  ],
+  "test_suite_hash": "bfea2858738411a0af6eaf8686ffd6915d5e89ab08d79e88684e70514c22d82a",
+  "reference_patch_hash": "9dee5cdeb9d0c6f7492b7c7b8a9124f5624bfa271b68e12863057262c7944988"
+}

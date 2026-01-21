@@ -1,0 +1,77 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Pytest / Coverage / Mypy / Ruff
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.cache/
+.local/
+.npm/
+
+
+# Secrets & local configuration
+.env
+.env.local
+*.pem
+*.key
+.docker/
+.sudo_as_admin_successful
+
+# Runtime artifacts & local temporary files
+# (the tracked baseline reports under artifacts/reports/ are kept on purpose)
+artifacts/bugbench.db
+artifacts/bugbench.db-shm
+artifacts/bugbench.db-wal
+artifacts/provider_settings.json
+artifacts/workspaces/
+artifacts/tmp/
+artifacts/reports/run-*.json
+*.db-shm
+*.db-wal
+benchmarks/*/repo/.git/
+benchmarks/*/repo/*.egg-info/
+benchmarks/*/repo/src/*.egg-info/
+benchmarks/*/repo/.pytest_cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local caches and generated files
+node_modules/
+*.sqlite3
+coverage/
+.next/
+*.log
+CHANGELOG.md

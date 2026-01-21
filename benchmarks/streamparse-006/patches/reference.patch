@@ -1,0 +1,151 @@
+diff --git a/src/streamparse/reader.py b/src/streamparse/reader.py
+index f44afe4..fc8a0e9 100644
+--- a/src/streamparse/reader.py
++++ b/src/streamparse/reader.py
+@@ -15,7 +15,7 @@ from streamparse.models import (
+ 
+ 
+ class ChunkedNDJSONReader:
+-    """Parses streaming byte chunks of NDJSON records with offset tracking."""
++    """Parses streaming byte chunks of NDJSON records with exact byte-offset tracking."""
+ 
+     def __init__(
+         self,
+@@ -27,42 +27,61 @@ class ChunkedNDJSONReader:
+ 
+     def parse_chunks(self, chunks: Iterable[bytes]) -> StreamSummary:
+         summary = StreamSummary()
+-        # BUG 1: Decodes each chunk independently as str, crashing when multi-byte UTF-8 splits across chunks!
+-        text_buf = ""
++        byte_buf = bytearray()
+         line_number = 0
+         byte_offset = 0
+ 
+         for chunk in chunks:
+-            text_buf += chunk.decode("utf-8")
+-            while "\n" in text_buf:
+-                line_str, text_buf = text_buf.split("\n", 1)
++            if not chunk:
++                continue
++            byte_buf.extend(chunk)
++            while True:
++                nl_idx = byte_buf.find(b"\n")
++                if nl_idx == -1:
++                    break
++                raw_line = bytes(byte_buf[: nl_idx + 1])
++                del byte_buf[: nl_idx + 1]
++                line_len = len(raw_line)
+                 line_number += 1
+-                raw_len = len(line_str.encode("utf-8")) + 1
+-                stripped = line_str.strip()
+-                if not stripped:
+-                    byte_offset += raw_len
+-                    continue
++                self._consume_raw_line(raw_line, line_number, byte_offset, summary)
++                byte_offset += line_len
++                summary.total_bytes_processed += line_len
+ 
+-                self._process_line(
+-                    stripped, line_number, byte_offset, raw_len, summary
+-                )
+-                # BUG 2: _process_line only updates byte_offset on success inside or inconsistent!
+-
+-        if text_buf.strip():
+-            line_number += 1
+-            raw_len = len(text_buf.encode("utf-8"))
+-            self._process_line(text_buf.strip(), line_number, byte_offset, raw_len, summary)
++        if byte_buf:
++            raw_line = bytes(byte_buf)
++            line_len = len(raw_line)
++            if raw_line.strip():
++                line_number += 1
++                self._consume_raw_line(raw_line, line_number, byte_offset, summary)
++            byte_offset += line_len
++            summary.total_bytes_processed += line_len
+ 
+         return summary
+ 
+-    def _process_line(
++    def _consume_raw_line(
+         self,
+-        stripped: str,
++        raw_line: bytes,
+         line_number: int,
+         byte_offset: int,
+-        raw_len: int,
+         summary: StreamSummary,
+     ) -> None:
++        content_bytes = raw_line.rstrip(b"\r\n")
++        if not content_bytes.strip():
++            return
++
++        try:
++            line_str = content_bytes.decode("utf-8")
++        except UnicodeDecodeError as exc:
++            self._handle_error(
++                raw_text=content_bytes.decode("utf-8", errors="replace"),
++                line_number=line_number,
++                byte_offset=byte_offset,
++                reason=f"Invalid UTF-8 encoding: {exc}",
++                summary=summary,
++            )
++            return
++
++        stripped = line_str.strip()
+         try:
+             obj = json.loads(stripped)
+             if not isinstance(obj, dict):
+@@ -71,23 +90,37 @@ class ChunkedNDJSONReader:
+                 if req not in obj:
+                     raise ValueError(f"Missing required field: {req}")
+         except Exception as exc:
+-            if self.error_policy == ErrorPolicy.RAISE:
+-                raise MalformedRecordError(f"Line {line_number}: {exc}") from exc
+-            elif self.error_policy == ErrorPolicy.SKIP:
+-                summary.skipped_count += 1
+-                return
+-            else:
+-                summary.quarantined.append(
+-                    QuarantinedRecord(
+-                        line_number=line_number,
+-                        byte_offset=byte_offset,
+-                        raw_line=stripped,
+-                        reason=str(exc),
+-                    )
+-                )
+-                return
++            self._handle_error(
++                raw_text=stripped,
++                line_number=line_number,
++                byte_offset=byte_offset,
++                reason=str(exc),
++                summary=summary,
++            )
++            return
+ 
+         summary.records.append(
+             ParsedRecord(line_number=line_number, byte_offset=byte_offset, data=obj)
+         )
+-        summary.total_bytes_processed += raw_len
++
++    def _handle_error(
++        self,
++        raw_text: str,
++        line_number: int,
++        byte_offset: int,
++        reason: str,
++        summary: StreamSummary,
++    ) -> None:
++        if self.error_policy == ErrorPolicy.RAISE:
++            raise MalformedRecordError(f"Line {line_number}: {reason}")
++        if self.error_policy == ErrorPolicy.SKIP:
++            summary.skipped_count += 1
++            return
++        summary.quarantined.append(
++            QuarantinedRecord(
++                line_number=line_number,
++                byte_offset=byte_offset,
++                raw_line=raw_text,
++                reason=reason,
++            )
++        )

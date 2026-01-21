@@ -1,0 +1,552 @@
+{
+  "run_id": "run-1792586462-a6c3d3",
+  "run_name": "Sample Mixed Patch Submission",
+  "benchmark_version": "1.0.0",
+  "agent_id": "offline-patch",
+  "provider": "offline",
+  "model": "manual-patch",
+  "sandbox_mode": "docker",
+  "status": "COMPLETED",
+  "created_at": "2026-10-21T12:41:02.916221+00:00",
+  "completed_at": "2026-10-21T12:41:12.597301+00:00",
+  "total_tasks": 3,
+  "completed_tasks": 3,
+  "resolved_count": 1,
+  "resolved_rate": 33.33,
+  "issue_fix_count": 1,
+  "issue_fix_rate": 33.33,
+  "regression_count": 1,
+  "regression_free_count": 2,
+  "regression_free_rate": 66.67,
+  "patch_valid_count": 3,
+  "patch_valid_rate": 100.0,
+  "integrity_violation_count": 0,
+  "execution_failure_count": 0,
+  "total_duration_ms": 9689.51,
+  "total_tokens": null,
+  "estimated_cost_usd": null,
+  "is_demo": false,
+  "config_snapshot": {
+    "root_dir": "/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55",
+    "benchmarks_dir": "/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/benchmarks",
+    "private_tests_dir": "/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/private_evaluations",
+    "artifacts_dir": "/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/artifacts",
+    "db_path": "/workspaces/codespaces-blank/workspace-01a15085-5ed8-7d36-a2a7-80635b5a2b55/artifacts/bugbench.db",
+    "configured_sandbox_mode": "auto",
+    "effective_sandbox_mode": "docker",
+    "docker_image": "software-bug-repair-benchmark-runner:latest",
+    "default_timeout_seconds": 60,
+    "memory_limit_mb": 512,
+    "cpu_limit": 1.0,
+    "max_pids": 64,
+    "network_disabled": true
+  },
+  "category_breakdown": [
+    {
+      "category": "cache_expiration",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 0,
+      "resolved_rate": 0.0
+    },
+    {
+      "category": "pagination_api",
+      "total": 1,
+      "resolved": 1,
+      "issue_fixed": 1,
+      "regressions": 0,
+      "resolved_rate": 100.0
+    },
+    {
+      "category": "sqlite_transactions",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 1,
+      "resolved_rate": 0.0
+    }
+  ],
+  "difficulty_breakdown": [
+    {
+      "difficulty": "easy",
+      "total": 2,
+      "resolved": 1,
+      "issue_fixed": 1,
+      "regressions": 0,
+      "resolved_rate": 50.0
+    },
+    {
+      "difficulty": "medium",
+      "total": 1,
+      "resolved": 0,
+      "issue_fixed": 0,
+      "regressions": 1,
+      "resolved_rate": 0.0
+    }
+  ],
+  "task_results": [
+    {
+      "run_id": "run-1792586462-a6c3d3",
+      "task_id": "ledgersql-004",
+      "title": "Fix atomic batch rollback and savepoint isolation in SQLiteLedger.execute_batch",
+      "difficulty": "medium",
+      "category": "sqlite_transactions",
+      "agent_id": "offline-patch",
+      "provider": "offline",
+      "model": "manual-patch",
+      "sandbox_mode": "docker",
+      "base_revision": "2c11583af21ce5690889725dcd1116bcb22ffcbe",
+      "test_suite_hash": "d98952270012d617f417f58bc4ba8fc5ff15c881c5d908d586fa2d299eb411bf",
+      "patch_diff": "diff --git a/src/ledgersql/ledger.py b/src/ledgersql/ledger.py\nindex 7dee62a..2176a38 100644\n--- a/src/ledgersql/ledger.py\n+++ b/src/ledgersql/ledger.py\n@@ -16,10 +16,8 @@ from ledgersql.models import (\n \n \n class SQLiteLedger:\n-    \"\"\"Double-entry ledger backed by SQLite.\"\"\"\n-\n     def __init__(self, db_path: str = \":memory:\") -> None:\n-        self._conn = sqlite3.connect(db_path)\n+        self._conn = sqlite3.connect(db_path, isolation_level=None)\n         self._conn.row_factory = sqlite3.Row\n         self._init_schema()\n \n@@ -41,23 +39,19 @@ class SQLiteLedger:\n             );\n             \"\"\"\n         )\n-        self._conn.commit()\n \n     def create_account(self, account_id: str, initial_balance_cents: int = 0, frozen: bool = False) -> None:\n-        if initial_balance_cents < 0:\n-            raise LedgerError(\"Initial balance cannot be negative\")\n         self._conn.execute(\n             \"INSERT INTO accounts (account_id, balance_cents, frozen) VALUES (?, ?, ?)\",\n             (account_id, initial_balance_cents, 1 if frozen else 0),\n         )\n-        self._conn.commit()\n \n     def get_balance(self, account_id: str) -> int:\n         row = self._conn.execute(\n             \"SELECT balance_cents FROM accounts WHERE account_id = ?\", (account_id,)\n         ).fetchone()\n         if not row:\n-            raise AccountNotFoundError(f\"Account not found: {account_id}\")\n+            raise AccountNotFoundError(account_id)\n         return int(row[\"balance_cents\"])\n \n     def total_supply(self) -> int:\n@@ -70,49 +64,6 @@ class SQLiteLedger:\n         ).fetchall()\n         return [dict(r) for r in rows]\n \n-    def _apply_single(self, spec: TransferSpec) -> None:\n-        if spec.amount_cents <= 0:\n-            raise LedgerError(\"Transfer amount must be positive\")\n-        if spec.from_account == spec.to_account:\n-            raise LedgerError(\"Cannot transfer to the same account\")\n-\n-        src = self._conn.execute(\n-            \"SELECT balance_cents, frozen FROM accounts WHERE account_id = ?\",\n-            (spec.from_account,),\n-        ).fetchone()\n-        if not src:\n-            raise AccountNotFoundError(f\"Source account not found: {spec.from_account}\")\n-        if src[\"frozen\"]:\n-            raise AccountFrozenError(f\"Source account is frozen: {spec.from_account}\")\n-        if src[\"balance_cents\"] < spec.amount_cents:\n-            raise InsufficientFundsError(f\"Insufficient funds in {spec.from_account}\")\n-\n-        # BUG: Debits sender and commits BEFORE validating receiver account!\n-        self._conn.execute(\n-            \"UPDATE accounts SET balance_cents = balance_cents - ? WHERE account_id = ?\",\n-            (spec.amount_cents, spec.from_account),\n-        )\n-\n-        dst = self._conn.execute(\n-            \"SELECT balance_cents, frozen FROM accounts WHERE account_id = ?\",\n-            (spec.to_account,),\n-        ).fetchone()\n-        if not dst:\n-            raise AccountNotFoundError(f\"Destination account not found: {spec.to_account}\")\n-        if dst[\"frozen\"]:\n-            raise AccountFrozenError(f\"Destination account is frozen: {spec.to_account}\")\n-\n-        self._conn.execute(\n-            \"UPDATE accounts SET balance_cents = balance_cents + ? WHERE account_id = ?\",\n-            (spec.amount_cents, spec.to_account),\n-        )\n-        self._conn.execute(\n-            \"INSERT INTO journal_entries (tx_id, from_account, to_account, amount_cents, memo) VALUES (?, ?, ?, ?, ?)\",\n-            (spec.tx_id, spec.from_account, spec.to_account, spec.amount_cents, spec.memo),\n-        )\n-        # BUG: Commits inside _apply_single, breaking atomic batch rollback!\n-        self._conn.commit()\n-\n     def transfer(self, spec: TransferSpec) -> None:\n         self.execute_batch([spec], allow_partial=False)\n \n@@ -122,12 +73,33 @@ class SQLiteLedger:\n         allow_partial: bool = False,\n     ) -> BatchResult:\n         result = BatchResult()\n-        for spec in transfers:\n-            try:\n-                self._apply_single(spec)\n-                result.succeeded.append(spec.tx_id)\n-            except LedgerError as exc:\n-                if not allow_partial:\n-                    raise\n-                result.failed[spec.tx_id] = str(exc)\n-        return result\n+        self._conn.execute(\"BEGIN\")\n+        try:\n+            for idx, spec in enumerate(transfers):\n+                sp = f\"sp_{idx}\"\n+                self._conn.execute(f\"SAVEPOINT {sp}\")\n+                try:\n+                    src = self._conn.execute(\"SELECT balance_cents, frozen FROM accounts WHERE account_id = ?\", (spec.from_account,)).fetchone()\n+                    dst = self._conn.execute(\"SELECT balance_cents, frozen FROM accounts WHERE account_id = ?\", (spec.to_account,)).fetchone()\n+                    if not src or not dst:\n+                        raise AccountNotFoundError(\"Missing account\")\n+                    if src[\"frozen\"] or dst[\"frozen\"]:\n+                        raise AccountFrozenError(\"Frozen\")\n+                    if src[\"balance_cents\"] < spec.amount_cents:\n+                        raise InsufficientFundsError(\"Overdraft\")\n+                    self._conn.execute(\"UPDATE accounts SET balance_cents = balance_cents - ? WHERE account_id = ?\", (spec.amount_cents, spec.from_account))\n+                    self._conn.execute(\"UPDATE accounts SET balance_cents = balance_cents + ? WHERE account_id = ?\", (spec.amount_cents, spec.to_account))\n+                    # REGRESSION: Forgot to insert into journal_entries!\n+                    self._conn.execute(f\"RELEASE SAVEPOINT {sp}\")\n+                    result.succeeded.append(spec.tx_id)\n+                except LedgerError as exc:\n+                    self._conn.execute(f\"ROLLBACK TO SAVEPOINT {sp}\")\n+                    self._conn.execute(f\"RELEASE SAVEPOINT {sp}\")\n+                    if not allow_partial:\n+                        raise\n+                    result.failed[spec.tx_id] = str(exc)\n+            self._conn.execute(\"COMMIT\")\n+            return result\n+        except Exception:\n+            self._conn.execute(\"ROLLBACK\")\n+            raise\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "815175daf63797a514f423eb9b011ec5d52636e97c481a286dec5667080f33de",
+        "modified_files": [
+          "src/ledgersql/ledger.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 32,
+        "removed_lines": 60,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 940.27,
+        "passed_count": 1,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_single_transfer_and_journal",
+            "suite": "PASS_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "assert 0 == 1\n +  where 0 = len([])\ntests/test_existing.py:15: in test_single_transfer_and_journal\n    assert len(journal) == 1\nE   assert 0 == 1\nE    +  where 0 = len([])"
+          },
+          {
+            "test_id": "tests.test_existing::test_insufficient_funds_single_transfer",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "F.                                                                       [100%]\n=================================== FAILURES ===================================\n_______________________ test_single_transfer_and_journal _______________________\ntests/test_existing.py:15: in test_single_transfer_and_journal\n    assert len(journal) == 1\nE   assert 0 == 1\nE    +  where 0 = len([])\n------------ generated xml file: /workspace/.junit_pass_to_pass.xml ------------\n=========================== short test summary info ============================\nFAILED tests/test_existing.py::test_single_transfer_and_journal - assert 0 == 1\n1 failed, 1 passed in 0.04s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 1025.01,
+        "passed_count": 2,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "eval_fail_to_pass::test_atomic_batch_rolls_back_all_transfers_on_later_failure",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_fail_to_pass::test_partial_batch_savepoint_rolls_back_sender_debit_when_receiver_frozen",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "..                                                                       [100%]\n------------ generated xml file: /workspace/.junit_fail_to_pass.xml ------------\n2 passed in 0.03s\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1137.23,
+        "passed_count": 1,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "eval_private::test_atomic_batch_rolls_back_when_destination_missing",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_private::test_self_transfer_and_negative_amount_rejected_in_partial_batch",
+            "suite": "PRIVATE",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "AssertionError: assert ['bad_self', ..._neg', 'good'] == ['good']\n  \n  At index 0 diff: 'bad_self' != 'good'\n  Left contains 2 more items, first extra item: 'bad_neg'\n  Use -v to get more diff\n/eval_private.py:37: in test_self_transfer_and_negative_amount_rejected_in_partial_batch\n    assert res.succeeded == [\"good\"]\nE   AssertionError: assert ['bad_self', ..._neg', 'good'] == ['good']\nE     \nE     At index 0 diff: 'bad_self' != 'good'\nE     Left contains 2 more items, first extra item: 'bad_neg'\nE     Use -v to get more diff"
+          }
+        ],
+        "stdout": ".F                                                                       [100%]\n=================================== FAILURES ===================================\n_______ test_self_transfer_and_negative_amount_rejected_in_partial_batch _______\n/eval_private.py:37: in test_self_transfer_and_negative_amount_rejected_in_partial_batch\n    assert res.succeeded == [\"good\"]\nE   AssertionError: assert ['bad_self', ..._neg', 'good'] == ['good']\nE     \nE     At index 0 diff: 'bad_self' != 'good'\nE     Left contains 2 more items, first extra item: 'bad_neg'\nE     Use -v to get more diff\n-------------- generated xml file: /workspace/.junit_private.xml ---------------\n=========================== short test summary info ============================\nFAILED ../eval_private.py::test_self_transfer_and_negative_amount_rejected_in_partial_batch\n1 failed, 1 passed in 0.04s\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "REGRESSION",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": true,
+      "private_passed": false,
+      "failure_classification": "REGRESSION_INTRODUCED",
+      "explanation": "Patch broke existing functionality: 1 PASS_TO_PASS preservation test(s) failed.",
+      "duration_ms": 3160.59,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:41:03.037277+00:00",
+      "completed_at": "2026-10-21T12:41:06.197907+00:00",
+      "agent_logs": "Loaded patch file ledgersql-004.patch"
+    },
+    {
+      "run_id": "run-1792586462-a6c3d3",
+      "task_id": "pagiflow-001",
+      "title": "Fix cursor=0 falsy termination and has_more=False echo loops in PaginatedCollector",
+      "difficulty": "easy",
+      "category": "pagination_api",
+      "agent_id": "offline-patch",
+      "provider": "offline",
+      "model": "manual-patch",
+      "sandbox_mode": "docker",
+      "base_revision": "164e51624d3e0b4cf9af0d086e8a5d4137ddae90",
+      "test_suite_hash": "6d28c10cb437b6a4d2269ccc9b43fec59b601fc1145b358c4ea5577a8af9e2b3",
+      "patch_diff": "diff --git a/src/pagiflow/client.py b/src/pagiflow/client.py\nindex 9d2924e..bb45b5d 100644\n--- a/src/pagiflow/client.py\n+++ b/src/pagiflow/client.py\n@@ -12,6 +12,14 @@ FetchFunc = Callable[[str | int | None], dict[str, Any]]\n TransformFunc = Callable[[dict[str, Any]], dict[str, Any]]\n \n \n+def _has_valid_cursor(cursor: str | int | None) -> bool:\n+    if cursor is None:\n+        return False\n+    if isinstance(cursor, str) and cursor == \"\":\n+        return False\n+    return True\n+\n+\n class PaginatedCollector:\n     \"\"\"Collects items across paginated API responses with deduplication and cycle protection.\"\"\"\n \n@@ -36,7 +44,7 @@ class PaginatedCollector:\n         self.pages_fetched = 0\n \n         while self.pages_fetched < self.config.max_pages:\n-            if cursor is not None and cursor != \"\":\n+            if _has_valid_cursor(cursor):\n                 cursor_key = f\"{type(cursor).__name__}:{cursor}\"\n                 if self.config.detect_cycles and cursor_key in seen_cursors:\n                     raise PaginationError(f\"Detected pagination cursor cycle at {cursor!r}\")\n@@ -46,8 +54,7 @@ class PaginatedCollector:\n             envelope = normalize_envelope(raw)\n             self.pages_fetched += 1\n \n-            # BUG 1: Unconditionally breaks on empty items, ignoring stop_on_empty_page=False\n-            if not envelope.items:\n+            if not envelope.items and self.config.stop_on_empty_page:\n                 break\n \n             for item in envelope.items:\n@@ -59,9 +66,10 @@ class PaginatedCollector:\n                     seen_ids.add(item_id)\n                 collected.append(processed)\n \n-            # BUG 2 & 3: Ignores explicit has_more=False when next_cursor is echoed,\n-            # and uses truthiness `if not envelope.next_cursor:` which fails on integer 0!\n-            if not envelope.next_cursor:\n+            if envelope.has_more is False:\n+                break\n+\n+            if not _has_valid_cursor(envelope.next_cursor):\n                 break\n \n             cursor = envelope.next_cursor\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "6c7097b2248fa212579efd55a978394ca0b4d71b07b9955c0a6066697e6e2faf",
+        "modified_files": [
+          "src/pagiflow/client.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 14,
+        "removed_lines": 6,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 906.0,
+        "passed_count": 4,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 4,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_standard_string_cursor_traversal",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_deduplication_across_pages",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_transform_callback_and_cycle_detection",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_normalize_envelope_errors",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          }
+        ],
+        "stdout": "....                                                                     [100%]\n------------ generated xml file: /workspace/.junit_pass_to_pass.xml ------------\n4 passed in 0.02s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 956.61,
+        "passed_count": 3,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "eval_fail_to_pass::test_integer_zero_cursor_is_followed",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_fail_to_pass::test_has_more_false_stops_even_when_cursor_echoed",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_fail_to_pass::test_empty_intermediate_page_continues_when_has_more_true",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          }
+        ],
+        "stdout": "...                                                                      [100%]\n------------ generated xml file: /workspace/.junit_fail_to_pass.xml ------------\n3 passed in 0.02s\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 896.98,
+        "passed_count": 2,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "eval_private::test_string_zero_cursor_and_stop_on_empty_true",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_private::test_nested_meta_envelope_with_zero_cursor",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          }
+        ],
+        "stdout": "..                                                                       [100%]\n-------------- generated xml file: /workspace/.junit_private.xml ---------------\n2 passed in 0.02s\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "RESOLVED",
+      "resolved": true,
+      "issue_fixed": true,
+      "has_regression": false,
+      "private_passed": true,
+      "failure_classification": "RESOLVED_CLEANLY",
+      "explanation": "Task resolved without regressions: FAIL_TO_PASS=3/3, PASS_TO_PASS=4/4, PRIVATE=2/2.",
+      "duration_ms": 2807.14,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:41:06.247256+00:00",
+      "completed_at": "2026-10-21T12:41:09.054425+00:00",
+      "agent_logs": "Loaded patch file pagiflow-001.patch"
+    },
+    {
+      "run_id": "run-1792586462-a6c3d3",
+      "task_id": "ttlcachex-002",
+      "title": "Fix stale expired entries in get_many/__contains__ and preserve TTL on keep_ttl=True",
+      "difficulty": "easy",
+      "category": "cache_expiration",
+      "agent_id": "offline-patch",
+      "provider": "offline",
+      "model": "manual-patch",
+      "sandbox_mode": "docker",
+      "base_revision": "5ada1827a6cd2bcd1a36edb56475f33cff359b0a",
+      "test_suite_hash": "bfea2858738411a0af6eaf8686ffd6915d5e89ab08d79e88684e70514c22d82a",
+      "patch_diff": "diff --git a/src/ttlcachex/cache.py b/src/ttlcachex/cache.py\nindex 3850bd9..33efc2b 100644\n--- a/src/ttlcachex/cache.py\n+++ b/src/ttlcachex/cache.py\n@@ -51,14 +51,12 @@ class TTLCache:\n         keep_ttl: bool = False,\n     ) -> None:\n         now = self._clock()\n-        # BUG: ignores keep_ttl=True on existing live entry\n+        # Incomplete fix: still ignores keep_ttl!\n         expires_at = self._compute_expiry(now, ttl)\n-\n         if key in self._store:\n             self._store.move_to_end(key)\n         self._store[key] = CacheEntry(value=value, expires_at=expires_at)\n         self.stats.sets += 1\n-\n         while len(self._store) > self.maxsize:\n             self._store.popitem(last=False)\n             self.stats.lru_evictions += 1\n@@ -79,19 +77,18 @@ class TTLCache:\n         return entry.value\n \n     def get_many(self, keys: Iterable[str]) -> dict[str, Any]:\n-        # BUG: does not check expiration or update stats/LRU properly for expired entries\n         result: dict[str, Any] = {}\n         for k in keys:\n-            if k in self._store:\n-                self.stats.hits += 1\n-                result[k] = self._store[k].value\n-            else:\n-                self.stats.misses += 1\n+            marker = object()\n+            val = self.get(k, default=marker)\n+            if val is not marker:\n+                result[k] = val\n         return result\n \n     def __contains__(self, key: str) -> bool:\n-        # BUG: returns True for expired keys\n-        return key in self._store\n+        now = self._clock()\n+        entry = self._store.get(key)\n+        return entry is not None and not entry.is_expired(now)\n \n     def delete(self, key: str) -> bool:\n         return self._store.pop(key, None) is not None\n",
+      "patch_validation": {
+        "is_empty": false,
+        "applies_cleanly": true,
+        "integrity_passed": true,
+        "patch_sha256": "9abcc28f33f230b857feda99f69a320444ce87296939fbdf956b8c8743455ed7",
+        "modified_files": [
+          "src/ttlcachex/cache.py"
+        ],
+        "unauthorized_files": [],
+        "tampered_tests": [],
+        "suspicious_patterns": [],
+        "added_lines": 8,
+        "removed_lines": 11,
+        "errors": []
+      },
+      "pass_to_pass": {
+        "suite_name": "PASS_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 1318.76,
+        "passed_count": 4,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 4,
+        "test_cases": [
+          {
+            "test_id": "tests.test_existing::test_single_get_set_and_expiration",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_lru_eviction_order",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_delete_and_clear",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "tests.test_existing::test_invalid_maxsize",
+            "suite": "PASS_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          }
+        ],
+        "stdout": "....                                                                     [100%]\n------------ generated xml file: /workspace/.junit_pass_to_pass.xml ------------\n4 passed in 0.03s\n",
+        "stderr": ""
+      },
+      "fail_to_pass": {
+        "suite_name": "FAIL_TO_PASS",
+        "execution_status": "COMPLETED",
+        "exit_code": 1,
+        "duration_ms": 1121.53,
+        "passed_count": 2,
+        "failed_count": 1,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 3,
+        "test_cases": [
+          {
+            "test_id": "eval_fail_to_pass::test_get_many_filters_expired_entries_and_updates_stats",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 1.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_fail_to_pass::test_contains_respects_ttl_expiration",
+            "suite": "FAIL_TO_PASS",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_fail_to_pass::test_set_with_keep_ttl_preserves_remaining_lifetime",
+            "suite": "FAIL_TO_PASS",
+            "passed": false,
+            "outcome": "failed",
+            "duration_ms": 1.0,
+            "message": "AssertionError: assert {'count': 2} is None\n +  where {'count': 2} = get('session')\n +    where get = <ttlcachex.cache.TTLCache object at 0x78935a859610>.get\n/eval_fail_to_pass.py:39: in test_set_with_keep_ttl_preserves_remaining_lifetime\n    assert cache.get(\"session\") is None\nE   AssertionError: assert {'count': 2} is None\nE    +  where {'count': 2} = get('session')\nE    +    where get = <ttlcachex.cache.TTLCache object at 0x78935a859610>.get"
+          }
+        ],
+        "stdout": "..F                                                                      [100%]\n=================================== FAILURES ===================================\n_____________ test_set_with_keep_ttl_preserves_remaining_lifetime ______________\n/eval_fail_to_pass.py:39: in test_set_with_keep_ttl_preserves_remaining_lifetime\n    assert cache.get(\"session\") is None\nE   AssertionError: assert {'count': 2} is None\nE    +  where {'count': 2} = get('session')\nE    +    where get = <ttlcachex.cache.TTLCache object at 0x78935a859610>.get\n------------ generated xml file: /workspace/.junit_fail_to_pass.xml ------------\n=========================== short test summary info ============================\nFAILED ../eval_fail_to_pass.py::test_set_with_keep_ttl_preserves_remaining_lifetime\n1 failed, 2 passed in 0.07s\n",
+        "stderr": ""
+      },
+      "private_tests": {
+        "suite_name": "PRIVATE",
+        "execution_status": "COMPLETED",
+        "exit_code": 0,
+        "duration_ms": 977.77,
+        "passed_count": 2,
+        "failed_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "total_count": 2,
+        "test_cases": [
+          {
+            "test_id": "eval_private::test_keep_ttl_on_already_expired_key_uses_new_default_ttl",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          },
+          {
+            "test_id": "eval_private::test_get_many_stores_none_values_without_confusion",
+            "suite": "PRIVATE",
+            "passed": true,
+            "outcome": "passed",
+            "duration_ms": 0.0,
+            "message": ""
+          }
+        ],
+        "stdout": "..                                                                       [100%]\n-------------- generated xml file: /workspace/.junit_private.xml ---------------\n2 passed in 0.03s\n",
+        "stderr": ""
+      },
+      "execution_status": "COMPLETED",
+      "resolution_status": "UNRESOLVED",
+      "resolved": false,
+      "issue_fixed": false,
+      "has_regression": false,
+      "private_passed": true,
+      "failure_classification": "ISSUE_TESTS_STILL_FAILING",
+      "explanation": "Issue not fully resolved: 2/3 FAIL_TO_PASS issue test(s) passed.",
+      "duration_ms": 3481.93,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "estimated_cost_usd": null,
+      "started_at": "2026-10-21T12:41:09.104750+00:00",
+      "completed_at": "2026-10-21T12:41:12.586708+00:00",
+      "agent_logs": "Loaded patch file ttlcachex-002.patch"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+"""Timezone-aware scheduling and DST transition utilities."""
+
+from __future__ import annotations
+
+from datetime import UTC, date, datetime, timedelta
+from zoneinfo import ZoneInfo
+
+
+class NonExistentTimeError(ValueError):
+    """Raised when a local wall-clock time falls inside a DST spring-forward gap."""
+
+
+def resolve_wall_time(
+    target_date: date,
+    hour: int,
+    minute: int,
+    tz_name: str,
+    nonexistent_policy: str = "shift_forward",
+    fold: int = 0,
+) -> datetime:
+    """Resolve a local wall-clock (date, hour, minute) in `tz_name`."""
+    tz = ZoneInfo(tz_name)
+    # BUG: Does not check whether (target_date, hour, minute) is nonexistent in tz!
+    return datetime(
+        target_date.year,
+        target_date.month,
+        target_date.day,
+        hour,
+        minute,
+        tzinfo=tz,
+        fold=fold,
+    )
+
+
+def real_elapsed_seconds(start_dt: datetime, end_dt: datetime) -> float:
+    """Return actual elapsed seconds between two timezone-aware datetimes."""
+    if start_dt.tzinfo is None or end_dt.tzinfo is None:
+        raise ValueError("Both start_dt and end_dt must be timezone-aware")
+    # BUG: Strips tzinfo instead of converting to UTC, miscounting across DST!
+    naive_start = start_dt.replace(tzinfo=None)
+    naive_end = end_dt.replace(tzinfo=None)
+    return (naive_end - naive_start).total_seconds()
+
+
+class DailyWindowScheduler:
+    """Generates recurring daily schedule instants in a target timezone."""
+
+    def __init__(self, tz_name: str = "UTC", nonexistent_policy: str = "shift_forward") -> None:
+        self.tz_name = tz_name
+        self.nonexistent_policy = nonexistent_policy
+
+    def generate_daily_occurrences(
+        self,
+        start_date: date,
+        days: int,
+        hour: int,
+        minute: int = 0,
+    ) -> list[datetime]:
+        if days <= 0:
+            return []
+        tz = ZoneInfo(self.tz_name)
+        first = resolve_wall_time(
+            start_date, hour, minute, self.tz_name, nonexistent_policy=self.nonexistent_policy
+        )
+        first_utc = first.astimezone(UTC)
+        # BUG: Adds 24h increments in UTC, shifting local wall time across DST!
+        return [(first_utc + timedelta(days=i)).astimezone(tz) for i in range(days)]
